@@ -84,7 +84,7 @@ You can pass experiments and variants as properties.
 
 ## TODO
 
-- Add confidence to stats
+- Add confidence to results
 - Add [Bayesian confidence](http://www.evanmiller.org/bayesian-ab-testing.html) to results
 - Exclude bots
 - User interface
