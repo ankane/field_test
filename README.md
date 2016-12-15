@@ -16,7 +16,7 @@ Add this line to your application’s Gemfile:
 gem 'field_test'
 ```
 
-And run:
+Run:
 
 ```sh
 rails g field_test:install
