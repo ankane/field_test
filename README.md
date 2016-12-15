@@ -133,6 +133,7 @@ A huge thanks to [Evan Miller](http://www.evanmiller.org/) for deriving the Baye
 ## TODO
 
 - Exclude bots
+- Weighted variants
 
 ## History
 
