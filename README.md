@@ -95,17 +95,17 @@ experiments:
     ended_at: 2016-12-08 14:00:00
 ```
 
-Get all experiments and variants for a participant
+## Funnels
+
+For advanced funnels, we recommend an analytics platform like [Ahoy](https://github.com/ankane/ahoy) or [Mixpanel](https://mixpanel.com/).
+
+You can use:
 
 ```ruby
 field_test_experiments
 ```
 
-## Funnels
-
-For advanced funnels, we recommend an analytics platform like [Ahoy](https://github.com/ankane/ahoy) or [Mixpanel](https://mixpanel.com/).
-
-You can pass experiments and variants as properties.
+to get all experiments and variants for a participant, and pass them as properties.
 
 ## Security
 
