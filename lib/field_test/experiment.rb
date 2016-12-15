@@ -74,14 +74,16 @@ module FieldTest
     end
 
     def self.find(id)
-      settings = FieldTest.config["experiments"][id.to_s]
-      raise FieldTest::ExperimentNotFound unless settings
+      experiment = all.index_by(&:id)[id.to_s]
+      raise FieldTest::ExperimentNotFound unless experiment
 
-      FieldTest::Experiment.new(settings.merge(id: id.to_s))
+      experiment
     end
 
     def self.all
-      FieldTest.config["experiments"].keys.map { |id| find(id) }
+      FieldTest.config["experiments"].map do |id, settings|
+        FieldTest::Experiment.new(settings.merge(id: id.to_s))
+      end
     end
 
     private
