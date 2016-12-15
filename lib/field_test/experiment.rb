@@ -68,8 +68,19 @@ module FieldTest
         results[variant] = {
           participated: participated,
           converted: converted,
-          conversion_rate: converted.to_f / participated
+          conversion_rate: participated > 0 ? converted.to_f / participated : nil
         }
+      end
+      if variants.size == 2
+        2.times do |i|
+          b = results.values[i]
+          a = results.values[(i + 1) % 2]
+          alpha_a = 1 + a[:converted]
+          beta_a = 1 + a[:participated] - a[:converted]
+          alpha_b = 1 + b[:converted]
+          beta_b = 1 + b[:participated] - b[:converted]
+          results[variants[i]][:prob_winning] = b_beats_a(alpha_a, beta_a, alpha_b, beta_b)
+        end
       end
       results
     end
@@ -100,6 +111,20 @@ module FieldTest
 
       def standardize_participants(participants)
         Array(participants).map { |v| v.respond_to?(:model_name) ? "#{v.model_name.name}:#{v.id}" : v.to_s }
+      end
+
+      # formula from
+      # http://www.evanmiller.org/bayesian-ab-testing.html
+      def b_beats_a(alpha_a, beta_a, alpha_b, beta_b)
+        total = 0.0
+
+        0.upto(alpha_b - 1) do |i|
+          total += Math.exp(Math.logbeta(alpha_a + i, beta_b + beta_a) -
+            Math.log(beta_b + i) - Math.logbeta(1 + i, beta_b) -
+            Math.logbeta(alpha_a, beta_a))
+        end
+
+        total
       end
   end
 end

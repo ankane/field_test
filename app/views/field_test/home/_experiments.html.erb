@@ -9,7 +9,7 @@
         <th>Participants</th>
         <th>Conversions</th>
         <th>Conversion Rate</th>
-        <th>Confidence</th>
+        <th>Prob Winning</th>
       </tr>
     </thead>
     <tbody>
@@ -18,8 +18,13 @@
           <td><%= variant %></td>
           <td><%= result[:participated] %></td>
           <td><%= result[:converted] %></td>
-          <td><%= result[:conversion_rate] %></td>
-          <td><%= result[:confidence] %></td>
+          <td>
+            <% if result[:conversion_rate] %>
+              <%= (100.0 * result[:conversion_rate]).round %>%</td>
+            <% else %>
+              -
+            <% end %>
+          <td><%= (100.0 * result[:prob_winning]).round %>%</td>
         </tr>
       <% end %>
     </tbody>

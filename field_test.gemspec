@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "railties"
   spec.add_dependency "activerecord"
+  spec.add_dependency "distribution"
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"

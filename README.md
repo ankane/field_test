@@ -6,6 +6,8 @@
 - Seamlessly handles the transition from anonymous visitor to logged in user
 - Results are stored in your database
 
+Uses [Bayesian methods](http://www.evanmiller.org/bayesian-ab-testing.html) to evaluate results so you don’t need to choose a sample size ahead of time.
+
 ## Installation
 
 Add this line to your application’s Gemfile:
@@ -23,7 +25,7 @@ rails g field_test:install
 And mount the dashboard in your `config/routes.rb`:
 
 ```ruby
-mount FieldTest::Engine, at: "admin/field_test"
+mount FieldTest::Engine, at: "field_test"
 ```
 
 Be sure to [secure the dashboard](#security) in production.
@@ -105,16 +107,18 @@ ENV["FIELD_TEST_PASSWORD"] = "hyrule"
 
 ```ruby
 authenticate :user, -> (user) { user.admin? } do
-  mount FieldTest::Engine, at: "admin/field_test"
+  mount FieldTest::Engine, at: "field_test"
 end
 ```
 
+## Credits
+
+A huge thanks to [Evan Miller](http://www.evanmiller.org/) for deriving the Bayesian formulas.
+
 ## TODO
 
-- Add confidence to results
 - Add [Bayesian confidence](http://www.evanmiller.org/bayesian-ab-testing.html) to results
 - Exclude bots
-- User interface
 
 ## History
 

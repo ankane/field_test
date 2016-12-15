@@ -1,3 +1,4 @@
+require "distribution/math_extension"
 require "field_test/experiment"
 require "field_test/engine"
 require "field_test/helpers"
