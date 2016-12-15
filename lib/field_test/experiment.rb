@@ -1,6 +1,6 @@
 module FieldTest
   class Experiment
-    attr_reader :id, :name, :variants, :winner
+    attr_reader :id, :name, :variants, :winner, :started_at, :ended_at
 
     def initialize(attributes)
       attributes = attributes.symbolize_keys
@@ -8,6 +8,8 @@ module FieldTest
       @name = attributes[:name] || @id.to_s.titleize
       @variants = attributes[:variants]
       @winner = attributes[:winner]
+      @started_at = Time.zone.parse(attributes[:started_at].to_s) if attributes[:started_at]
+      @ended_at = Time.zone.parse(attributes[:ended_at].to_s) if attributes[:ended_at]
     end
 
     def variant(participants, options = {})
@@ -55,7 +57,10 @@ module FieldTest
     end
 
     def results
-      data = memberships.group(:variant).group(:converted).count
+      data = memberships.group(:variant).group(:converted)
+      data = data.where("created_at >= ?", started_at) if started_at
+      data = data.where("created_at <= ?", ended_at) if ended_at
+      data = data.count
       results = {}
       variants.each do |variant|
         converted = data[[variant, true]].to_i
