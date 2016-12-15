@@ -117,7 +117,6 @@ A huge thanks to [Evan Miller](http://www.evanmiller.org/) for deriving the Baye
 
 ## TODO
 
-- Add [Bayesian confidence](http://www.evanmiller.org/bayesian-ab-testing.html) to results
 - Exclude bots
 
 ## History
