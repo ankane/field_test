@@ -24,6 +24,21 @@ module FieldTest
       exp.convert(participants)
     end
 
+    def field_test_experiments(options = {})
+      participants = field_test_participants(options)
+      # TODO DRY with FieldTest::Experiment#standardize_participants
+      participants = Array(participants).map { |v| v.respond_to?(:model_name) ? "#{v.model_name.name}:#{v.id}" : v.to_s }
+
+      memberships = FieldTest::Membership.where(participant: participants).group_by(&:participant)
+      experiments = {}
+      participants.each do |participant|
+        memberships[participant].each do |membership|
+          experiments[membership.experiment] ||= membership.variant
+        end
+      end
+      experiments
+    end
+
     def field_test_participants(options = {})
       participants = []
 
