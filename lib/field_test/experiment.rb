@@ -16,7 +16,7 @@ module FieldTest
       return winner if winner
       return variants.first if options[:exclude]
 
-      participants = standardize_participants(participants)
+      participants = FieldTest::Participant.standardize(participants)
       membership = membership_for(participants) || FieldTest::Membership.new(experiment: id)
 
       if options[:variant] && variants.include?(options[:variant])
@@ -40,7 +40,7 @@ module FieldTest
     end
 
     def convert(participants)
-      participants = standardize_participants(participants)
+      participants = FieldTest::Participant.standardize(participants)
       membership = membership_for(participants)
 
       if membership
@@ -120,10 +120,6 @@ module FieldTest
       def membership_for(participants)
         memberships = self.memberships.where(participant: participants).index_by(&:participant)
         participants.map { |part| memberships[part] }.compact.first
-      end
-
-      def standardize_participants(participants)
-        Array(participants).map { |v| v.respond_to?(:model_name) ? "#{v.model_name.name}:#{v.id}" : v.to_s }
       end
 
       # formula from

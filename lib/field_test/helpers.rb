@@ -26,9 +26,6 @@ module FieldTest
 
     def field_test_experiments(options = {})
       participants = field_test_participants(options)
-      # TODO DRY with FieldTest::Experiment#standardize_participants
-      participants = Array(participants).map { |v| v.respond_to?(:model_name) ? "#{v.model_name.name}:#{v.id}" : v.to_s }
-
       memberships = FieldTest::Membership.where(participant: participants).group_by(&:participant)
       experiments = {}
       participants.each do |participant|
@@ -63,7 +60,7 @@ module FieldTest
         end
       end
 
-      participants
+      FieldTest::Participant.standardize(participants)
     end
   end
 end
