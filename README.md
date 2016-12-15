@@ -86,6 +86,15 @@ For mailers, you need to specify a participant:
 field_test(:button_color, participant: "test@example.org")
 ```
 
+Keep track of when experiments started and ended.
+
+```yml
+experiments:
+  button_colors:
+    started_at: 2016-12-01 14:00:00
+    ended_at: 2016-12-08 14:00:00
+```
+
 ## Funnels
 
 For advanced funnels, we recommend an analytics platform like [Ahoy](https://github.com/ankane/ahoy) or [Mixpanel](https://mixpanel.com/).
