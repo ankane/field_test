@@ -3,7 +3,7 @@ module FieldTest
     layout false
 
     def index
-      @experiments = FieldTest::Experiment.all.sort_by(&:id)
+      @active_experiments, @completed_experiments = FieldTest::Experiment.all.sort_by(&:id).partition { |e| e.active? }
     end
   end
 end

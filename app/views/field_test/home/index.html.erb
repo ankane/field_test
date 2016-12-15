@@ -1,36 +1,49 @@
 <html>
   <head>
     <title>Field Test</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        line-height: 1.4;
+        color: #333;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        margin-bottom: 20px;
+      }
+
+      th {
+        text-align: left;
+        border-bottom: solid 2px #ddd;
+      }
+
+      table td, table th {
+        padding: 8px;
+      }
+
+      td {
+        border-top: solid 1px #ddd;
+      }
+    </style>
   </head>
   <body>
-    <h1>Experiments</h1>
+    <% if @active_experiments.any? %>
+      <h1>Active Experiments</h1>
 
-    <% @experiments.each do |experiment| %>
-      <% results = experiment.results %>
+      <%= render partial: "experiments", locals: {experiments: @active_experiments} %>
+    <% end %>
 
-      <h2><%= experiment.name %></h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Participants</th>
-            <th>Conversions</th>
-            <th>Conversion Rate</th>
-            <th>Confidence</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% results.each do |variant, result| %>
-            <tr>
-              <td><%= variant %></td>
-              <td><%= result[:participated] %></td>
-              <td><%= result[:converted] %></td>
-              <td><%= result[:conversion_rate] %></td>
-              <td><%= result[:confidence] %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+    <% if @completed_experiments.any? %>
+      <h1>Completed Experiments</h1>
+
+      <%= render partial: "experiments", locals: {experiments: @completed_experiments} %>
     <% end %>
   </body>
 </html>
