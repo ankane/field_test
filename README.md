@@ -28,9 +28,9 @@ Add an experiment to `config/field_test.yml`.
 experiments:
   button_color:
     variants:
-      - control
       - red
       - green
+      - blue
 ```
 
 Refer to it in views, controllers, and mailers.

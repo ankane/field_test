@@ -1,10 +1,11 @@
 module FieldTest
   class Experiment
-    attr_reader :id, :variants, :winner
+    attr_reader :id, :name, :variants, :winner
 
     def initialize(attributes)
       attributes = attributes.symbolize_keys
       @id = attributes[:id]
+      @name = attributes[:name] || @id.to_s.titleize
       @variants = attributes[:variants]
       @winner = attributes[:winner]
     end
@@ -68,16 +69,19 @@ module FieldTest
       results
     end
 
+    def active?
+      !winner
+    end
+
     def self.find(id)
-      # reload in dev
-      @config = nil if Rails.env.development?
-
-      @config ||= YAML.load(ERB.new(File.read("config/field_test.yml")).result)
-
-      settings = @config["experiments"][id.to_s]
+      settings = FieldTest.config["experiments"][id.to_s]
       raise FieldTest::ExperimentNotFound unless settings
 
       FieldTest::Experiment.new(settings.merge(id: id.to_s))
+    end
+
+    def self.all
+      FieldTest.config["experiments"].keys.map { |id| find(id) }
     end
 
     private

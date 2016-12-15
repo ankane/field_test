@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>Field Test</title>
+  </head>
+  <body>
+    <h1>Experiments</h1>
+
+    <% @experiments.each do |experiment| %>
+      <% results = experiment.results %>
+
+      <h2><%= experiment.name %></h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Participants</th>
+            <th>Conversions</th>
+            <th>Conversion Rate</th>
+            <th>Confidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% results.each do |variant, result| %>
+            <tr>
+              <td><%= variant %></td>
+              <td><%= result[:participated] %></td>
+              <td><%= result[:converted] %></td>
+              <td><%= result[:conversion_rate] %></td>
+              <td><%= result[:confidence] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </body>
+</html>
