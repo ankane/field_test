@@ -6,16 +6,21 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Participants</th>
-        <th>Conversions</th>
-        <th>Conversion Rate</th>
-        <th>Prob Winning</th>
+        <th style="width: 20%;">Participants</th>
+        <th style="width: 20%;">Conversions</th>
+        <th style="width: 20%;">Conversion Rate</th>
+        <th style="width: 20%;">Prob Winning</th>
       </tr>
     </thead>
     <tbody>
       <% results.each do |variant, result| %>
         <tr>
-          <td><%= variant %></td>
+          <td>
+            <%= variant %>
+            <% if variant == experiment.winner %>
+              <span style="color: #999;">winner</span>
+            <% end %>
+          </td>
           <td><%= result[:participated] %></td>
           <td><%= result[:converted] %></td>
           <td>
