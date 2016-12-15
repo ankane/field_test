@@ -20,6 +20,14 @@ And run:
 rails g field_test:install
 ```
 
+And mount the dashboard in your `config/routes.rb`:
+
+```ruby
+mount FieldTest::Engine, at: "admin/field_test"
+```
+
+Be sure to [secure the dashboard](#security) in production.
+
 ## Getting Started
 
 Add an experiment to `config/field_test.yml`.
@@ -81,6 +89,25 @@ field_test(:button_color, participant: "test@example.org")
 For advanced funnels, we recommend an analytics platform like [Ahoy](https://github.com/ankane/ahoy) or [Mixpanel](https://mixpanel.com/).
 
 You can pass experiments and variants as properties.
+
+## Security
+
+#### Basic Authentication
+
+Set the following variables in your environment or an initializer.
+
+```ruby
+ENV["FIELD_TEST_USERNAME"] = "link"
+ENV["FIELD_TEST_PASSWORD"] = "hyrule"
+```
+
+#### Devise
+
+```ruby
+authenticate :user, -> (user) { user.admin? } do
+  mount FieldTest::Engine, at: "admin/field_test"
+end
+```
 
 ## TODO
 

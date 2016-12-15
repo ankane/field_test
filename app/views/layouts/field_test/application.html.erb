@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Field Test</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        line-height: 1.4;
+        color: #333;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        margin-bottom: 20px;
+      }
+
+      th {
+        text-align: left;
+        border-bottom: solid 2px #ddd;
+      }
+
+      table td, table th {
+        padding: 8px;
+      }
+
+      td {
+        border-top: solid 1px #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

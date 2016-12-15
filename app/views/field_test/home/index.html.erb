@@ -1,49 +1,11 @@
-<html>
-  <head>
-    <title>Field Test</title>
+<% if @active_experiments.any? %>
+  <h1>Active Experiments</h1>
 
-    <style>
-      body {
-        margin: 0;
-        padding: 20px;
-        font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-        font-size: 14px;
-        line-height: 1.4;
-        color: #333;
-      }
+  <%= render partial: "experiments", locals: {experiments: @active_experiments} %>
+<% end %>
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        border-spacing: 0;
-        margin-bottom: 20px;
-      }
+<% if @completed_experiments.any? %>
+  <h1>Completed Experiments</h1>
 
-      th {
-        text-align: left;
-        border-bottom: solid 2px #ddd;
-      }
-
-      table td, table th {
-        padding: 8px;
-      }
-
-      td {
-        border-top: solid 1px #ddd;
-      }
-    </style>
-  </head>
-  <body>
-    <% if @active_experiments.any? %>
-      <h1>Active Experiments</h1>
-
-      <%= render partial: "experiments", locals: {experiments: @active_experiments} %>
-    <% end %>
-
-    <% if @completed_experiments.any? %>
-      <h1>Completed Experiments</h1>
-
-      <%= render partial: "experiments", locals: {experiments: @completed_experiments} %>
-    <% end %>
-  </body>
-</html>
+  <%= render partial: "experiments", locals: {experiments: @completed_experiments} %>
+<% end %>
