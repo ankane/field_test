@@ -71,15 +71,25 @@ module FieldTest
           conversion_rate: participated > 0 ? converted.to_f / participated : nil
         }
       end
-      if variants.size == 2
-        2.times do |i|
-          b = results.values[i]
-          a = results.values[(i + 1) % 2]
+      if [2, 3].include?(variants.size)
+        variants.size.times do |i|
+          c = results.values[i]
+          b = results.values[(i + 1) % variants.size]
+          a = results.values[(i + 2) % variants.size]
+
           alpha_a = 1 + a[:converted]
           beta_a = 1 + a[:participated] - a[:converted]
           alpha_b = 1 + b[:converted]
           beta_b = 1 + b[:participated] - b[:converted]
-          results[variants[i]][:prob_winning] = b_beats_a(alpha_a, beta_a, alpha_b, beta_b)
+          alpha_c = 1 + c[:converted]
+          beta_c = 1 + c[:participated] - c[:converted]
+
+          results[variants[i]][:prob_winning] =
+            if variants.size == 2
+              prob_b_beats_a(alpha_b, beta_b, alpha_c, beta_c)
+            else
+              prob_c_beats_a_and_b(alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c)
+            end
         end
       end
       results
@@ -115,7 +125,7 @@ module FieldTest
 
       # formula from
       # http://www.evanmiller.org/bayesian-ab-testing.html
-      def b_beats_a(alpha_a, beta_a, alpha_b, beta_b)
+      def prob_b_beats_a(alpha_a, beta_a, alpha_b, beta_b)
         total = 0.0
 
         0.upto(alpha_b - 1) do |i|
@@ -125,6 +135,21 @@ module FieldTest
         end
 
         total
+      end
+
+      def prob_c_beats_a_and_b(alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c)
+        total = 0.0
+        0.upto(alpha_a - 1) do |i|
+          0.upto(alpha_b - 1) do |j|
+            total += Math.exp(Math.logbeta(alpha_c + i + j, beta_a + beta_b + beta_c) -
+              Math.log(beta_a + i) - Math.log(beta_b + j) -
+              Math.logbeta(1 + i, beta_a) - Math.logbeta(1 + j, beta_b) -
+              Math.logbeta(alpha_c, beta_c))
+          end
+        end
+
+        1 - prob_b_beats_a(alpha_c, beta_c, alpha_a, beta_a) -
+          prob_b_beats_a(alpha_c, beta_c, alpha_b, beta_b) + total
       end
   end
 end
