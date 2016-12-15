@@ -25,11 +25,16 @@
           <td><%= result[:converted] %></td>
           <td>
             <% if result[:conversion_rate] %>
-              <%= (100.0 * result[:conversion_rate]).round %>%</td>
+              <%= (100.0 * result[:conversion_rate]).round %>%
             <% else %>
               -
             <% end %>
-          <td><%= (100.0 * result[:prob_winning]).round %>%</td>
+          </td>
+          <td>
+            <% if result[:prob_winning] %>
+              <%= (100.0 * result[:prob_winning]).round %>%
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

@@ -71,7 +71,10 @@ module FieldTest
           conversion_rate: participated > 0 ? converted.to_f / participated : nil
         }
       end
-      if [2, 3].include?(variants.size)
+      case variants.size
+      when 1
+        results[variants[0]][:prob_winning] = 1
+      when 2, 3
         variants.size.times do |i|
           c = results.values[i]
           b = results.values[(i + 1) % variants.size]
