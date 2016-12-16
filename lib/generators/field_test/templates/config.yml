@@ -5,3 +5,6 @@ experiments:
       - green
       - blue
     # winner: green
+
+exclude:
+  bots: true

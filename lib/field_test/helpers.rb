@@ -9,6 +9,10 @@ module FieldTest
         if params[:field_test] && params[:field_test][experiment]
           options[:variant] ||= params[:field_test][experiment]
         end
+
+        if FieldTest.exclude_bots?
+          options[:exclude] = Browser.new(request.user_agent).bot?
+        end
       end
 
       # cache results for request

@@ -86,6 +86,15 @@ For mailers, you need to specify a participant:
 field_test(:button_color, participant: "test@example.org")
 ```
 
+## Config
+
+By default, bots are returned the first variant and excluded from metrics. Change this with:
+
+```yml
+exclude:
+  bots: false
+```
+
 Keep track of when experiments started and ended.
 
 ```yml
@@ -132,7 +141,6 @@ A huge thanks to [Evan Miller](http://www.evanmiller.org/) for deriving the Baye
 
 ## TODO
 
-- Exclude bots
 - Weighted variants
 
 ## History
