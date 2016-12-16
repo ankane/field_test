@@ -70,7 +70,7 @@ experiments:
     winner: red
 ```
 
-All calls to `field_test` will now return the winner.
+All calls to `field_test` will now return the winner, and metrics will stop being recorded.
 
 ## Features
 
