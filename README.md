@@ -101,7 +101,7 @@ Keep track of when experiments started and ended.
 
 ```yml
 experiments:
-  button_colors:
+  button_color:
     started_at: 2016-12-01 14:00:00
     ended_at: 2016-12-08 14:00:00
 ```
@@ -110,7 +110,7 @@ By default, variants are given the same probability of being selected. Change th
 
 ```yml
 experiments:
-  buttons_colors:
+  button_color:
     variants:
       - red
       - blue
