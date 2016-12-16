@@ -136,8 +136,8 @@ to get all experiments and variants for a participant, and pass them as properti
 Set the following variables in your environment or an initializer.
 
 ```ruby
-ENV["FIELD_TEST_USERNAME"] = "link"
-ENV["FIELD_TEST_PASSWORD"] = "hyrule"
+ENV["FIELD_TEST_USERNAME"] = "moonrise"
+ENV["FIELD_TEST_PASSWORD"] = "kingdom"
 ```
 
 #### Devise
