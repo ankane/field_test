@@ -104,6 +104,19 @@ experiments:
     ended_at: 2016-12-08 14:00:00
 ```
 
+By default, variants are given the same probability of being selected. Change this with:
+
+```yml
+experiments:
+  buttons_colors:
+    variants:
+      - red
+      - blue
+    weights:
+      - 90
+      - 10
+```
+
 ## Funnels
 
 For advanced funnels, we recommend an analytics platform like [Ahoy](https://github.com/ankane/ahoy) or [Mixpanel](https://mixpanel.com/).
@@ -138,10 +151,6 @@ end
 ## Credits
 
 A huge thanks to [Evan Miller](http://www.evanmiller.org/) for deriving the Bayesian formulas.
-
-## TODO
-
-- Weighted variants
 
 ## History
 

@@ -33,7 +33,7 @@ module FieldTest
       memberships = FieldTest::Membership.where(participant: participants).group_by(&:participant)
       experiments = {}
       participants.each do |participant|
-        memberships[participant].each do |membership|
+        memberships[participant].to_a.each do |membership|
           experiments[membership.experiment] ||= membership.variant
         end
       end

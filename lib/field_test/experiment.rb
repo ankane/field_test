@@ -1,12 +1,13 @@
 module FieldTest
   class Experiment
-    attr_reader :id, :name, :variants, :winner, :started_at, :ended_at
+    attr_reader :id, :name, :variants, :weights, :winner, :started_at, :ended_at
 
     def initialize(attributes)
       attributes = attributes.symbolize_keys
       @id = attributes[:id]
       @name = attributes[:name] || @id.to_s.titleize
       @variants = attributes[:variants]
+      @weights = @variants.size.times.map { |i| attributes[:weights].to_a[i] || 1 }
       @winner = attributes[:winner]
       @started_at = Time.zone.parse(attributes[:started_at].to_s) if attributes[:started_at]
       @ended_at = Time.zone.parse(attributes[:ended_at].to_s) if attributes[:ended_at]
@@ -22,7 +23,7 @@ module FieldTest
       if options[:variant] && variants.include?(options[:variant])
         membership.variant = options[:variant]
       else
-        membership.variant ||= variants.sample
+        membership.variant ||= weighted_variant
       end
 
       # upgrade to preferred participant
@@ -120,6 +121,17 @@ module FieldTest
       def membership_for(participants)
         memberships = self.memberships.where(participant: participants).index_by(&:participant)
         participants.map { |part| memberships[part] }.compact.first
+      end
+
+      def weighted_variant
+        total = weights.sum.to_f
+        pick = rand
+        n = 0
+        weights.map { |w| w / total }.each_with_index do |w, i|
+          n += w
+          return variants[i] if n >= pick
+        end
+        variants.last
       end
 
       # formula from
