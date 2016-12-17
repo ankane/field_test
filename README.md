@@ -82,6 +82,13 @@ You can specify a variant with query parameters to make testing easier
 http://localhost:3000/?field_test[button_color]=red
 ```
 
+Assign a specific variant to a user with:
+
+```ruby
+experiment = FieldTest::Experiment.find(:button_color)
+experiment.variant(user, variant: "red")
+```
+
 For mailers, you need to specify a participant:
 
 ```ruby
