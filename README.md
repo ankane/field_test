@@ -98,13 +98,13 @@ exclude:
   bots: false
 ```
 
-Keep track of when experiments started and ended.
+Keep track of when experiments started and ended. Use any format `Time.parse` accepts.
 
 ```yml
 experiments:
   button_color:
-    started_at: 2016-12-01 14:00:00 PST
-    ended_at: 2016-12-08 14:00:00 PST
+    started_at: Dec 1, 2016 8 am PST
+    ended_at: Dec 8, 2016 2 pm PST
 ```
 
 By default, variants are given the same probability of being selected. Change this with:
