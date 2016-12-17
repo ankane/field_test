@@ -61,6 +61,9 @@ module FieldTest
           end
           if token
             participants << token.gsub(/[^a-z0-9\-]/i, "")
+
+            # backwards compatibility
+            participants << "cookie:#{token.gsub(/[^a-z0-9\-]/i, "")}"
           end
         end
 

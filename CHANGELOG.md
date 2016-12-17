@@ -1,4 +1,4 @@
-## 0.2.0 [unreleased]
+## 0.1.3 [unreleased]
 
 - Removed `cookie:` prefix for unknown participants
 
