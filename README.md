@@ -137,6 +137,14 @@ to get all experiments and variants for a participant, and pass them as properti
 
 ## Security
 
+#### Devise
+
+```ruby
+authenticate :user, -> (user) { user.admin? } do
+  mount FieldTest::Engine, at: "field_test"
+end
+```
+
 #### Basic Authentication
 
 Set the following variables in your environment or an initializer.
@@ -144,14 +152,6 @@ Set the following variables in your environment or an initializer.
 ```ruby
 ENV["FIELD_TEST_USERNAME"] = "moonrise"
 ENV["FIELD_TEST_PASSWORD"] = "kingdom"
-```
-
-#### Devise
-
-```ruby
-authenticate :user, -> (user) { user.admin? } do
-  mount FieldTest::Engine, at: "field_test"
-end
 ```
 
 ## Credits
