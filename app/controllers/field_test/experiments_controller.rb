@@ -1,5 +1,5 @@
 module FieldTest
-  class HomeController < ActionController::Base
+  class ExperimentsController < ActionController::Base
     layout "field_test/application"
 
     protect_from_forgery

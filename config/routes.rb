@@ -1,3 +1,3 @@
 FieldTest::Engine.routes.draw do
-  root "home#index"
+  root "experiments#index"
 end
