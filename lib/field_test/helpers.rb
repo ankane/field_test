@@ -60,7 +60,7 @@ module FieldTest
             cookies[cookie_key] = {value: token, expires: 30.days.from_now}
           end
           if token
-            participants << "cookie:#{token.gsub(/[^a-z0-9\-]/i, "")}"
+            participants << token.gsub(/[^a-z0-9\-]/i, "")
           end
         end
 

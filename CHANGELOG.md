@@ -1,3 +1,7 @@
+## 0.2.0 [unreleased]
+
+- Removed `cookie:` prefix for unknown participants
+
 ## 0.1.2
 
 - Exclude bots
