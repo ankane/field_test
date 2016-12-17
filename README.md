@@ -57,13 +57,6 @@ When someone converts, record it with:
 field_test_converted(:button_color)
 ```
 
-Get the results with:
-
-```ruby
-experiment = FieldTest::Experiment.find(:button_color)
-experiment.results
-```
-
 When an experiment is over, specify a winner:
 
 ```yml
