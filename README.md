@@ -113,7 +113,7 @@ Add a description with:
 experiments:
   button_color:
     description: >
-      Tests different button colors
+      Different button colors
       for the landing page.
 ```
 
