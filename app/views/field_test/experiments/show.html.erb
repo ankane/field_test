@@ -1,0 +1,34 @@
+<p>
+  <%= link_to root_path do %>
+    &laquo; Experiments
+  <% end %>
+</p>
+
+<h1><%= @experiment.name %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Participant</th>
+      <th style="width: 20%;">Variant</th>
+      <th style="width: 20%;">Converted</th>
+      <th style="width: 20%;">Started</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @experiment.memberships.order(created_at: :desc).each do |membership| %>
+      <tr>
+        <td><%= membership.participant %></td>
+        <td><%= membership.variant %></td>
+        <td><%= membership.converted ? "✓" : "" %></td>
+        <td>
+          <% if membership.created_at > 1.day.ago %>
+            <%= time_ago_in_words(membership.created_at, include_seconds: true) %> ago
+          <% else %>
+            <%= membership.created_at.to_formatted_s(:short) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

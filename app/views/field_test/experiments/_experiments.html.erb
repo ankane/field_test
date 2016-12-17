@@ -1,7 +1,11 @@
 <% experiments.each do |experiment| %>
   <% results = experiment.results %>
 
-  <h2><%= experiment.name %></h2>
+  <h2>
+    <%= experiment.name %>
+    <small><%= link_to "Details", experiment_path(experiment.id) %></small>
+  </h2>
+
 
   <% if experiment.description %>
     <p class="description"><%= experiment.description %></p>
