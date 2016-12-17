@@ -50,6 +50,7 @@ module FieldTest
           participants << current_user
         end
 
+        # controllers and views
         if try(:request)
           # use cookie
           cookie_key = "field_test"
@@ -61,6 +62,12 @@ module FieldTest
           if token
             participants << "cookie:#{token.gsub(/[^a-z0-9\-]/i, "")}"
           end
+        end
+
+        # mailers
+        to = try(:message).try(:to).try(:first)
+        if to
+          participants << to
         end
       end
 

@@ -1,6 +1,7 @@
 ## 0.1.2 [unreleased]
 
 - Exclude bots
+- Mailer improvements
 
 ## 0.1.1
 
