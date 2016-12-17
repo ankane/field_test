@@ -4,21 +4,21 @@
   <% end %>
 </p>
 
-<h1><%= @experiment.name %></h1>
+<h1><%= @participant %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Participant</th>
+      <th>Experiment</th>
       <th style="width: 20%;">Variant</th>
       <th style="width: 20%;">Converted</th>
       <th style="width: 20%;">Started</th>
     </tr>
   </thead>
   <tbody>
-    <% @experiment.memberships.order(created_at: :desc).each do |membership| %>
+    <% FieldTest::Membership.where(participant: @participant).each do |membership| %>
       <tr>
-        <td><%= link_to membership.participant, participant_path(membership.participant) %></td>
+        <td><%= link_to membership.experiment, experiment_path(membership.experiment) %></td>
         <td><%= membership.variant %></td>
         <td><%= membership.converted ? "✓" : "" %></td>
         <td>
