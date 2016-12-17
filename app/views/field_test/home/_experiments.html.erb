@@ -2,6 +2,11 @@
   <% results = experiment.results %>
 
   <h2><%= experiment.name %></h2>
+
+  <% if experiment.description %>
+    <p class="description"><%= experiment.description %></p>
+  <% end %>
+
   <table>
     <thead>
       <tr>
@@ -18,7 +23,7 @@
           <td>
             <%= variant %>
             <% if variant == experiment.winner %>
-              <span style="color: #999;">winner</span>
+              <span class="winner">winner</span>
             <% end %>
           </td>
           <td><%= result[:participated] %></td>

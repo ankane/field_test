@@ -1,11 +1,12 @@
 module FieldTest
   class Experiment
-    attr_reader :id, :name, :variants, :weights, :winner, :started_at, :ended_at
+    attr_reader :id, :name, :description, :variants, :weights, :winner, :started_at, :ended_at
 
     def initialize(attributes)
       attributes = attributes.symbolize_keys
       @id = attributes[:id]
       @name = attributes[:name] || @id.to_s.titleize
+      @description = attributes[:description]
       @variants = attributes[:variants]
       @weights = @variants.size.times.map { |i| attributes[:weights].to_a[i] || 1 }
       @winner = attributes[:winner]

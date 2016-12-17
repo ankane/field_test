@@ -107,6 +107,16 @@ experiments:
     ended_at: Dec 8, 2016 2 pm PST
 ```
 
+Add a description with:
+
+```yml
+experiments:
+  button_color:
+    description: >
+      Tests different button colors
+      for the landing page.
+```
+
 By default, variants are given the same probability of being selected. Change this with:
 
 ```yml
