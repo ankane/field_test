@@ -3,7 +3,7 @@
 :maple_leaf: A/B testing for Rails
 
 - Designed for web and email
-- Comes with a nice dashboard
+- Comes with a [nice dashboard](https://fieldtest.dokkuapp.com/)
 - Seamlessly handles the transition from anonymous visitor to logged in user
 
 Uses [Bayesian methods](http://www.evanmiller.org/bayesian-ab-testing.html) to evaluate results so you don’t need to choose a sample size ahead of time.
