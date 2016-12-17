@@ -86,19 +86,7 @@ Assign a specific variant to a user with:
 
 ```ruby
 experiment = FieldTest::Experiment.find(:button_color)
-experiment.variant(user, variant: "red")
-```
-
-Specify a participant with:
-
-```ruby
-field_test(:button_color, participant: "test@example.org")
-```
-
-You can pass an object as well.
-
-```ruby
-field_test(:button_color, participant: user)
+experiment.variant(participant, variant: "red")
 ```
 
 ## Config
