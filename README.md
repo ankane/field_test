@@ -100,11 +100,12 @@ experiments:
     ended_at: Dec 8, 2016 2 pm PST
 ```
 
-Add a description with:
+Add a friendlier name and description with:
 
 ```yml
 experiments:
   button_color:
+    name: Buttons!
     description: >
       Different button colors
       for the landing page.
