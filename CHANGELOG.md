@@ -1,5 +1,6 @@
-## 0.1.3 [unreleased]
+## 0.2.0 [unreleased]
 
+- Better web UI
 - Removed `cookie:` prefix for unknown participants
 
 ## 0.1.2
