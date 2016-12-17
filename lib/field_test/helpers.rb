@@ -54,16 +54,19 @@ module FieldTest
         if try(:request)
           # use cookie
           cookie_key = "field_test"
+
           token = cookies[cookie_key]
+          token = token.gsub(/[^a-z0-9\-]/i, "") if token
+
           if participants.empty? && !token
             token = SecureRandom.uuid
             cookies[cookie_key] = {value: token, expires: 30.days.from_now}
           end
           if token
-            participants << token.gsub(/[^a-z0-9\-]/i, "")
+            participants << token
 
             # backwards compatibility
-            participants << "cookie:#{token.gsub(/[^a-z0-9\-]/i, "")}"
+            participants << "cookie:#{token}"
           end
         end
 
