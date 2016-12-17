@@ -18,6 +18,7 @@ module FieldTest
       return variants.first if options[:exclude]
 
       participants = FieldTest::Participant.standardize(participants)
+      check_participants(participants)
       membership = membership_for(participants) || FieldTest::Membership.new(experiment: id)
 
       if options[:variant] && variants.include?(options[:variant])
@@ -42,6 +43,7 @@ module FieldTest
 
     def convert(participants)
       participants = FieldTest::Participant.standardize(participants)
+      check_participants(participants)
       membership = membership_for(participants)
 
       if membership
@@ -117,6 +119,10 @@ module FieldTest
     end
 
     private
+
+      def check_participants(participants)
+        raise FieldTest::UnknownParticipant, "Use the :participant option to specify a participant" if participants.empty?
+      end
 
       def membership_for(participants)
         memberships = self.memberships.where(participant: participants).index_by(&:participant)

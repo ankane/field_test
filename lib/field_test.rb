@@ -9,6 +9,7 @@ require "field_test/version"
 module FieldTest
   class Error < StandardError; end
   class ExperimentNotFound < Error; end
+  class UnknownParticipant < Error; end
 
   def self.config
     # reload in dev
