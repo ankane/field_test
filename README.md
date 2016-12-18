@@ -82,6 +82,8 @@ experiment = FieldTest::Experiment.find(:button_color)
 experiment.variant(participant, variant: "green")
 ```
 
+You can also change a user’s variant from the dashboard.
+
 ## Config
 
 By default, bots are returned the first variant and excluded from metrics. Change this with:
