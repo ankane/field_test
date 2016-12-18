@@ -160,9 +160,9 @@ field_test_converted(:button_color, goal: "ordered")
 
 The results for all goals will appear on the dashboard.
 
-### Advanced
+## Analytics Platforms
 
-For advanced funnels, we recommend an analytics platform like [Ahoy](https://github.com/ankane/ahoy) or [Mixpanel](https://mixpanel.com/). You can use:
+You can also send experiment data to analytics platform like [Ahoy](https://github.com/ankane/ahoy) or [Mixpanel](https://mixpanel.com/). You can use:
 
 ```ruby
 field_test_experiments
@@ -192,6 +192,10 @@ ENV["FIELD_TEST_PASSWORD"] = "kingdom"
 ## Credits
 
 A huge thanks to [Evan Miller](http://www.evanmiller.org/) for deriving the Bayesian formulas.
+
+# TODO
+
+- Code samples for analytics platforms
 
 ## History
 
