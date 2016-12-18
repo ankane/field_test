@@ -134,7 +134,7 @@ cache: true
 
 This will use the Rails cache to speed up winning probability calculations.
 
-## Funnels [master]
+## Funnels
 
 You can set multiple goals for an experiment to track conversions at different parts of the funnel. First, run:
 
