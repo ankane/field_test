@@ -62,7 +62,7 @@ When an experiment is over, specify a winner:
 ```yml
 experiments:
   button_color:
-    winner: red
+    winner: green
 ```
 
 All calls to `field_test` will now return the winner, and metrics will stop being recorded.
@@ -72,14 +72,14 @@ All calls to `field_test` will now return the winner, and metrics will stop bein
 You can specify a variant with query parameters to make testing easier
 
 ```
-http://localhost:3000/?field_test[button_color]=red
+?field_test[button_color]=green
 ```
 
 Assign a specific variant to a user with:
 
 ```ruby
 experiment = FieldTest::Experiment.find(:button_color)
-experiment.variant(participant, variant: "red")
+experiment.variant(participant, variant: "green")
 ```
 
 ## Config
