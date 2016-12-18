@@ -13,6 +13,7 @@ module FieldTest
       @started_at = Time.zone.parse(attributes[:started_at].to_s) if attributes[:started_at]
       @ended_at = Time.zone.parse(attributes[:ended_at].to_s) if attributes[:ended_at]
       @goals = attributes[:goals] || ["conversion"]
+      @use_events = attributes[:use_events]
     end
 
     def variant(participants, options = {})
@@ -67,7 +68,7 @@ module FieldTest
           membership.save! if membership.changed?
         end
 
-        if FieldTest.events_supported?
+        if use_events?
           FieldTest::Event.create!(
             name: goal,
             field_test_membership_id: membership.id
@@ -99,7 +100,7 @@ module FieldTest
       relation = relation.where("created_at >= ?", started_at) if started_at
       relation = relation.where("created_at <= ?", ended_at) if ended_at
 
-      if FieldTest.events_supported?
+      if use_events?
         data = {}
         sql =
           relation.joins("LEFT JOIN field_test_events ON field_test_events.field_test_membership_id = field_test_memberships.id")
@@ -163,6 +164,14 @@ module FieldTest
 
     def active?
       !winner
+    end
+
+    def use_events?
+      if @use_events.nil?
+        FieldTest.events_supported?
+      else
+        @use_events
+      end
     end
 
     def self.find(id)
