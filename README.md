@@ -162,13 +162,13 @@ The results for all goals will appear on the dashboard.
 
 ## Analytics Platforms
 
-You can also send experiment data to analytics platform like [Ahoy](https://github.com/ankane/ahoy) or [Mixpanel](https://mixpanel.com/). You can use:
+You can also send experiment data to analytics platforms like [Google Analytics](https://www.google.com/analytics/), [Mixpanel](https://mixpanel.com/), and [Ahoy](https://github.com/ankane/ahoy). Use:
 
 ```ruby
 field_test_experiments
 ```
 
-to get all experiments and variants for a participant, and pass them as properties.
+to get all experiments and variants for a participant and pass them as properties.
 
 ## Security
 
