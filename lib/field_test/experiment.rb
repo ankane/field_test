@@ -105,11 +105,11 @@ module FieldTest
           # TODO calculate this incrementally by caching intermediate results
           prob_winning =
             if variants.size == 2
-              Rails.cache.fetch(["field_test", "prob_b_beats_a", alpha_b, beta_b, alpha_c, beta_c].join("/")) do
+              cache_fetch ["field_test", "prob_b_beats_a", alpha_b, beta_b, alpha_c, beta_c] do
                 prob_b_beats_a(alpha_b, beta_b, alpha_c, beta_c)
               end
             else
-              Rails.cache.fetch(["field_test", "prob_c_beats_a_and_b", alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c].join("/")) do
+              cache_fetch ["field_test", "prob_c_beats_a_and_b", alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c] do
                 prob_c_beats_a_and_b(alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c)
               end
             end
@@ -215,6 +215,14 @@ module FieldTest
 
         1 - prob_b_beats_a(alpha_c, beta_c, alpha_a, beta_a) -
           prob_b_beats_a(alpha_c, beta_c, alpha_b, beta_b) + total
+      end
+
+      def cache_fetch(key)
+        if FieldTest.cache
+          Rails.cache.fetch(key.join("/")) { yield }
+        else
+          yield
+        end
       end
   end
 end

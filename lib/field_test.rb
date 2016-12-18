@@ -22,6 +22,10 @@ module FieldTest
     config = self.config # dev performance
     config["exclude"] && config["exclude"]["bots"]
   end
+
+  def self.cache
+    config["cache"]
+  end
 end
 
 ActiveSupport.on_load(:action_controller) do
