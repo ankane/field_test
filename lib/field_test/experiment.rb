@@ -34,6 +34,8 @@ module FieldTest
       if membership.changed?
         begin
           membership.save!
+
+          # log it!
           info = {
             experiment: id,
             variant: membership.variant,
