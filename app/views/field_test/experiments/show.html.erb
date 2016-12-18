@@ -20,7 +20,11 @@
       <tr>
         <td><%= link_to membership.participant, participant_path(membership.participant) %></td>
         <td><%= membership.variant %></td>
-        <td><%= membership.converted ? "✓" : "" %></td>
+        <td>
+          <% if membership.converted %>
+            <span class="check">✓</span>
+          <% end %>
+        </td>
         <td>
           <% if membership.created_at > 1.day.ago %>
             <%= time_ago_in_words(membership.created_at, include_seconds: true) %> ago
