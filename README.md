@@ -30,7 +30,7 @@ mount FieldTest::Engine, at: "field_test"
 
 Be sure to [secure the dashboard](#security) in production.
 
-![Screenshot](https://ankane.github.io/field_test/screenshot5.png)
+![Screenshot](https://ankane.github.io/field_test/screenshot6.png)
 
 ## Getting Started
 
