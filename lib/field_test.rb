@@ -1,7 +1,9 @@
 require "distribution/math_extension"
 require "browser"
+require "active_support"
+require "field_test/calculations"
 require "field_test/experiment"
-require "field_test/engine"
+require "field_test/engine" if defined?(Rails)
 require "field_test/helpers"
 require "field_test/participant"
 require "field_test/version"
