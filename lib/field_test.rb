@@ -1,4 +1,3 @@
-require "distribution/math_extension"
 require "browser"
 require "active_support"
 require "field_test/calculations"
