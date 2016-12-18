@@ -35,7 +35,7 @@ module FieldTest
       logbeta_ac_i_j = []
       0.upto(alpha_a - 1) do |i|
         0.upto(alpha_b - 1) do |j|
-          logbeta_ac_i_j[i + j] = Math.logbeta(alpha_c + i + j, abc)
+          logbeta_ac_i_j[i + j] ||= Math.logbeta(alpha_c + i + j, abc)
         end
       end
 

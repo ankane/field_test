@@ -8,6 +8,7 @@ class CalculationsTest < Minitest::Test
   end
 
   def test_prob_c_beats_a_and_b
+    assert_prob_c_beats_a_and_b 0.09254267744840039, [1, 2, 3, 4, 5, 100]
     assert_prob_c_beats_a_and_b 0.6818181818181824, [1, 2, 3, 4, 5, 6]
     assert_prob_c_beats_a_and_b 0.4228820937088671, [55, 50, 30, 30, 10, 10]
     assert_prob_c_beats_a_and_b 0.21209135797672762, [50, 50, 35, 30, 13, 18]
