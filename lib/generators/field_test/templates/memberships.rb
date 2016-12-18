@@ -10,5 +10,6 @@ class <%= migration_class_name %> < ActiveRecord::Migration
 
     add_index :field_test_memberships, [:experiment, :participant], unique: true
     add_index :field_test_memberships, :participant
+    add_index :field_test_memberships, [:experiment, :created_at]
   end
 end

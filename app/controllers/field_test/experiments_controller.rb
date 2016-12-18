@@ -5,11 +5,14 @@ module FieldTest
     end
 
     def show
-      begin
-        @experiment = FieldTest::Experiment.find(params[:id])
-      rescue FieldTest::ExperimentNotFound
-        raise ActionController::RoutingError, "Experiment not found"
-      end
+      @experiment = FieldTest::Experiment.find(params[:id])
+
+      @per_page = 200
+      @page = [1, params[:page].to_i].max
+      offset = (@page - 1) * @per_page
+      @memberships = @experiment.memberships.order(created_at: :desc).limit(@per_page).offset(offset).to_a
+    rescue FieldTest::ExperimentNotFound
+      raise ActionController::RoutingError, "Experiment not found"
     end
   end
 end

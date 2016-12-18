@@ -16,7 +16,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @experiment.memberships.order(created_at: :desc).each do |membership| %>
+    <% @memberships.each do |membership| %>
       <tr>
         <td><%= link_to membership.participant, participant_path(membership.participant) %></td>
         <td><%= membership.variant %></td>
@@ -36,3 +36,17 @@
     <% end %>
   </tbody>
 </table>
+
+<p class="pagination">
+  <% unless @page == 1 %>
+    <%= link_to experiment_path(@experiment.id, page: @page - 1) do %>
+      &laquo; Prev
+    <% end %>
+  <% end %>
+  <!-- there may not be a next page, but don't want another DB query -->
+  <% if @memberships.size == @per_page %>
+    <%= link_to experiment_path(@experiment.id, page: @page + 1) do %>
+      Next &raquo;
+    <% end %>
+  <% end %>
+</p>
