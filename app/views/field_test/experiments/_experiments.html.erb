@@ -41,7 +41,11 @@
           </td>
           <td>
             <% if result[:prob_winning] %>
-              <%= (100.0 * result[:prob_winning]).round %>%
+              <% if result[:prob_winning] < 0.01 %>
+                &lt; 1%
+              <% else %>
+                <%= (100.0 * result[:prob_winning]).round %>%
+              <% end %>
             <% end %>
           </td>
         </tr>
