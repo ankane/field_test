@@ -13,7 +13,7 @@ Uses [Bayesian statistics](http://www.evanmiller.org/bayesian-ab-testing.html) t
 Add this line to your application’s Gemfile:
 
 ```ruby
-gem 'field_test'
+gem "field_test"
 ```
 
 Run:
