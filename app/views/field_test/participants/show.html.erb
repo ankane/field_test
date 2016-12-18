@@ -19,7 +19,16 @@
     <% FieldTest::Membership.where(participant: @participant).each do |membership| %>
       <tr>
         <td><%= link_to membership.experiment, experiment_path(membership.experiment) %></td>
-        <td><%= membership.variant %></td>
+        <td>
+          <% experiment = FieldTest::Experiment.find(membership.experiment) rescue nil %>
+          <% if experiment %>
+            <%= form_for membership do |f| %>
+              <%= f.select "variant", options_for_select(FieldTest::Experiment.find(membership.experiment).variants.map { |v| [v, v] }, membership.variant), {}, onchange: "this.form.submit()" %>
+            <% end %>
+          <% else %>
+            <%= membership.variant %>
+          <% end %>
+        </td>
         <td>
           <% if membership.converted %>
             <span class="check">✓</span>
