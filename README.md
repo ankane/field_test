@@ -93,7 +93,7 @@ exclude:
   bots: false
 ```
 
-Keep track of when experiments started and ended. Use any format `Time.parse` accepts.
+Keep track of when experiments started and ended. Use any format `Time.parse` accepts. Variants assigned outside this window are not included in metrics.
 
 ```yml
 experiments:
