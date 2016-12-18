@@ -120,8 +120,8 @@ experiments:
       - red
       - blue
     weights:
-      - 90
-      - 10
+      - 85
+      - 15
 ```
 
 If the dashboard gets slow, you can make it faster with:
