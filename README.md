@@ -124,11 +124,13 @@ experiments:
       - 10
 ```
 
-If the dashboard gets slow, you can speed it up with:
+If the dashboard gets slow, you can make it faster with:
 
 ```yml
 cache: true
 ```
+
+This will use the Rails cache to speed up winning probability calculations.
 
 ## Funnels
 
