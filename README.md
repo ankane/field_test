@@ -124,6 +124,12 @@ experiments:
       - 10
 ```
 
+If the dashboard gets slow, you can speed it up with:
+
+```yml
+cache: true
+```
+
 ## Funnels
 
 For advanced funnels, we recommend an analytics platform like [Ahoy](https://github.com/ankane/ahoy) or [Mixpanel](https://mixpanel.com/).
