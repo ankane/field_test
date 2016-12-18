@@ -1,4 +1,4 @@
-## 0.2.0 [unreleased]
+## 0.2.0
 
 - Better web UI
 - Removed `cookie:` prefix for unknown participants
