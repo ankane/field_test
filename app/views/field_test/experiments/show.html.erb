@@ -6,6 +6,10 @@
 
 <h1><%= @experiment.name %></h1>
 
+<% if @experiment.description %>
+  <p class="description"><%= @experiment.description %></p>
+<% end %>
+
 <table>
   <thead>
     <tr>
