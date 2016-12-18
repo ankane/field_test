@@ -1,3 +1,7 @@
+## 0.2.1 [unreleased]
+
+- Added support for multiple goals
+
 ## 0.2.0
 
 - Better web UI

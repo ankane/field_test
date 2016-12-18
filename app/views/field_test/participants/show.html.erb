@@ -16,7 +16,7 @@
     </tr>
   </thead>
   <tbody>
-    <% FieldTest::Membership.where(participant: @participant).each do |membership| %>
+    <% @memberships.each do |membership| %>
       <tr>
         <td><%= link_to membership.experiment, experiment_path(membership.experiment) %></td>
         <td>
@@ -30,7 +30,22 @@
           <% end %>
         </td>
         <td>
-          <% if membership.converted %>
+          <% converted = false %>
+          <% if experiment %>
+          <% experiment.goals.each do |goal| %>
+              <% if @events[[membership.id, goal]] %>
+                <% converted = true %>
+                <div>
+                  <span class="check">✓</span>
+                  <% if experiment.multiple_goals? %>
+                    <%= goal.titleize %>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+
+          <% if !converted && membership.try(:converted) %>
             <span class="check">✓</span>
           <% end %>
         </td>

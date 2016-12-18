@@ -1,6 +1,6 @@
 module FieldTest
   class Experiment
-    attr_reader :id, :name, :description, :variants, :weights, :winner, :started_at, :ended_at
+    attr_reader :id, :name, :description, :variants, :weights, :winner, :started_at, :ended_at, :goals
 
     def initialize(attributes)
       attributes = attributes.symbolize_keys
@@ -12,6 +12,7 @@ module FieldTest
       @winner = attributes[:winner]
       @started_at = Time.zone.parse(attributes[:started_at].to_s) if attributes[:started_at]
       @ended_at = Time.zone.parse(attributes[:ended_at].to_s) if attributes[:ended_at]
+      @goals = attributes[:goals] || ["conversion"]
     end
 
     def variant(participants, options = {})
@@ -53,14 +54,26 @@ module FieldTest
       membership.try(:variant) || variants.first
     end
 
-    def convert(participants)
+    def convert(participants, goal: nil)
+      goal ||= goals.first
+
       participants = FieldTest::Participant.standardize(participants)
       check_participants(participants)
       membership = membership_for(participants)
 
       if membership
-        membership.converted = true
-        membership.save! if membership.changed?
+        if membership.respond_to?(:converted)
+          membership.converted = true
+          membership.save! if membership.changed?
+        end
+
+        if FieldTest.events_supported?
+          FieldTest::Event.create!(
+            name: goal,
+            field_test_membership_id: membership.id
+          )
+        end
+
         true
       else
         false
@@ -71,11 +84,36 @@ module FieldTest
       FieldTest::Membership.where(experiment: id)
     end
 
-    def results
-      data = memberships.group(:variant).group(:converted)
-      data = data.where("created_at >= ?", started_at) if started_at
-      data = data.where("created_at <= ?", ended_at) if ended_at
-      data = data.count
+    def events
+      FieldTest::Event.joins(:field_test_membership).where(field_test_memberships: {experiment: id})
+    end
+
+    def multiple_goals?
+      goals.size > 1
+    end
+
+    def results(goal: nil)
+      goal ||= goals.first
+
+      relation = memberships.group(:variant)
+      relation = relation.where("created_at >= ?", started_at) if started_at
+      relation = relation.where("created_at <= ?", ended_at) if ended_at
+
+      if FieldTest.events_supported?
+        data = {}
+        sql =
+          relation.joins("LEFT JOIN field_test_events ON field_test_events.field_test_membership_id = field_test_memberships.id")
+            .select("variant, COUNT(DISTINCT participant) AS participated, COUNT(DISTINCT field_test_membership_id) AS converted")
+            .where(field_test_events: {name: goal})
+
+        FieldTest::Membership.connection.select_all(sql).each do |row|
+          data[[row["variant"], true]] = row["converted"].to_i
+          data[[row["variant"], false]] = row["participated"].to_i - row["converted"].to_i
+        end
+      else
+        data = relation.group(:converted).count
+      end
+
       results = {}
       variants.each do |variant|
         converted = data[[variant, true]].to_i

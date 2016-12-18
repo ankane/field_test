@@ -25,7 +25,20 @@
         <td><%= link_to membership.participant, participant_path(membership.participant) %></td>
         <td><%= membership.variant %></td>
         <td>
-          <% if membership.converted %>
+          <% converted = false %>
+          <% @experiment.goals.each do |goal| %>
+            <% if @events[[membership.id, goal]] %>
+              <% converted = true %>
+              <div>
+                <span class="check">✓</span>
+                <% if @experiment.multiple_goals? %>
+                  <%= goal.titleize %>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+
+          <% if !converted && membership.try(:converted) %>
             <span class="check">✓</span>
           <% end %>
         </td>

@@ -134,11 +134,35 @@ cache: true
 
 This will use the Rails cache to speed up winning probability calculations.
 
-## Funnels
+## Funnels [master]
 
-For advanced funnels, we recommend an analytics platform like [Ahoy](https://github.com/ankane/ahoy) or [Mixpanel](https://mixpanel.com/).
+You can set multiple goals for an experiment to track conversions at different parts of the funnel. First, run:
 
-You can use:
+```sh
+rails g field_test:events
+```
+
+And add to your config:
+
+```yml
+experiments:
+  button_color:
+    goals:
+      - signed_up
+      - ordered
+```
+
+Specify a goal during conversion with:
+
+```ruby
+field_test_converted(:button_color, goal: "ordered")
+```
+
+The results for all goals will appear on the dashboard.
+
+### Advanced
+
+For advanced funnels, we recommend an analytics platform like [Ahoy](https://github.com/ankane/ahoy) or [Mixpanel](https://mixpanel.com/). You can use:
 
 ```ruby
 field_test_experiments
