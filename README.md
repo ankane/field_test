@@ -193,7 +193,7 @@ ENV["FIELD_TEST_PASSWORD"] = "kingdom"
 
 A huge thanks to [Evan Miller](http://www.evanmiller.org/) for deriving the Bayesian formulas.
 
-# TODO
+## TODO
 
 - Code samples for analytics platforms
 
