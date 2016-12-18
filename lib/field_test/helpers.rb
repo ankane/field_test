@@ -13,6 +13,9 @@ module FieldTest
         if FieldTest.exclude_bots?
           options[:exclude] = Browser.new(request.user_agent).bot?
         end
+
+        options[:ip] = request.remote_ip
+        options[:user_agent] = request.user_agent
       end
 
       # cache results for request
