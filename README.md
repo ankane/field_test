@@ -6,7 +6,7 @@
 - Comes with a [nice dashboard](https://fieldtest.dokkuapp.com/)
 - Seamlessly handles the transition from anonymous visitor to logged in user
 
-Uses [Bayesian formulas](http://www.evanmiller.org/bayesian-ab-testing.html) to evaluate results so you don’t need to choose a sample size ahead of time.
+Uses [Bayesian statistics](http://www.evanmiller.org/bayesian-ab-testing.html) to evaluate results so you don’t need to choose a sample size ahead of time.
 
 ## Installation
 
