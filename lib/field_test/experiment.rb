@@ -87,10 +87,10 @@ module FieldTest
         }
       end
       case variants.size
-      when 1
-        results[variants[0]][:prob_winning] = 1
-      when 2, 3
-        variants.size.times do |i|
+      when 1, 2, 3
+        total = 0.0
+
+        (variants.size - 1).times do |i|
           c = results.values[i]
           b = results.values[(i + 1) % variants.size]
           a = results.values[(i + 2) % variants.size]
@@ -102,13 +102,18 @@ module FieldTest
           alpha_c = 1 + c[:converted]
           beta_c = 1 + c[:participated] - c[:converted]
 
-          results[variants[i]][:prob_winning] =
+          prob_winning =
             if variants.size == 2
               prob_b_beats_a(alpha_b, beta_b, alpha_c, beta_c)
             else
               prob_c_beats_a_and_b(alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c)
             end
+
+          results[variants[i]][:prob_winning] = prob_winning
+          total += prob_winning
         end
+
+        results[variants.last][:prob_winning] = 1 - total
       end
       results
     end
