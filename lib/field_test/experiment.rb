@@ -157,10 +157,14 @@ module FieldTest
       def prob_b_beats_a(alpha_a, beta_a, alpha_b, beta_b)
         total = 0.0
 
+        # for performance
+        logbeta_aa_ba = Math.logbeta(alpha_a, beta_a)
+        beta_ba = beta_b + beta_a
+
         0.upto(alpha_b - 1) do |i|
-          total += Math.exp(Math.logbeta(alpha_a + i, beta_b + beta_a) -
+          total += Math.exp(Math.logbeta(alpha_a + i, beta_ba) -
             Math.log(beta_b + i) - Math.logbeta(1 + i, beta_b) -
-            Math.logbeta(alpha_a, beta_a))
+            logbeta_aa_ba)
         end
 
         total
@@ -168,12 +172,21 @@ module FieldTest
 
       def prob_c_beats_a_and_b(alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c)
         total = 0.0
+
+        # for performance
+        logbeta_ac_bc = Math.logbeta(alpha_c, beta_c)
+        abc = beta_a + beta_b + beta_c
+
         0.upto(alpha_a - 1) do |i|
+          # for performance
+          log_ba_i = Math.log(beta_a + i)
+          logbeta_i_ba = Math.logbeta(1 + i, beta_a)
+
           0.upto(alpha_b - 1) do |j|
-            total += Math.exp(Math.logbeta(alpha_c + i + j, beta_a + beta_b + beta_c) -
-              Math.log(beta_a + i) - Math.log(beta_b + j) -
-              Math.logbeta(1 + i, beta_a) - Math.logbeta(1 + j, beta_b) -
-              Math.logbeta(alpha_c, beta_c))
+            total += Math.exp(Math.logbeta(alpha_c + i + j, abc) -
+              log_ba_i - Math.log(beta_b + j) -
+              logbeta_i_ba - Math.logbeta(1 + j, beta_b) -
+              logbeta_ac_bc)
           end
         end
 
