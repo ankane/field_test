@@ -1,4 +1,4 @@
-class <%= migration_class_name %> < ActiveRecord::Migration
+class <%= migration_class_name %> < ActiveRecord::Migration<%= migration_version %>
   def change
     create_table :field_test_events do |t|
       t.integer :field_test_membership_id

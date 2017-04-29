@@ -20,7 +20,13 @@ module FieldTest
       end
 
       def copy_migration
-        migration_template "events.rb", "db/migrate/create_field_test_events.rb"
+        migration_template "events.rb", "db/migrate/create_field_test_events.rb", migration_version: migration_version
+      end
+
+      def migration_version
+        if ActiveRecord::VERSION::MAJOR >= 5
+          "[#{ActiveRecord::VERSION::MAJOR}.#{ActiveRecord::VERSION::MINOR}]"
+        end
       end
     end
   end
