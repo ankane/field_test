@@ -1,4 +1,4 @@
-## 0.2.2 [unreleased]
+## 0.2.2
 
 - Added support for Rails 5.1
 
