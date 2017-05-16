@@ -1,7 +1,7 @@
 module FieldTest
   class Participant
     def self.standardize(participants)
-      Array(participants).map { |v| v.respond_to?(:model_name) ? "#{v.model_name.name}:#{v.id}" : v.to_s }
+      Array(participants).map { |v| v.is_a?(String) ? v.to_s : "#{v.class.name}:#{v.id}" }
     end
   end
 end
