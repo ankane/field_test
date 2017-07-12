@@ -73,11 +73,12 @@ module FieldTest
           end
         end
 
+        # message does not work here
         # mailers
-        to = try(:message).try(:to).try(:first)
-        if to
-          participants << to
-        end
+        # to = try(:message).try(:to).try(:first)
+        # if to
+        #   participants << to
+        # end
       end
 
       FieldTest::Participant.standardize(participants)
