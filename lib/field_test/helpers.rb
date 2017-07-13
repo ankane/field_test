@@ -49,8 +49,8 @@ module FieldTest
       if options[:participant]
         participants << options[:participant]
       else
-        if respond_to?(:current_member, true) && current_member
-          participants << current_member
+        if respond_to?(:current_member, true) && current_member.user
+          participants << current_member.user
         end
 
         # controllers and views
