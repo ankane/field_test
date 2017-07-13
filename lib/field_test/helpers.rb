@@ -49,8 +49,8 @@ module FieldTest
       if options[:participant]
         participants << options[:participant]
       else
-        if respond_to?(:current_user, true) && current_user
-          participants << current_user
+        if respond_to?(:current_member, true) && current_member.user
+          participants << current_member.user
         end
 
         # controllers and views
@@ -73,6 +73,7 @@ module FieldTest
           end
         end
 
+        #message does not work here
         # mailers
         to = try(:message).try(:to).try(:first)
         if to
