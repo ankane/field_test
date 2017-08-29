@@ -1,3 +1,8 @@
+## 0.2.3
+
+- Added support for tenants
+- Enable/disable experiments based on started_at and ended_at
+
 ## 0.2.2
 
 - Added support for Rails 5.1

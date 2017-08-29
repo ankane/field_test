@@ -1,24 +1,27 @@
 module FieldTest
   class Experiment
-    attr_reader :id, :name, :description, :variants, :weights, :winner, :started_at, :ended_at, :goals
+    attr_reader :id, :name, :description, :variants, :weights, :winner, :started_at, :ended_at, :goals, :tenants
 
     def initialize(attributes)
-      attributes = attributes.symbolize_keys
-      @id = attributes[:id]
-      @name = attributes[:name] || @id.to_s.titleize
+      attributes   = attributes.symbolize_keys
+      @id          = attributes[:id]
+      @name        = attributes[:name] || @id.to_s.titleize
       @description = attributes[:description]
-      @variants = attributes[:variants]
-      @weights = @variants.size.times.map { |i| attributes[:weights].to_a[i] || 1 }
-      @winner = attributes[:winner]
-      @started_at = Time.zone.parse(attributes[:started_at].to_s) if attributes[:started_at]
-      @ended_at = Time.zone.parse(attributes[:ended_at].to_s) if attributes[:ended_at]
-      @goals = attributes[:goals] || ["conversion"]
-      @use_events = attributes[:use_events]
+      @variants    = attributes[:variants]
+      @weights     = @variants.size.times.map {|i| attributes[:weights].to_a[i] || 1}
+      @winner      = attributes[:winner]
+      @started_at  = Time.zone.parse(attributes[:started_at].to_s) if attributes[:started_at]
+      @ended_at    = Time.zone.parse(attributes[:ended_at].to_s) if attributes[:ended_at]
+      @goals       = attributes[:goals] || ["conversion"]
+      @use_events  = attributes[:use_events]
+      @tenants     = attributes[:tenants] || []
     end
 
     def variant(participants, options = {})
       return winner if winner
       return variants.first if options[:exclude]
+      return variants.first if tenants.present? && options[:tenant] && !(tenants.include?(options[:tenant]))
+      return variants.first if !scheduled?
 
       participants = FieldTest::Participant.standardize(participants)
       check_participants(participants)
@@ -39,13 +42,13 @@ module FieldTest
 
           # log it!
           info = {
-            experiment: id,
-            variant: membership.variant,
+            experiment:  id,
+            variant:     membership.variant,
             participant: membership.participant
           }.merge(options.slice(:ip, :user_agent))
 
           # sorta logfmt :)
-          info = info.map { |k, v| v = "\"#{v}\"" if k == :user_agent; "#{k}=#{v}" }.join(" ")
+          info = info.map {|k, v| v = "\"#{v}\"" if k == :user_agent; "#{k}=#{v}"}.join(" ")
           Rails.logger.info "[field test] #{info}"
         rescue ActiveRecord::RecordNotUnique
           membership = memberships.find_by(participant: participants.first)
@@ -70,7 +73,7 @@ module FieldTest
 
         if use_events?
           FieldTest::Event.create!(
-            name: goal,
+            name:                     goal,
             field_test_membership_id: membership.id
           )
         end
@@ -102,13 +105,13 @@ module FieldTest
 
       if use_events?
         data = {}
-        sql =
+        sql  =
           relation.joins("LEFT JOIN field_test_events ON field_test_events.field_test_membership_id = field_test_memberships.id")
             .select("variant, COUNT(DISTINCT participant) AS participated, COUNT(DISTINCT field_test_membership_id) AS converted")
             .where(field_test_events: {name: goal})
 
         FieldTest::Membership.connection.select_all(sql).each do |row|
-          data[[row["variant"], true]] = row["converted"].to_i
+          data[[row["variant"], true]]  = row["converted"].to_i
           data[[row["variant"], false]] = row["participated"].to_i - row["converted"].to_i
         end
       else
@@ -117,11 +120,11 @@ module FieldTest
 
       results = {}
       variants.each do |variant|
-        converted = data[[variant, true]].to_i
-        participated = converted + data[[variant, false]].to_i
+        converted        = data[[variant, true]].to_i
+        participated     = converted + data[[variant, false]].to_i
         results[variant] = {
-          participated: participated,
-          converted: converted,
+          participated:    participated,
+          converted:       converted,
           conversion_rate: participated > 0 ? converted.to_f / participated : nil
         }
       end
@@ -135,11 +138,11 @@ module FieldTest
           a = results.values[(i + 2) % variants.size]
 
           alpha_a = 1 + a[:converted]
-          beta_a = 1 + a[:participated] - a[:converted]
+          beta_a  = 1 + a[:participated] - a[:converted]
           alpha_b = 1 + b[:converted]
-          beta_b = 1 + b[:participated] - b[:converted]
+          beta_b  = 1 + b[:participated] - b[:converted]
           alpha_c = 1 + c[:converted]
-          beta_c = 1 + c[:participated] - c[:converted]
+          beta_c  = 1 + c[:participated] - c[:converted]
 
           # TODO calculate this incrementally by caching intermediate results
           prob_winning =
@@ -154,7 +157,7 @@ module FieldTest
             end
 
           results[variants[i]][:prob_winning] = prob_winning
-          total += prob_winning
+          total                               += prob_winning
         end
 
         results[variants.last][:prob_winning] = 1 - total
@@ -187,34 +190,47 @@ module FieldTest
       end
     end
 
+    def scheduled?
+      time_now = Time.now
+      if @started_at && @ended_at
+        time_now >= @started_at && time_now < @ended_at
+      elsif @started_at
+        time_now >= @started_at
+      elsif @ended_at
+        time_now < @ended_at
+      else
+        true
+      end
+    end
+
     private
 
-      def check_participants(participants)
-        raise FieldTest::UnknownParticipant, "Use the :participant option to specify a participant" if participants.empty?
-      end
+    def check_participants(participants)
+      raise FieldTest::UnknownParticipant, "Use the :participant option to specify a participant" if participants.empty?
+    end
 
-      def membership_for(participants)
-        memberships = self.memberships.where(participant: participants).index_by(&:participant)
-        participants.map { |part| memberships[part] }.compact.first
-      end
+    def membership_for(participants)
+      memberships = self.memberships.where(participant: participants).index_by(&:participant)
+      participants.map {|part| memberships[part]}.compact.first
+    end
 
-      def weighted_variant
-        total = weights.sum.to_f
-        pick = rand
-        n = 0
-        weights.map { |w| w / total }.each_with_index do |w, i|
-          n += w
-          return variants[i] if n >= pick
-        end
-        variants.last
+    def weighted_variant
+      total = weights.sum.to_f
+      pick  = rand
+      n     = 0
+      weights.map {|w| w / total}.each_with_index do |w, i|
+        n += w
+        return variants[i] if n >= pick
       end
+      variants.last
+    end
 
-      def cache_fetch(key)
-        if FieldTest.cache
-          Rails.cache.fetch(key.join("/")) { yield }
-        else
-          yield
-        end
+    def cache_fetch(key)
+      if FieldTest.cache
+        Rails.cache.fetch(key.join("/")) {yield}
+      else
+        yield
       end
+    end
   end
 end
