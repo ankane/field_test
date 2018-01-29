@@ -105,7 +105,7 @@ module FieldTest
         sql =
           relation.joins("LEFT JOIN field_test_events ON field_test_events.field_test_membership_id = field_test_memberships.id")
             .select("variant, COUNT(DISTINCT participant) AS participated, COUNT(DISTINCT field_test_membership_id) AS converted")
-            .where(field_test_events: { name: [goal, nil] })
+            .where(field_test_events: {name: [goal, nil]})
 
         FieldTest::Membership.connection.select_all(sql).each do |row|
           data[[row["variant"], true]] = row["converted"].to_i
