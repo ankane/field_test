@@ -97,8 +97,8 @@ module FieldTest
       goal ||= goals.first
 
       relation = memberships.group(:variant)
-      relation = relation.where("created_at >= ?", started_at) if started_at
-      relation = relation.where("created_at <= ?", ended_at) if ended_at
+      relation = relation.where("field_test_memberships.created_at >= ?", started_at) if started_at
+      relation = relation.where("field_test_memberships.created_at <= ?", ended_at) if ended_at
 
       if use_events?
         data = {}

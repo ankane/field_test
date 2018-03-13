@@ -1,3 +1,7 @@
+## 0.2.4 [unreleased]
+
+- Fixed `PG::AmbiguousColumn` error
+
 ## 0.2.3
 
 - Fixed participant reporting for multiple goals
