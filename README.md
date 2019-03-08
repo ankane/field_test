@@ -84,6 +84,14 @@ experiment.variant(participant, variant: "green")
 
 You can also change a user’s variant from the dashboard.
 
+## Users
+
+By default, Field Test uses `current_user` (if it exists) and a unique visitor id to assign variants. Pass a participant manually with:
+
+```ruby
+field_test(:button_color, participant: current_admin)
+```
+
 ## Config
 
 By default, bots are returned the first variant and excluded from metrics. Change this with:
