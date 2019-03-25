@@ -69,10 +69,8 @@ module FieldTest
         end
 
         if use_events?
-          FieldTest::Event.create!(
-            name: goal,
-            field_test_membership_id: membership.id
-          )
+          e = { name: goal, field_test_membership_id: membership.id }
+          FieldTest::Event.create!(e) unless FieldTest::Event.exists?(e)
         end
 
         true
