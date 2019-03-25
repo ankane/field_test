@@ -31,6 +31,19 @@ module FieldTest
       exp.convert(participants, goal: options[:goal])
     end
 
+    def upgrade_field_test_memberships(options = {})
+      # Upgrade any current memberships to their preferred participant
+      participants = field_test_participants(options)
+      not_upgraded_memberships =
+        FieldTest::Membership
+        .where(participant: participants)
+        .where.not(participant: participants.first)
+
+      not_upgraded_memberships.each do |membership|
+        membership.update participant: participants.first
+      end
+    end
+
     def field_test_experiments(options = {})
       participants = field_test_participants(options)
       memberships = FieldTest::Membership.where(participant: participants).group_by(&:participant)
