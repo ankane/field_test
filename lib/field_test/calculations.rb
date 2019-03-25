@@ -1,7 +1,7 @@
 require "distribution/math_extension"
 
 # formulas from
-# http://www.evanmiller.org/bayesian-ab-testing.html
+# https://www.evanmiller.org/bayesian-ab-testing.html
 module FieldTest
   module Calculations
     def self.prob_b_beats_a(alpha_a, beta_a, alpha_b, beta_b)

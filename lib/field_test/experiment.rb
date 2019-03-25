@@ -97,15 +97,15 @@ module FieldTest
       goal ||= goals.first
 
       relation = memberships.group(:variant)
-      relation = relation.where("created_at >= ?", started_at) if started_at
-      relation = relation.where("created_at <= ?", ended_at) if ended_at
+      relation = relation.where("field_test_memberships.created_at >= ?", started_at) if started_at
+      relation = relation.where("field_test_memberships.created_at <= ?", ended_at) if ended_at
 
       if use_events?
         data = {}
         sql =
           relation.joins("LEFT JOIN field_test_events ON field_test_events.field_test_membership_id = field_test_memberships.id")
             .select("variant, COUNT(DISTINCT participant) AS participated, COUNT(DISTINCT field_test_membership_id) AS converted")
-            .where(field_test_events: {name: goal})
+            .where(field_test_events: {name: [goal, nil]})
 
         FieldTest::Membership.connection.select_all(sql).each do |row|
           data[[row["variant"], true]] = row["converted"].to_i

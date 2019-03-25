@@ -6,7 +6,7 @@
 - Comes with a [handy dashboard](https://fieldtest.dokkuapp.com/)
 - Seamlessly handles the transition from anonymous visitor to logged in user
 
-Uses [Bayesian statistics](http://www.evanmiller.org/bayesian-ab-testing.html) to evaluate results so you don’t need to choose a sample size ahead of time.
+Uses [Bayesian statistics](https://www.evanmiller.org/bayesian-ab-testing.html) to evaluate results so you don’t need to choose a sample size ahead of time.
 
 ## Installation
 
@@ -83,6 +83,14 @@ experiment.variant(participant, variant: "green")
 ```
 
 You can also change a user’s variant from the dashboard.
+
+## Participants
+
+By default, Field Test uses `current_user` (if it exists) and an anonymous visitor id to determine the participant. Pass a participant manually with:
+
+```ruby
+field_test(:button_color, participant: current_admin)
+```
 
 ## Config
 
@@ -191,7 +199,7 @@ ENV["FIELD_TEST_PASSWORD"] = "kingdom"
 
 ## Credits
 
-A huge thanks to [Evan Miller](http://www.evanmiller.org/) for deriving the Bayesian formulas.
+A huge thanks to [Evan Miller](https://www.evanmiller.org/) for deriving the Bayesian formulas.
 
 ## TODO
 

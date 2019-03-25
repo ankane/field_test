@@ -1,3 +1,11 @@
+## 0.2.4
+
+- Fixed `PG::AmbiguousColumn` error
+
+## 0.2.3
+
+- Fixed participant reporting for multiple goals
+
 ## 0.2.2
 
 - Added support for Rails 5.1
