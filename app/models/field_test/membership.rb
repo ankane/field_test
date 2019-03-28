@@ -5,7 +5,7 @@ module FieldTest
     has_many :events, class_name: "FieldTest::Event"
 
     validates :participant, presence: true
-    validates :experiment, presence: true
+    validates :experiment, presence: true, uniqueness: { scope: :participant }
     validates :variant, presence: true
   end
 end
