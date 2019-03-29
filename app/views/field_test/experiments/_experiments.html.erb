@@ -38,7 +38,7 @@
             <td><%= result[:converted] %></td>
             <td>
               <% if result[:conversion_rate] %>
-                <%= (100.0 * result[:conversion_rate]).round %>%
+                <%= (100.0 * result[:conversion_rate]).round(FieldTest.precision) %>%
               <% else %>
                 -
               <% end %>
@@ -48,7 +48,7 @@
                 <% if result[:prob_winning] < 0.01 %>
                   &lt; 1%
                 <% else %>
-                  <%= (100.0 * result[:prob_winning]).round %>%
+                  <%= (100.0 * result[:prob_winning]).round(FieldTest.precision) %>%
                 <% end %>
               <% end %>
             </td>

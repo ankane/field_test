@@ -28,6 +28,10 @@ module FieldTest
     config["cache"]
   end
 
+  def self.precision
+    config["precision"] || 0
+  end
+
   def self.events_supported?
     unless defined?(@events_supported)
       connection = FieldTest::Membership.connection
