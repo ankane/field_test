@@ -2,7 +2,7 @@ module FieldTest
   class MembershipsController < BaseController
     def update
       membership = FieldTest::Membership.find(params[:id])
-      membership.update_attributes(membership_params)
+      membership.update!(membership_params)
       redirect_to participant_path(membership.participant)
     end
 
