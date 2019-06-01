@@ -31,7 +31,7 @@ module FieldTest
       end
     end
 
-    def self.standardize(participants, options)
+    def self.standardize(participants, options = {})
       Array(options[:participant] || participants).compact.map { |v| FieldTest::Participant.new(v) }
     end
   end
