@@ -3,7 +3,7 @@ module FieldTest
     def field_test(experiment, options = {})
       exp = FieldTest::Experiment.find(experiment)
 
-      participants = field_test_participants(options)
+      participants = FieldTest::Participant.standardize(field_test_participants, options)
 
       if try(:request)
         if params[:field_test] && params[:field_test][experiment]
@@ -26,13 +26,13 @@ module FieldTest
     def field_test_converted(experiment, options = {})
       exp = FieldTest::Experiment.find(experiment)
 
-      participants = field_test_participants(options)
+      participants = FieldTest::Participant.standardize(field_test_participants, options)
 
       exp.convert(participants, goal: options[:goal])
     end
 
     def field_test_experiments(options = {})
-      participants = field_test_participants(options)
+      participants = FieldTest::Participant.standardize(field_test_participants, options)
       experiments = {}
       participants.each do |participant|
         FieldTest::Membership.where(participant.where_values).each do |membership|
