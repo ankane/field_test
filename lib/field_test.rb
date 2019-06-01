@@ -22,7 +22,7 @@ module FieldTest
   UUID_NAMESPACE = "a82ae811-5011-45ab-a728-569df7499c5f"
 
   class << self
-    attr_accessor :cookies
+    attr_accessor :cookies, :legacy_participants
   end
   self.cookies = true
 

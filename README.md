@@ -197,6 +197,56 @@ ENV["FIELD_TEST_USERNAME"] = "moonrise"
 ENV["FIELD_TEST_PASSWORD"] = "kingdom"
 ```
 
+## Upgrading
+
+### 0.3.0
+
+Participants are split into two fields: a type and id.
+
+Changes how participants
+
+```ruby
+FieldTest.legacy_participants = true
+```
+
+#### Migrating to new version
+
+Create a migration
+
+```ruby
+add_column :field_test_memberships, :participant_type, :string
+add_column :field_test_memberships, :participant_id, :string
+add_index :field_test_memberships, [:participant_type, :participant_id, :experiment], unique: true, name: "index_field_test_memberships_on_participant"
+```
+
+^ different index name?
+
+Backfill data
+
+```ruby
+FieldTest::Membership.find_each do |membership|
+  participant = membership.participant
+  # remove cookie prefix
+  participant = participant.sub(/\Acookie:/, "")
+  if participant.include?(":") # TODO handle namespaced models like Ahoy::Visit:123
+    participant_type, participant_id = participant.split(":", 2)
+  else
+    participant_id = participant
+  end
+
+  membership.update!(
+    participant_type: participant_type,
+    participant_id: participant_id
+  )
+end
+```
+
+Write to new columns automatically if detected to keep in sync
+
+Remove `FieldTest.legacy_participants`
+
+Once you confirm it's working, drop the `participant` column
+
 ## Credits
 
 A huge thanks to [Evan Miller](https://www.evanmiller.org/) for deriving the Bayesian formulas.
