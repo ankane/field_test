@@ -21,8 +21,13 @@ module FieldTest
   # same as ahoy
   UUID_NAMESPACE = "a82ae811-5011-45ab-a728-569df7499c5f"
 
+  def self.config_path
+    path = defined?(Rails) ? Rails.root : File
+    path.join("config", "field_test.yml")
+  end
+
   def self.config
-    @config ||= YAML.load(ERB.new(File.read("config/field_test.yml")).result)
+    @config ||= YAML.load(ERB.new(File.read(config_path)).result)
   end
 
   def self.exclude_bots?
