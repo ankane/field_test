@@ -68,13 +68,11 @@ module FieldTest
 end
 
 ActiveSupport.on_load(:action_controller) do
-  include FieldTest::Helpers
-end
-
-ActiveSupport.on_load(:action_view) do
-  include FieldTest::Helpers
+  require "field_test/controller"
+  include FieldTest::Controller
 end
 
 ActiveSupport.on_load(:action_mailer) do
-  include FieldTest::Helpers
+  require "field_test/mailer"
+  include FieldTest::Mailer
 end
