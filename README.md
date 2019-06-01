@@ -233,7 +233,7 @@ end
 Backfill data
 
 ```ruby
-FieldTest::Membership.find_each do |membership|
+FieldTest::Membership.where(participant_id: nil).find_each do |membership|
   participant = membership.participant
   # remove cookie prefix
   participant = participant.sub(/\Acookie:/, "")

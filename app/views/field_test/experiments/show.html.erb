@@ -22,7 +22,7 @@
   <tbody>
     <% @memberships.each do |membership| %>
       <tr>
-        <td><%= link_to membership.participant, participant_path(membership.participant) %></td>
+        <td><%= field_test_participant_link(membership) %></td>
         <td><%= membership.variant %></td>
         <td>
           <% converted = false %>
