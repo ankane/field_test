@@ -235,7 +235,7 @@ end
 #### Devise
 
 ```ruby
-authenticate :user, -> (user) { user.admin? } do
+authenticate :user, ->(user) { user.admin? } do
   mount FieldTest::Engine, at: "field_test"
 end
 ```
