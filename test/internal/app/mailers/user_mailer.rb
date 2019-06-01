@@ -1,7 +1,11 @@
 class UserMailer < ApplicationMailer
   def welcome
     @user = User.create!
-    p field_test_participant
-    p field_test(:button_color)
+
+    @button_color = field_test(:button_color)
+    field_test_converted(:button_color)
+    @experiments = field_test_experiments
+
+    mail
   end
 end

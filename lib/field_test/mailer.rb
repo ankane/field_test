@@ -4,7 +4,9 @@ module FieldTest
     include Helpers
 
     included do
-      helper_method :field_test_participant
+      helper_method :field_test
+      helper_method :field_test_converted
+      helper_method :field_test_experiments
     end
 
     def field_test_participant
