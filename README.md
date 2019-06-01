@@ -271,7 +271,7 @@ Write to new columns automatically if detected to keep in sync
 
 Remove `legacy_participants` from config file
 
-Once you confirm it's working, drop the `participant` column
+Once you confirm it's working, drop the `participant` column (can rename first just to be extra safe)
 
 ## Credits
 
