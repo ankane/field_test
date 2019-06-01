@@ -170,7 +170,7 @@ The results for all goals will appear on the dashboard.
 
 ## Analytics Platforms
 
-You can also send experiment data to analytics platforms like [Google Analytics](https://www.google.com/analytics/), [Mixpanel](https://mixpanel.com/), and [Ahoy](https://github.com/ankane/ahoy). Use:
+You can also send experiment data to analytics platforms like [Segment](https://segment.com), [Amplitude](https://amplitude.com), and [Ahoy](https://github.com/ankane/ahoy). Use:
 
 ```ruby
 field_test_experiments
@@ -200,10 +200,6 @@ ENV["FIELD_TEST_PASSWORD"] = "kingdom"
 ## Credits
 
 A huge thanks to [Evan Miller](https://www.evanmiller.org/) for deriving the Bayesian formulas.
-
-## TODO
-
-- Code samples for analytics platforms
 
 ## History
 
