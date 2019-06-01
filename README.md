@@ -19,7 +19,7 @@ gem "field_test"
 Run:
 
 ```sh
-rails g field_test:install
+rails generate field_test:install
 ```
 
 And mount the dashboard in your `config/routes.rb`:
@@ -147,7 +147,7 @@ This will use the Rails cache to speed up winning probability calculations.
 You can set multiple goals for an experiment to track conversions at different parts of the funnel. First, run:
 
 ```sh
-rails g field_test:events
+rails generate field_test:events
 ```
 
 And add to your config:
