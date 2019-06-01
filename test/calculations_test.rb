@@ -16,11 +16,11 @@ class CalculationsTest < Minitest::Test
 
   private
 
-    def assert_prob_b_beats_a(expected, args)
-      assert_in_delta expected, FieldTest::Calculations.prob_b_beats_a(*args), 0.0000000001
-    end
+  def assert_prob_b_beats_a(expected, args)
+    assert_in_delta expected, FieldTest::Calculations.prob_b_beats_a(*args), 0.0000000001
+  end
 
-    def assert_prob_c_beats_a_and_b(expected, args)
-      assert_in_delta expected, FieldTest::Calculations.prob_c_beats_a_and_b(*args), 0.0000000001
-    end
+  def assert_prob_c_beats_a_and_b(expected, args)
+    assert_in_delta expected, FieldTest::Calculations.prob_c_beats_a_and_b(*args), 0.0000000001
+  end
 end
