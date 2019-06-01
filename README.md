@@ -189,7 +189,7 @@ to get all experiments and variants for a participant and pass them as propertie
 #### Devise
 
 ```ruby
-authenticate :user, -> (user) { user.admin? } do
+authenticate :user, ->(user) { user.admin? } do
   mount FieldTest::Engine, at: "field_test"
 end
 ```
