@@ -14,10 +14,14 @@ module FieldTest
       end
     end
 
+    def participant
+      [type, id].compact.join(":")
+    end
+
     def where_values
       if FieldTest.legacy_participants
         {
-          participant: [type, id].compact.join(":")
+          participant: participant
         }
       else
         {
