@@ -48,12 +48,15 @@ module FieldTest
       if options[:participant]
         participants << options[:participant]
       else
-        if respond_to?(:current_user, true) && current_user
-          participants << current_user
-        end
-
         # controllers and views
         if try(:request)
+          controller = is_a?(ActionController::Base) ? self : try(:controller)
+
+          if controller.respond_to?(:current_user, true)
+            user = controller.send(:current_user)
+            participants << user if user
+          end
+
           if FieldTest.cookies
             # use cookie
             cookie_key = "field_test"
