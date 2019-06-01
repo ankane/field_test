@@ -92,6 +92,17 @@ By default, Field Test uses `current_user` (if it exists) and an anonymous visit
 field_test(:button_color, participant: current_admin)
 ```
 
+Get experiments for a user with: [todo better method to ]
+
+```ruby
+# maybe, not eager loaded
+FieldTest.experiments(participant: user)
+
+class User < ApplicationRecord
+  has_many :field_test_memberships, class_name: "FieldTest::Membership", as: :participant
+end
+```
+
 ## Config
 
 By default, bots are returned the first variant and excluded from metrics. Change this with:
