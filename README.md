@@ -145,6 +145,12 @@ experiments:
       - 15
 ```
 
+Cookies [master]
+
+```yml
+cookies: false
+```
+
 If the dashboard gets slow, you can make it faster with:
 
 ```yml
@@ -214,10 +220,10 @@ ENV["FIELD_TEST_PASSWORD"] = "kingdom"
 
 Participants are split into two fields: a type and id.
 
-Changes how participants
+Add to config
 
-```ruby
-FieldTest.legacy_participants = true
+```yml
+legacy_participants: true
 ```
 
 #### Migrating to new version
@@ -263,7 +269,7 @@ end
 
 Write to new columns automatically if detected to keep in sync
 
-Remove `FieldTest.legacy_participants`
+Remove `legacy_participants` from config file
 
 Once you confirm it's working, drop the `participant` column
 

@@ -21,25 +21,24 @@ module FieldTest
   # same as ahoy
   UUID_NAMESPACE = "a82ae811-5011-45ab-a728-569df7499c5f"
 
-  class << self
-    attr_accessor :cookies, :legacy_participants
-  end
-  self.cookies = true
-
   def self.config
-    # reload in dev
-    @config = nil if Rails.env.development?
-
     @config ||= YAML.load(ERB.new(File.read("config/field_test.yml")).result)
   end
 
   def self.exclude_bots?
-    config = self.config # dev performance
     config["exclude"] && config["exclude"]["bots"]
   end
 
   def self.cache
     config["cache"]
+  end
+
+  def self.cookies
+    config.key?("cookies") ? config["cookies"] : true
+  end
+
+  def self.legacy_participants
+    config["legacy_participants"]
   end
 
   def self.events_supported?
