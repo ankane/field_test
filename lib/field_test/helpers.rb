@@ -33,10 +33,9 @@ module FieldTest
 
     def field_test_experiments(options = {})
       participants = field_test_participants(options)
-      memberships = FieldTest::Membership.where(participant: participants).group_by(&:participant)
       experiments = {}
       participants.each do |participant|
-        memberships[participant].to_a.each do |membership|
+        FieldTest::Membership.where(participant.where_values).each do |membership|
           experiments[membership.experiment] ||= membership.variant
         end
       end
@@ -75,7 +74,7 @@ module FieldTest
             participants << token
 
             # backwards compatibility
-            participants << "cookie:#{token}"
+            participants << "cookie:#{token}" if FieldTest.legacy_participants
           end
         end
 

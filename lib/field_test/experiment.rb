@@ -30,25 +30,29 @@ module FieldTest
         membership.variant ||= weighted_variant
       end
 
+      participant = participants.first
+
       # upgrade to preferred participant
-      membership.participant = participants.first
+      membership.participant_type = participant.type
+      membership.participant_id = participant.id
 
       if membership.changed?
         begin
           membership.save!
 
           # log it!
-          info = {
-            experiment: id,
-            variant: membership.variant,
-            participant: membership.participant
-          }.merge(options.slice(:ip, :user_agent))
+          # info = {
+          #   experiment: id,
+          #   variant: membership.variant,
+          #   participant_type: membership.participant_type,
+          #   participant_id: membership.participant_id
+          # }.merge(options.slice(:ip, :user_agent))
 
-          # sorta logfmt :)
-          info = info.map { |k, v| v = "\"#{v}\"" if k == :user_agent; "#{k}=#{v}" }.join(" ")
-          Rails.logger.info "[field test] #{info}"
+          # # sorta logfmt :)
+          # info = info.map { |k, v| v = "\"#{v}\"" if k == :user_agent; "#{k}=#{v}" }.join(" ")
+          # Rails.logger.info "[field test] #{info}"
         rescue ActiveRecord::RecordNotUnique
-          membership = memberships.find_by(participant: participants.first)
+          membership = memberships.find_by(participant.where_values)
         end
       end
 
@@ -194,8 +198,12 @@ module FieldTest
       end
 
       def membership_for(participants)
-        memberships = self.memberships.where(participant: participants).index_by(&:participant)
-        participants.map { |part| memberships[part] }.compact.first
+        membership = nil
+        participants.each do |participant|
+          membership = self.memberships.find_by(participant.where_values)
+          break if membership
+        end
+        membership
       end
 
       def weighted_variant
