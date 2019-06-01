@@ -10,7 +10,7 @@ module FieldTest
     end
 
     def field_test_participant
-      @user || params[:user]
+      @user || (params && params[:user])
     end
   end
 end
