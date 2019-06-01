@@ -13,6 +13,7 @@ module FieldTest
       @started_at = Time.zone.parse(attributes[:started_at].to_s) if attributes[:started_at]
       @ended_at = Time.zone.parse(attributes[:ended_at].to_s) if attributes[:ended_at]
       @goals = attributes[:goals] || ["conversion"]
+      @goals_defined = !attributes[:goals].nil?
       @use_events = attributes[:use_events]
     end
 
@@ -100,7 +101,7 @@ module FieldTest
       relation = relation.where("field_test_memberships.created_at >= ?", started_at) if started_at
       relation = relation.where("field_test_memberships.created_at <= ?", ended_at) if ended_at
 
-      if use_events?
+      if use_events? && @goals_defined
         data = {}
 
         participated = relation.count
