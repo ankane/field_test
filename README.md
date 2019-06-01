@@ -95,6 +95,13 @@ field_test(:button_color, participant: current_admin)
 Participants can be a model or a string.
 
 
+Ahoy
+
+```ruby
+def field_test_participant
+  [ahoy.user, ahoy.visitor_token]
+end
+```
 
 Get experiments for a user with: [todo better method to ]
 
