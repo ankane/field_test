@@ -109,15 +109,19 @@ module FieldTest
         data = {}
 
         participated = relation.count
+
+        adapter_name = relation.connection.adapter_name
         column =
           if FieldTest.legacy_participants
             :participant
-          elsif relation.connection.adapter_name =~ /postg/i
+          elsif adapter_name =~ /postg/i
             # postgres
             "(participant_type, participant_id)"
-          else
+          elsif adapter_name =~ /mysql/i
             # mysql
             "participant_type, participant_id"
+          else
+            raise "Unsupported adapter: #{adapter_name}"
           end
 
         converted = events.merge(relation).where(field_test_events: {name: goal}).distinct.count(column)
