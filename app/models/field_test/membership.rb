@@ -4,7 +4,8 @@ module FieldTest
 
     has_many :events, class_name: "FieldTest::Event"
 
-    validates :participant_id, presence: true
+    validates :participant, presence: true, if: -> { FieldTest.legacy_participants }
+    validates :participant_id, presence: true, if: -> { !FieldTest.legacy_participants }
     validates :experiment, presence: true
     validates :variant, presence: true
   end
