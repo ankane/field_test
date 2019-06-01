@@ -121,7 +121,7 @@ module FieldTest
             "participant_type, participant_id"
           else
             # not perfect, but it'll do
-            "COALESCE(participant_type) || ':' || participant_id"
+            "COALESCE(participant_type, '') || ':' || participant_id"
           end
 
         converted = events.merge(relation).where(field_test_events: {name: goal}).distinct.count(column)
