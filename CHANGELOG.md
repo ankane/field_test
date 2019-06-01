@@ -1,8 +1,12 @@
 ## 0.3.0 [unreleased]
 
-- Fixed bug in results with multiple goals
+- Split out participant id and type
 - Added `cookies` option
 - Dropped support for Rails < 5
+
+## 0.2.5 [unreleased]
+
+- Fixed bug in results with multiple goals
 
 ## 0.2.4
 
