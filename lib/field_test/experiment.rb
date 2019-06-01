@@ -102,14 +102,13 @@ module FieldTest
 
       if use_events?
         data = {}
-        sql =
-          relation.joins("LEFT JOIN field_test_events ON field_test_events.field_test_membership_id = field_test_memberships.id")
-            .select("variant, COUNT(DISTINCT participant) AS participated, COUNT(DISTINCT field_test_membership_id) AS converted")
-            .where(field_test_events: {name: [goal, nil]})
 
-        FieldTest::Membership.connection.select_all(sql).each do |row|
-          data[[row["variant"], true]] = row["converted"].to_i
-          data[[row["variant"], false]] = row["participated"].to_i - row["converted"].to_i
+        participated = relation.count
+        converted = events.merge(relation).where(field_test_events: {name: goal}).count
+
+        (participated.keys + converted.keys).uniq.each do |variant|
+          data[[variant, true]] = converted[variant].to_i
+          data[[variant, false]] = participated[variant].to_i - converted[variant].to_i
         end
       else
         data = relation.group(:converted).count
