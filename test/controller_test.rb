@@ -6,7 +6,18 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     User.delete_all
   end
 
-  def test_works
+  def test_no_user
+    get users_url
+    assert_response :success
+
+    membership = FieldTest::Membership.last
+    assert_equal 1, FieldTest::Membership.count
+    assert membership.converted
+    assert_nil membership.participant_type
+    assert membership.participant_id
+  end
+
+  def test_user
     user = User.create!
 
     get users_url
