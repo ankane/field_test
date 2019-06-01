@@ -10,4 +10,7 @@ ActiveRecord::Schema.define do
 
   add_index :field_test_memberships, [:participant_type, :participant_id, :experiment], unique: true, name: "index_field_test_memberships_on_participant"
   add_index :field_test_memberships, [:experiment, :created_at]
+
+  create_table :users do |t|
+  end
 end
