@@ -108,7 +108,18 @@ module FieldTest
         data = {}
 
         participated = relation.count
-        converted = events.merge(relation).where(field_test_events: {name: goal}).distinct.count(:participant)
+        column =
+          if FieldTest.legacy_participants
+            :participant
+          elsif relation.connection.adapter_name =~ /postg/i
+            # postgres
+            "(participant_type, participant_id)"
+          else
+            # mysql
+            "participant_type, participant_id"
+          end
+
+        converted = events.merge(relation).where(field_test_events: {name: goal}).distinct.count(column)
 
         (participated.keys + converted.keys).uniq.each do |variant|
           data[[variant, true]] = converted[variant].to_i
@@ -193,36 +204,36 @@ module FieldTest
 
     private
 
-      def check_participants(participants)
-        raise FieldTest::UnknownParticipant, "Use the :participant option to specify a participant" if participants.empty?
-      end
+    def check_participants(participants)
+      raise FieldTest::UnknownParticipant, "Use the :participant option to specify a participant" if participants.empty?
+    end
 
-      def membership_for(participants)
-        membership = nil
-        participants.each do |participant|
-          membership = self.memberships.find_by(participant.where_values)
-          break if membership
-        end
-        membership
+    def membership_for(participants)
+      membership = nil
+      participants.each do |participant|
+        membership = self.memberships.find_by(participant.where_values)
+        break if membership
       end
+      membership
+    end
 
-      def weighted_variant
-        total = weights.sum.to_f
-        pick = rand
-        n = 0
-        weights.map { |w| w / total }.each_with_index do |w, i|
-          n += w
-          return variants[i] if n >= pick
-        end
-        variants.last
+    def weighted_variant
+      total = weights.sum.to_f
+      pick = rand
+      n = 0
+      weights.map { |w| w / total }.each_with_index do |w, i|
+        n += w
+        return variants[i] if n >= pick
       end
+      variants.last
+    end
 
-      def cache_fetch(key)
-        if FieldTest.cache
-          Rails.cache.fetch(key.join("/")) { yield }
-        else
-          yield
-        end
+    def cache_fetch(key)
+      if FieldTest.cache
+        Rails.cache.fetch(key.join("/")) { yield }
+      else
+        yield
       end
+    end
   end
 end
