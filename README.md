@@ -249,8 +249,6 @@ class UpgradeFieldTestParticipants < ActiveRecord::Migration[5.2]
 end
 ```
 
-^ different index name?
-
 Backfill data
 
 ```ruby
