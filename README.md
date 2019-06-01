@@ -92,6 +92,10 @@ By default, Field Test uses `current_user` (if it exists) and an anonymous visit
 field_test(:button_color, participant: current_admin)
 ```
 
+Participants can be a model or a string.
+
+
+
 Get experiments for a user with: [todo better method to ]
 
 ```ruby
@@ -231,11 +235,11 @@ legacy_participants: true
 Create a migration
 
 ```sh
-rails generate migration upgrade_field_test
+rails generate migration upgrade_field_test_participants
 ```
 
 ```ruby
-class UpgradeFieldTest < ActiveRecord::Migration[5.2]
+class UpgradeFieldTestParticipants < ActiveRecord::Migration[5.2]
   def change
     add_column :field_test_memberships, :participant_type, :string
     add_column :field_test_memberships, :participant_id, :string
@@ -269,7 +273,7 @@ end
 
 Write to new columns automatically if detected to keep in sync
 
-Remove `legacy_participants` from config file
+Remove `legacy_participants: true` from config file
 
 Once you confirm it's working, drop the `participant` column (can rename first just to be extra safe)
 
