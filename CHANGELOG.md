@@ -1,3 +1,7 @@
+## 0.2.5 [unreleased]
+
+- Fixed bug in results with multiple goals
+
 ## 0.2.4
 
 - Fixed `PG::AmbiguousColumn` error
