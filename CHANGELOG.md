@@ -1,12 +1,14 @@
 ## 0.3.0 [unreleased]
 
 - Split out participant id and type
+- Changed participant logic for emails
 - Added `cookies` option
 - Dropped support for Rails < 5
 
 ## 0.2.5 [unreleased]
 
 - Fixed bug in results with multiple goals
+- Fixed issue where metrics disappeared from dashboard when moving to multiple goals
 
 ## 0.2.4
 

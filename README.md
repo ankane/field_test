@@ -88,29 +88,33 @@ You can also change a user’s variant from the dashboard.
 
 ## Participants
 
-By default, Field Test uses `current_user` (if it exists) and an anonymous visitor id to determine the participant. Pass a participant manually with:
-
-```ruby
-field_test(:button_color, participant: current_admin)
-```
-
 Participants can be a model or a string.
 
-
-Ahoy
+For web requests, Field Test uses `current_user` (if it exists) and an anonymous visitor id to determine the participant. Set custom participants in
 
 ```ruby
-def field_test_participant
-  [ahoy.user, ahoy.visitor_token]
+class ApplicationController < ActionController::Base
+  def field_test_participant
+    [ahoy.user, ahoy.visitor_token]
+  end
 end
 ```
 
-Get experiments for a user with: [todo better method to ]
+For mails, it uses `@user` then `params[:user]`.
+
+And in mailer. By default, it uses the settings below:
 
 ```ruby
-# maybe, not eager loaded
-FieldTest.experiments(participant: user)
+class ApplicationMailer < ActionMailer::Base
+  def field_test_participant
+    @participant
+  end
+end
+```
 
+Hook up models for field test memberships
+
+```ruby
 class User < ApplicationRecord
   has_many :field_test_memberships, class_name: "FieldTest::Membership", as: :participant
 end
@@ -208,6 +212,18 @@ field_test_experiments
 
 to get all experiments and variants for a participant and pass them as properties.
 
+### Ahoy
+
+You can configure Field Test to use Ahoy's visitor token instead of creating it's own:
+
+```ruby
+class ApplicationController < ActionController::Base
+  def field_test_participant
+    [ahoy.user, ahoy.visitor_token]
+  end
+end
+```
+
 ## Security
 
 #### Devise
@@ -237,6 +253,16 @@ Add to config
 
 ```yml
 legacy_participants: true
+```
+
+Emails no longer use `to` field. Restore this with:
+
+```ruby
+class ApplicationMailer < ActionMailer::Base
+  def field_test_participant
+    message.to.first
+  end
+end
 ```
 
 #### Migrating Participants
