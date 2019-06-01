@@ -1,10 +1,10 @@
 module FieldTest
   module Controller
-    extend ActiveSupport::Concern
+    # extend ActiveSupport::Concern
 
-    included do
-      helper_method :field_test_participant if respond_to?(:helper_method)
-    end
+    # included do
+    #   helper_method :field_test_participant if respond_to?(:helper_method)
+    # end
 
     private
 
