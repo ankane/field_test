@@ -230,7 +230,7 @@ Add to config
 legacy_participants: true
 ```
 
-#### Migrating to new version
+#### Migrating Participants
 
 Create a migration
 
