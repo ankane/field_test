@@ -16,8 +16,10 @@ module FieldTest
     def field_test_participant
       participants = []
 
-      user = try(:current_user)
-      participants << user if user
+      if respond_to?(:current_user, true)
+        user = send(:current_user)
+        participants << user if user
+      end
 
       if FieldTest.cookies
         # use cookie
