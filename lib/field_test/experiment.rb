@@ -104,7 +104,7 @@ module FieldTest
         data = {}
 
         participated = relation.count
-        converted = events.merge(relation).where(field_test_events: {name: goal}).count
+        converted = events.merge(relation).where(field_test_events: {name: goal}).distinct.count(:participant)
 
         (participated.keys + converted.keys).uniq.each do |variant|
           data[[variant, true]] = converted[variant].to_i
@@ -124,6 +124,7 @@ module FieldTest
           conversion_rate: participated > 0 ? converted.to_f / participated : nil
         }
       end
+
       case variants.size
       when 1, 2, 3
         total = 0.0
