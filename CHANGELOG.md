@@ -1,6 +1,7 @@
 ## 0.3.0 [unreleased]
 
 - Added `cookies` option
+- Added `precision` option
 - Fixed bug in results with multiple goals
 - Fixed issue where metrics disappeared from dashboard when moving to multiple goals
 - Dropped support for Rails < 5
