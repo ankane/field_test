@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-class UsersControllerTest < ActionDispatch::IntegrationTest
+class ControllerTest < ActionDispatch::IntegrationTest
   def setup
     FieldTest::Membership.delete_all
     User.delete_all
