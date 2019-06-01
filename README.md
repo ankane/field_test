@@ -179,7 +179,7 @@ This will use the Rails cache to speed up winning probability calculations.
 By default, the dashboard rounds all calculated percentages to the nearest integer. Change this with: [master]
 
 ```yml
-precision: 2
+precision: 1
 ```
 
 ## Funnels
