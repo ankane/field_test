@@ -1,16 +1,30 @@
-require "browser"
+# dependencies
 require "active_support"
+require "browser"
+require "ipaddr"
+
+# modules
 require "field_test/calculations"
 require "field_test/experiment"
-require "field_test/engine" if defined?(Rails)
 require "field_test/helpers"
 require "field_test/participant"
 require "field_test/version"
+
+# integrations
+require "field_test/engine" if defined?(Rails)
 
 module FieldTest
   class Error < StandardError; end
   class ExperimentNotFound < Error; end
   class UnknownParticipant < Error; end
+
+  # same as ahoy
+  UUID_NAMESPACE = "a82ae811-5011-45ab-a728-569df7499c5f"
+
+  class << self
+    attr_accessor :cookies
+  end
+  self.cookies = true
 
   def self.config
     # reload in dev
@@ -40,6 +54,17 @@ module FieldTest
         end
     end
     @events_supported
+  end
+
+  def self.mask_ip(ip)
+    addr = IPAddr.new(ip)
+    if addr.ipv4?
+      # set last octet to 0
+      addr.mask(24).to_s
+    else
+      # set last 80 bits to zeros
+      addr.mask(48).to_s
+    end
   end
 end
 

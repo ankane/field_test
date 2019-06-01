@@ -1,6 +1,7 @@
 ## 0.2.5 [unreleased]
 
 - Fixed bug in results with multiple goals
+- Added `cookies` option
 
 ## 0.2.4
 
