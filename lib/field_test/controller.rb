@@ -6,6 +6,8 @@ module FieldTest
       helper_method :field_test_participant if respond_to?(:helper_method)
     end
 
+    private
+
     def field_test_participant
       participants = []
 
