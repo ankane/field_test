@@ -2,6 +2,7 @@
 
 - Fixed bug in results with multiple goals
 - Added `cookies` option
+- Added `precision` option
 - Dropped support for Rails < 5
 
 ## 0.2.4
