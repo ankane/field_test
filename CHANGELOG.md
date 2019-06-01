@@ -1,7 +1,8 @@
-## 0.2.5 [unreleased]
+## 0.3.0 [unreleased]
 
 - Fixed bug in results with multiple goals
 - Added `cookies` option
+- Dropped support for Rails < 5
 
 ## 0.2.4
 
