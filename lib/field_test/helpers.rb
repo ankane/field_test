@@ -82,9 +82,16 @@ module FieldTest
         end
 
         # mailers
-        to = try(:message).try(:to).try(:first)
-        if to
-          participants << to
+        # TODO try mailer to determine if in mailer context
+        message = try(:message)
+        if message
+          # TODO get user/participant from message
+
+          # TODO remove
+          to = message.try(:to).try(:first)
+          if to
+            participants << to
+          end
         end
       end
 
