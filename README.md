@@ -88,35 +88,25 @@ You can also change a user’s variant from the dashboard.
 
 ## Participants
 
-Participants can be a model or a string.
+Any model or string can be a participant in an experiment.
 
-For web requests, Field Test uses `current_user` (if it exists) and an anonymous visitor id to determine the participant. Set custom participants in
+For web requests, Field Test uses `current_user` (if it exists) and an anonymous visitor id to determine the participant. Set you own participant with:
 
 ```ruby
 class ApplicationController < ActionController::Base
   def field_test_participant
-    [ahoy.user, ahoy.visitor_token]
+    current_company
   end
 end
 ```
 
-For mailers, it uses `@user` then `params[:user]`.
-
-And in mailer. By default, it uses the settings below:
+For mailers, it tries `@user` then `params[:user]` by default. Set your own with:
 
 ```ruby
 class ApplicationMailer < ActionMailer::Base
   def field_test_participant
-    @participant
+    @company
   end
-end
-```
-
-Hook up models for field test memberships
-
-```ruby
-class User < ApplicationRecord
-  has_many :field_test_memberships, class_name: "FieldTest::Membership", as: :participant
 end
 ```
 
@@ -247,6 +237,22 @@ Set the following variables in your environment or an initializer.
 ```ruby
 ENV["FIELD_TEST_USERNAME"] = "moonrise"
 ENV["FIELD_TEST_PASSWORD"] = "kingdom"
+```
+
+## Reference
+
+Associate models with field test memberships:
+
+```ruby
+class User < ApplicationRecord
+  has_many :field_test_memberships, class_name: "FieldTest::Membership", as: :participant
+end
+```
+
+And use:
+
+```ruby
+user.field_test_memberships
 ```
 
 ## Upgrading
