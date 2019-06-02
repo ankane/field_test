@@ -182,7 +182,7 @@ By default, the dashboard rounds all calculated percentages to the nearest integ
 precision: 1
 ```
 
-## Funnels
+## Multiple Goals
 
 You can set multiple goals for an experiment to track conversions at different parts of the funnel. First, run:
 
