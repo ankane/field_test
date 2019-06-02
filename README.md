@@ -23,6 +23,7 @@ Run:
 
 ```sh
 rails generate field_test:install
+rails db:migrate
 ```
 
 And mount the dashboard in your `config/routes.rb`:
