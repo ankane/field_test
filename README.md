@@ -54,6 +54,12 @@ Refer to it in controllers, views, and mailers.
 button_color = field_test(:button_color)
 ```
 
+To make testing easier, you can specify a variant with query parameters
+
+```
+http://localhost:3000/?field_test[button_color]=green
+```
+
 When someone converts, record it with:
 
 ```ruby
@@ -94,23 +100,6 @@ end
 ```
 
 For anonymous visitors in native apps, pass a `Field-Test-Visitor` header with a unique identifier.
-
-## Features
-
-You can specify a variant with query parameters to make testing easier
-
-```
-?field_test[button_color]=green
-```
-
-Assign a specific variant to a user with:
-
-```ruby
-experiment = FieldTest::Experiment.find(:button_color)
-experiment.variant(participant, variant: "green")
-```
-
-You can also change a user’s variant from the dashboard.
 
 ## Participants
 
@@ -273,7 +262,16 @@ ENV["FIELD_TEST_PASSWORD"] = "kingdom"
 
 ## Reference
 
-Associate models with field test memberships:
+Assign a specific variant to a user with:
+
+```ruby
+experiment = FieldTest::Experiment.find(:button_color)
+experiment.variant(participant, variant: "green")
+```
+
+You can also change a user’s variant from the dashboard.
+
+To associate models with field test memberships, use:
 
 ```ruby
 class User < ApplicationRecord
@@ -281,7 +279,7 @@ class User < ApplicationRecord
 end
 ```
 
-And use:
+Now you can do:
 
 ```ruby
 user.field_test_memberships
