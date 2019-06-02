@@ -1,5 +1,6 @@
 ## 0.3.0 [unreleased]
 
+- Added support for native apps
 - Added `cookies` option
 - Added `precision` option
 - Fixed bug in results with multiple goals
