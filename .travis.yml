@@ -1,6 +1,10 @@
 dist: xenial
 language: ruby
 rvm: 2.6.3
+gemfile:
+  - Gemfile
+  - test/gemfiles/rails52.gemfile
+  - test/gemfiles/rails51.gemfile
 script: bundle exec rake test
 notifications:
   email:

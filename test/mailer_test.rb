@@ -8,7 +8,7 @@ class MailerTest < Minitest::Test
 
   def test_basic
     user = User.create!
-    UserMailer.with(user: user).welcome.deliver_now
+    UserMailer.welcome(user).deliver_now
 
     membership = FieldTest::Membership.last
     assert_equal 1, FieldTest::Membership.count
@@ -19,7 +19,7 @@ class MailerTest < Minitest::Test
 
   def test_user_string
     participant = "123"
-    UserMailer.with(user: participant).welcome.deliver_now
+    UserMailer.welcome(participant).deliver_now
 
     membership = FieldTest::Membership.last
     assert_equal 1, FieldTest::Membership.count

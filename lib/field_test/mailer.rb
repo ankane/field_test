@@ -10,7 +10,11 @@ module FieldTest
     end
 
     def field_test_participant
-      @user || (params && params[:user])
+      if @user
+        @user
+      elsif respond_to?(:params) && params
+        params[:user]
+      end
     end
   end
 end
