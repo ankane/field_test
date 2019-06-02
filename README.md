@@ -110,6 +110,12 @@ class ApplicationMailer < ActionMailer::Base
 end
 ```
 
+You can also manually pass a participant with:
+
+```ruby
+field_test(:button_color, participant: company)
+```
+
 ## Config
 
 By default, bots are returned the first variant and excluded from metrics. Change this with:
