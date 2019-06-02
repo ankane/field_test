@@ -30,7 +30,7 @@ And mount the dashboard in your `config/routes.rb`:
 mount FieldTest::Engine, at: "field_test"
 ```
 
-Be sure to [secure the dashboard](#security) in production.
+Be sure to [secure the dashboard](#dashboard-security) in production.
 
 ![Screenshot](https://ankane.github.io/field_test/screenshot6.png)
 
@@ -230,7 +230,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-## Security
+## Dashboard Security
 
 #### Devise
 
