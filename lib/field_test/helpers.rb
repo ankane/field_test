@@ -6,7 +6,7 @@ module FieldTest
       participants = FieldTest::Participant.standardize(field_test_participant, options)
 
       if try(:request)
-        if params[:field_test] && params[:field_test][experiment]
+        if !options[:variant] && params[:field_test] && params[:field_test][experiment]
           params_variant = params[:field_test][experiment]
         end
 
@@ -20,6 +20,8 @@ module FieldTest
 
       # cache results for request
       @field_test_cache ||= {}
+
+      # don't update variant when passed via params
       @field_test_cache[experiment] ||= params_variant || exp.variant(participants, options)
     end
 
