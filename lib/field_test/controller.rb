@@ -22,9 +22,11 @@ module FieldTest
       end
 
       cookie_key = "field_test"
-      if FieldTest.cookies
+
+      if request.headers["Field-Test-Visitor"]
+        token = request.headers["Field-Test-Visitor"]
+      elsif FieldTest.cookies
         token = cookies[cookie_key]
-        token = token.gsub(/[^a-z0-9\-]/i, "") if token
 
         if participants.empty? && !token
           token = SecureRandom.uuid
@@ -39,7 +41,10 @@ module FieldTest
         cookies.delete(cookie_key) if cookies[cookie_key]
       end
 
-      if token
+      # sanitize tokens
+      token = token.gsub(/[^a-z0-9\-]/i, "") if token
+
+      if token.present?
         participants << token
 
         # backwards compatibility

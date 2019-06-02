@@ -78,7 +78,22 @@ field_test_experiments
 
 ## JavaScript and Native Apps
 
-For JavaScript and native apps, add calls to your endpoints.
+For JavaScript and native apps, add calls to your normal endpoints.
+
+```ruby
+class OrdersController < ActionController::API
+  def create
+    # create order...
+
+    # success!
+    field_test_converted(:button_color)
+
+    render json: ...
+  end
+end
+```
+
+For anonymous visitors in native apps, pass a `Field-Test-Visitor` header with a unique identifier.
 
 ## Features
 
