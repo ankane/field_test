@@ -5,6 +5,7 @@ gemfile:
   - Gemfile
   - test/gemfiles/rails52.gemfile
   - test/gemfiles/rails51.gemfile
+  - test/gemfiles/rails50.gemfile
 script: bundle exec rake test
 notifications:
   email:
