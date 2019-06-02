@@ -90,7 +90,7 @@ You can also change a user’s variant from the dashboard.
 
 Any model or string can be a participant in an experiment.
 
-For web requests, Field Test uses `current_user` (if it exists) and an anonymous visitor id to determine the participant. Set you own participant with:
+For web requests, it uses `current_user` (if it exists) and an anonymous visitor id to determine the participant. Set you own with:
 
 ```ruby
 class ApplicationController < ActionController::Base
@@ -100,7 +100,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-For mailers, it tries `@user` then `params[:user]` by default. Set your own with:
+For mailers, it tries `@user` then `params[:user]` to determine the participant. Set your own with:
 
 ```ruby
 class ApplicationMailer < ActionMailer::Base
