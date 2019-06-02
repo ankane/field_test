@@ -32,6 +32,7 @@ module FieldTest
         end
       else
         # anonymity set
+        # note: hashing does not conceal input
         token = Digest::UUID.uuid_v5(FieldTest::UUID_NAMESPACE, ["visitor", FieldTest.mask_ip(request.remote_ip), request.user_agent].join("/"))
 
         # delete cookie if present
