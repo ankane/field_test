@@ -21,10 +21,8 @@ module FieldTest
         participants << user if user
       end
 
+      cookie_key = "field_test"
       if FieldTest.cookies
-        # use cookie
-        cookie_key = "field_test"
-
         token = cookies[cookie_key]
         token = token.gsub(/[^a-z0-9\-]/i, "") if token
 
@@ -35,6 +33,9 @@ module FieldTest
       else
         # anonymity set
         token = Digest::UUID.uuid_v5(FieldTest::UUID_NAMESPACE, ["visitor", FieldTest.mask_ip(request.remote_ip), request.user_agent].join("/"))
+
+        # delete cookie if present
+        cookies.delete(cookie_key) if cookies[cookie_key]
       end
 
       if token
