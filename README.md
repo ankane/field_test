@@ -218,7 +218,7 @@ to get all experiments and variants for a participant and pass them as propertie
 
 ### Ahoy
 
-You can configure Field Test to use Ahoy's visitor token instead of creating it's own:
+You can configure Field Test to use Ahoy’s visitor token instead of creating its own:
 
 ```ruby
 class ApplicationController < ActionController::Base
