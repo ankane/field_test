@@ -41,18 +41,6 @@ module FieldTest
       if membership.changed?
         begin
           membership.save!
-
-          # log it!
-          # info = {
-          #   experiment: id,
-          #   variant: membership.variant,
-          #   participant_type: membership.participant_type,
-          #   participant_id: membership.participant_id
-          # }.merge(options.slice(:ip, :user_agent))
-
-          # # sorta logfmt :)
-          # info = info.map { |k, v| v = "\"#{v}\"" if k == :user_agent; "#{k}=#{v}" }.join(" ")
-          # Rails.logger.info "[field test] #{info}"
         rescue ActiveRecord::RecordNotUnique
           membership = memberships.find_by(participant.where_values)
         end

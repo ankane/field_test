@@ -7,7 +7,7 @@ module FieldTest
 
       if try(:request)
         if params[:field_test] && params[:field_test][experiment]
-          options[:variant] ||= params[:field_test][experiment]
+          params_variant = params[:field_test][experiment]
         end
 
         if FieldTest.exclude_bots?
@@ -20,7 +20,7 @@ module FieldTest
 
       # cache results for request
       @field_test_cache ||= {}
-      @field_test_cache[experiment] ||= exp.variant(participants, options)
+      @field_test_cache[experiment] ||= params_variant || exp.variant(participants, options)
     end
 
     def field_test_converted(experiment, options = {})
