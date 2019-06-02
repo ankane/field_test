@@ -326,7 +326,8 @@ class UpgradeFieldTestParticipants < ActiveRecord::Migration[5.2]
     add_column :field_test_memberships, :participant_type, :string
     add_column :field_test_memberships, :participant_id, :string
 
-    add_index :field_test_memberships, [:participant_type, :participant_id, :experiment], unique: true, name: "index_field_test_memberships_on_participant_and_experiment"
+    add_index :field_test_memberships, [:participant_type, :participant_id, :experiment],
+      unique: true, name: "index_field_test_memberships_on_participant_and_experiment"
   end
 end
 ```
