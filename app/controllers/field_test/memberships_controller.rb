@@ -3,7 +3,7 @@ module FieldTest
     def update
       membership = FieldTest::Membership.find(params[:id])
       membership.update!(membership_params)
-      redirect_to participant_path(membership.participant)
+      redirect_back(fallback_location: root_path)
     end
 
     private

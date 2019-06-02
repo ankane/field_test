@@ -1,9 +1,17 @@
 module FieldTest
   class ParticipantsController < BaseController
     def show
-      @participant = params[:id]
       # TODO better ordering
-      @memberships = FieldTest::Membership.where(participant: @participant).order(:id)
+      @memberships =
+        if FieldTest.legacy_participants
+          @participant = params[:id]
+          FieldTest::Membership.where(participant: @participant).order(:id)
+        else
+          id = params[:id]
+          type = params[:type]
+          @participant = [type, id].compact.join(" ")
+          FieldTest::Membership.where(participant_type: type, participant_id: id).order(:id)
+        end
 
       @events =
         if FieldTest.events_supported?

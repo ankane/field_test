@@ -21,25 +21,29 @@ module FieldTest
   # same as ahoy
   UUID_NAMESPACE = "a82ae811-5011-45ab-a728-569df7499c5f"
 
-  class << self
-    attr_accessor :cookies
+  def self.config_path
+    path = defined?(Rails) ? Rails.root : File
+    path.join("config", "field_test.yml")
   end
-  self.cookies = true
 
   def self.config
-    # reload in dev
-    @config = nil if Rails.env.development?
-
-    @config ||= YAML.load(ERB.new(File.read("config/field_test.yml")).result)
+    @config ||= YAML.load(ERB.new(File.read(config_path)).result)
   end
 
   def self.exclude_bots?
-    config = self.config # dev performance
     config["exclude"] && config["exclude"]["bots"]
   end
 
   def self.cache
     config["cache"]
+  end
+
+  def self.cookies
+    config.key?("cookies") ? config["cookies"] : true
+  end
+
+  def self.legacy_participants
+    config["legacy_participants"]
   end
 
   def self.precision
@@ -73,13 +77,11 @@ module FieldTest
 end
 
 ActiveSupport.on_load(:action_controller) do
-  include FieldTest::Helpers
-end
-
-ActiveSupport.on_load(:action_view) do
-  include FieldTest::Helpers
+  require "field_test/controller"
+  include FieldTest::Controller
 end
 
 ActiveSupport.on_load(:action_mailer) do
-  include FieldTest::Helpers
+  require "field_test/mailer"
+  include FieldTest::Mailer
 end

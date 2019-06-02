@@ -1,9 +1,16 @@
 ## 0.3.0 [unreleased]
 
-- Fixed bug in results with multiple goals
+- Added support for native apps
 - Added `cookies` option
 - Added `precision` option
+- Fixed bug in results with multiple goals
+- Fixed issue where metrics disappeared from dashboard when moving to multiple goals
 - Dropped support for Rails < 5
+
+Breaking changes
+
+- Split out participant id and type
+- Changed participant logic for emails
 
 ## 0.2.4
 

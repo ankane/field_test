@@ -31,25 +31,18 @@ module FieldTest
         membership.variant ||= weighted_variant
       end
 
+      participant = participants.first
+
       # upgrade to preferred participant
-      membership.participant = participants.first
+      membership.participant = participant.participant if membership.respond_to?(:participant=)
+      membership.participant_type = participant.type if membership.respond_to?(:participant_type=)
+      membership.participant_id = participant.id if membership.respond_to?(:participant_id=)
 
       if membership.changed?
         begin
           membership.save!
-
-          # log it!
-          info = {
-            experiment: id,
-            variant: membership.variant,
-            participant: membership.participant
-          }.merge(options.slice(:ip, :user_agent))
-
-          # sorta logfmt :)
-          info = info.map { |k, v| v = "\"#{v}\"" if k == :user_agent; "#{k}=#{v}" }.join(" ")
-          Rails.logger.info "[field test] #{info}"
         rescue ActiveRecord::RecordNotUnique
-          membership = memberships.find_by(participant: participants.first)
+          membership = memberships.find_by(participant.where_values)
         end
       end
 
@@ -105,7 +98,21 @@ module FieldTest
         data = {}
 
         participated = relation.count
-        converted = events.merge(relation).where(field_test_events: {name: goal}).distinct.count(:participant)
+
+        adapter_name = relation.connection.adapter_name
+        column =
+          if FieldTest.legacy_participants
+            :participant
+          elsif adapter_name =~ /postg/i # postgres
+            "(participant_type, participant_id)"
+          elsif adapter_name =~ /mysql/i
+            "participant_type, participant_id"
+          else
+            # not perfect, but it'll do
+            "COALESCE(participant_type, '') || ':' || participant_id"
+          end
+
+        converted = events.merge(relation).where(field_test_events: {name: goal}).distinct.count(column)
 
         (participated.keys + converted.keys).uniq.each do |variant|
           data[[variant, true]] = converted[variant].to_i
@@ -190,32 +197,37 @@ module FieldTest
 
     private
 
-      def check_participants(participants)
-        raise FieldTest::UnknownParticipant, "Use the :participant option to specify a participant" if participants.empty?
-      end
+    def check_participants(participants)
+      raise FieldTest::UnknownParticipant, "Use the :participant option to specify a participant" if participants.empty?
+    end
 
-      def membership_for(participants)
-        memberships = self.memberships.where(participant: participants).index_by(&:participant)
-        participants.map { |part| memberships[part] }.compact.first
+    # TODO fetch in single query
+    def membership_for(participants)
+      membership = nil
+      participants.each do |participant|
+        membership = self.memberships.find_by(participant.where_values)
+        break if membership
       end
+      membership
+    end
 
-      def weighted_variant
-        total = weights.sum.to_f
-        pick = rand
-        n = 0
-        weights.map { |w| w / total }.each_with_index do |w, i|
-          n += w
-          return variants[i] if n >= pick
-        end
-        variants.last
+    def weighted_variant
+      total = weights.sum.to_f
+      pick = rand
+      n = 0
+      weights.map { |w| w / total }.each_with_index do |w, i|
+        n += w
+        return variants[i] if n >= pick
       end
+      variants.last
+    end
 
-      def cache_fetch(key)
-        if FieldTest.cache
-          Rails.cache.fetch(key.join("/")) { yield }
-        else
-          yield
-        end
+    def cache_fetch(key)
+      if FieldTest.cache
+        Rails.cache.fetch(key.join("/")) { yield }
+      else
+        yield
       end
+    end
   end
 end
