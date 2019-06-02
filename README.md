@@ -48,7 +48,7 @@ experiments:
       - blue
 ```
 
-Refer to it in views, controllers, and mailers.
+Refer to it in controllers, views, and mailers.
 
 ```ruby
 button_color = field_test(:button_color)
@@ -69,6 +69,16 @@ experiments:
 ```
 
 All calls to `field_test` will now return the winner, and metrics will stop being recorded.
+
+You can get the list of experiments and variants for a user with:
+
+```ruby
+field_test_experiments
+```
+
+## JavaScript and Native Apps
+
+For JavaScript and native apps, add calls to your endpoints.
 
 ## Features
 
@@ -209,13 +219,11 @@ The results for all goals will appear on the dashboard.
 
 ## Analytics Platforms
 
-You can also send experiment data to analytics platforms like [Segment](https://segment.com), [Amplitude](https://amplitude.com), and [Ahoy](https://github.com/ankane/ahoy). Use:
+You may also want to send experiment data as properties to other analytics platforms like [Segment](https://segment.com), [Amplitude](https://amplitude.com), and [Ahoy](https://github.com/ankane/ahoy). Get the list of experiments and variants with:
 
 ```ruby
 field_test_experiments
 ```
-
-to get all experiments and variants for a participant and pass them as properties.
 
 ### Ahoy
 
