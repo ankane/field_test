@@ -100,7 +100,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-For mails, it uses `@user` then `params[:user]`.
+For mailers, it uses `@user` then `params[:user]`.
 
 And in mailer. By default, it uses the settings below:
 
@@ -255,13 +255,15 @@ ENV["FIELD_TEST_PASSWORD"] = "kingdom"
 
 Participants are split into two fields: a type and id.
 
-Add to config
+Add to `config/field_test.yml`:
 
 ```yml
 legacy_participants: true
 ```
 
-Emails no longer use `to` field. Restore this with:
+See the section below are how to migrate participants.
+
+Emails no longer use `to` field to identify users. Restore this with:
 
 ```ruby
 class ApplicationMailer < ActionMailer::Base
@@ -295,10 +297,10 @@ Backfill data
 ```ruby
 FieldTest::Membership.where(participant_id: nil).find_each do |membership|
   participant = membership.participant
-  # remove cookie prefix
-  participant = participant.sub(/\Acookie:/, "")
-  if participant.include?(":") # TODO handle namespaced models like Ahoy::Visit:123
-    participant_type, participant_id = participant.split(":", 2)
+
+  if participant.include?(":")
+    participant_type, _, participant_id = participant.rpartition(":")
+    participant_type = nil if participant_type == "cookie" # legacy
   else
     participant_id = participant
   end
