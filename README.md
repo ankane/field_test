@@ -81,14 +81,14 @@ field_test_experiments
 For JavaScript and native apps, add calls to your normal endpoints.
 
 ```ruby
-class OrdersController < ActionController::API
-  def create
-    # create order...
+class CheckoutController < ActionController::API
+  def start
+    render json: {button_color: field_test(:button_color)}
+  end
 
-    # success!
+  def finish
     field_test_converted(:button_color)
-
-    render json: ...
+    # ...
   end
 end
 ```
