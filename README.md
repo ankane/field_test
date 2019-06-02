@@ -253,17 +253,13 @@ ENV["FIELD_TEST_PASSWORD"] = "kingdom"
 
 ### 0.3.0
 
-Participants are split into two fields: a type and id.
-
-Add to `config/field_test.yml`:
+Upgrade the gem and add to `config/field_test.yml`:
 
 ```yml
 legacy_participants: true
 ```
 
-See the section below are how to migrate participants.
-
-Emails no longer use `to` field to identify users. Restore this with:
+Also, if you use Field Test in emails, know that the default way participants are determined has changed. Restore the previous way with:
 
 ```ruby
 class ApplicationMailer < ActionMailer::Base
@@ -273,13 +269,19 @@ class ApplicationMailer < ActionMailer::Base
 end
 ```
 
-#### Migrating Participants
+We also recommend upgrading participants when you have time.
 
-Create a migration
+#### Upgrading Participants
+
+Field Test 0.3.0 splits the `field_test_memberships.participant` column into `participant_type` and `participant_id`.
+
+To upgrade without downtime, create a migration:
 
 ```sh
 rails generate migration upgrade_field_test_participants
 ```
+
+with:
 
 ```ruby
 class UpgradeFieldTestParticipants < ActiveRecord::Migration[5.2]
@@ -292,7 +294,9 @@ class UpgradeFieldTestParticipants < ActiveRecord::Migration[5.2]
 end
 ```
 
-Backfill data
+After you run it, writes will go to both the old and new sets of columns.
+
+Next, backfill data:
 
 ```ruby
 FieldTest::Membership.where(participant_id: nil).find_each do |membership|
@@ -312,11 +316,7 @@ FieldTest::Membership.where(participant_id: nil).find_each do |membership|
 end
 ```
 
-Write to new columns automatically if detected to keep in sync
-
-Remove `legacy_participants: true` from config file
-
-Once you confirm it's working, drop the `participant` column (can rename first just to be extra safe)
+Finally, remove `legacy_participants: true` from the config file. Once you confirm it’s working, drop the `participant` column (you can rename it first just to be extra safe).
 
 ## Credits
 
