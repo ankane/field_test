@@ -158,7 +158,7 @@ experiments:
       - 15
 ```
 
-To help with GDPR compliance, you can switch from cookies to [anonymity sets](https://privacypatterns.org/patterns/Anonymity-set) for anonymous visitors. Visitors with the same IP mask and user agent are grouped together in an anonymity set.
+To help with GDPR compliance, you can switch from cookies to [anonymity sets](https://privacypatterns.org/patterns/Anonymity-set) for anonymous visitors. Visitors with the same IP mask and user agent are grouped together.
 
 ```yml
 cookies: false
