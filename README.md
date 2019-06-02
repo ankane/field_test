@@ -331,7 +331,7 @@ FieldTest::Membership.where(participant_id: nil).find_each do |membership|
 end
 ```
 
-Finally, remove `legacy_participants: true` from the config file. Once you confirm it’s working, drop the `participant` column (you can rename it first just to be extra safe).
+Finally, remove `legacy_participants: true` from the config file. Once you confirm it’s working, you can drop the `participant` column (you can rename it first just to be extra safe).
 
 ## Credits
 
