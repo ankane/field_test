@@ -90,7 +90,7 @@ You can also change a user’s variant from the dashboard.
 
 Any model or string can be a participant in an experiment.
 
-For web requests, it uses `current_user` (if it exists) and an anonymous visitor id to determine the participant. Set you own with:
+For web requests, it uses `current_user` (if it exists) and an anonymous visitor id to determine the participant. Set your own with:
 
 ```ruby
 class ApplicationController < ActionController::Base
