@@ -158,11 +158,13 @@ experiments:
       - 15
 ```
 
-Cookies [master]
+To help with GDPR compliance, you can switch from cookies to [anonymity sets](https://privacypatterns.org/patterns/Anonymity-set) for anonymous visitors. Visitors with the same IP mask and user agent are grouped together in an anonymity set.
 
 ```yml
 cookies: false
 ```
+
+## Dashboard Config
 
 If the dashboard gets slow, you can make it faster with:
 
@@ -172,7 +174,7 @@ cache: true
 
 This will use the Rails cache to speed up winning probability calculations.
 
-By default, the dashboard rounds all calculated percentages to the nearest integer. Change this with: [master]
+If you need more precision, set:
 
 ```yml
 precision: 1
