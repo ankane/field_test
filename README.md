@@ -201,6 +201,7 @@ You can set multiple goals for an experiment to track conversions at different p
 
 ```sh
 rails generate field_test:events
+rails db:migrate
 ```
 
 And add to your config:
