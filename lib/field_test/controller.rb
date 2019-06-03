@@ -38,7 +38,7 @@ module FieldTest
       cookie_key = "field_test"
 
       # name not entirely accurate
-      # can still set cookies through request.cookie_jar
+      # can still set cookies in ActionController::API through request.cookie_jar
       # however, best to prompt developer to pass participant manually
       cookies_supported = respond_to?(:cookies, true)
 
