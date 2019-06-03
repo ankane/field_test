@@ -37,9 +37,14 @@ module FieldTest
 
       cookie_key = "field_test"
 
+      # name not entirely accurate
+      # can still set cookies through request.cookie_jar
+      # however, best to prompt developer to pass participant manually
+      cookies_supported = respond_to?(:cookies, true)
+
       if request.headers["Field-Test-Visitor"]
         token = request.headers["Field-Test-Visitor"]
-      elsif FieldTest.cookies && respond_to?(:cookies, true)
+      elsif FieldTest.cookies && cookies_supported
         token = cookies[cookie_key]
 
         if participants.empty? && !token
@@ -52,7 +57,7 @@ module FieldTest
         token = Digest::UUID.uuid_v5(FieldTest::UUID_NAMESPACE, ["visitor", FieldTest.mask_ip(request.remote_ip), request.user_agent].join("/"))
 
         # delete cookie if present
-        cookies.delete(cookie_key) if respond_to?(:cookies, true) && cookies[cookie_key]
+        cookies.delete(cookie_key) if cookies_supported && cookies[cookie_key]
       end
 
       # sanitize tokens
