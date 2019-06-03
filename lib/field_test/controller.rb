@@ -12,7 +12,7 @@ module FieldTest
     end
 
     def field_test_upgrade_memberships(options = {})
-      participants = FieldTest::Participant.standardize(field_test_participant, options)
+      participants = FieldTest::Participant.standardize(options[:participant] || field_test_participant)
       preferred = participants.first
       Array(participants[1..-1]).each do |participant|
         # can do this in single query once legacy_participants is removed
