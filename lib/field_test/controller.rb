@@ -52,7 +52,7 @@ module FieldTest
         token = Digest::UUID.uuid_v5(FieldTest::UUID_NAMESPACE, ["visitor", FieldTest.mask_ip(request.remote_ip), request.user_agent].join("/"))
 
         # delete cookie if present
-        cookies.delete(cookie_key) if cookies[cookie_key]
+        cookies.delete(cookie_key) if respond_to?(:cookies) && cookies[cookie_key]
       end
 
       # sanitize tokens
