@@ -1,3 +1,7 @@
+## 0.3.1 [unreleased]
+
+- Added `field_test_upgrade_memberships` method
+
 ## 0.3.0
 
 - Added support for native apps

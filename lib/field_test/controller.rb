@@ -11,6 +11,13 @@ module FieldTest
       end
     end
 
+    def field_test_upgrade_memberships(options = {})
+      participants = FieldTest::Participant.standardize(field_test_participant, options)
+      Array(participants[1..-1]).each do |participant|
+        FieldTest::Membership.where(participant.where_values).update_all(participants.first.where_values)
+      end
+    end
+
     private
 
     def field_test_participant
