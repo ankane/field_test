@@ -39,14 +39,14 @@ module FieldTest
 
       if request.headers["Field-Test-Visitor"]
         token = request.headers["Field-Test-Visitor"]
-      elsif FieldTest.cookies
+      elsif FieldTest.cookies && respond_to?(:cookies)
         token = cookies[cookie_key]
 
         if participants.empty? && !token
           token = SecureRandom.uuid
           cookies[cookie_key] = {value: token, expires: 30.days.from_now}
         end
-      else
+      elsif !FieldTest.cookies
         # anonymity set
         # note: hashing does not conceal input
         token = Digest::UUID.uuid_v5(FieldTest::UUID_NAMESPACE, ["visitor", FieldTest.mask_ip(request.remote_ip), request.user_agent].join("/"))

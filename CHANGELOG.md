@@ -1,6 +1,7 @@
 ## 0.3.1 [unreleased]
 
 - Added `field_test_upgrade_memberships` method
+- Improved error message for `ActionController::API` + cookies
 - Fixed API controller error
 
 ## 0.3.0
