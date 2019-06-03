@@ -4,6 +4,7 @@
 
 - Designed for web and email
 - Comes with a [dashboard](https://fieldtest.dokkuapp.com/) to view results and update variants
+- Uses your database for storage
 - Seamlessly handles the transition from anonymous visitor to logged in user
 
 Uses [Bayesian statistics](https://www.evanmiller.org/bayesian-ab-testing.html) to evaluate results so you don’t need to choose a sample size ahead of time.
