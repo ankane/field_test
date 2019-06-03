@@ -13,8 +13,15 @@ module FieldTest
 
     def field_test_upgrade_memberships(options = {})
       participants = FieldTest::Participant.standardize(field_test_participant, options)
+      preferred = participants.first
       Array(participants[1..-1]).each do |participant|
-        FieldTest::Membership.where(participant.where_values).update_all(participants.first.where_values)
+        # can do this in single query once legacy_participants is removed
+        FieldTest::Membership.where(participant.where_values).each do |membership|
+          membership.participant = preferred.participant if membership.respond_to?(:participant=)
+          membership.participant_type = preferred.type if membership.respond_to?(:participant_type=)
+          membership.participant_id = preferred.id if membership.respond_to?(:participant_id=)
+          membership.save!
+        end
       end
     end
 
