@@ -1,7 +1,4 @@
-
-lib = File.expand_path("../lib", __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "field_test/version"
+require_relative "lib/field_test/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "field_test"
