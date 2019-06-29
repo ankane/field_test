@@ -1,5 +1,6 @@
 ## 0.3.1 [unreleased]
 
+- Added `closed` and `keep_variant`
 - Added `field_test_upgrade_memberships` method
 - Fixed API controller error
 - Fixed bug where conversions were recorded after winner

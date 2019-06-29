@@ -22,6 +22,24 @@ class ExperimentTest < Minitest::Test
     assert_equal results, experiment.results
   end
 
+  def test_winner_keep_variant
+    experiment = FieldTest::Experiment.find(:landing_page2)
+    set_variant experiment, "page_a", "user123"
+    assert_equal "page_a", experiment.variant("user123")
+  end
+
+  def test_closed
+    experiment = FieldTest::Experiment.find(:landing_page3)
+    assert_equal experiment.control, experiment.variant("user123")
+    assert_equal 0, FieldTest::Membership.count
+  end
+
+  def test_closed_existing_participant
+    experiment = FieldTest::Experiment.find(:landing_page3)
+    set_variant experiment, "page_a", "user123"
+    assert_equal "page_a", experiment.variant("user123")
+  end
+
   def test_variants
     experiment = FieldTest::Experiment.find(:button_color)
     assert_equal ["red", "green", "blue"], experiment.variants

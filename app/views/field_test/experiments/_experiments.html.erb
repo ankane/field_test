@@ -1,6 +1,7 @@
 <% experiments.each do |experiment| %>
   <h2>
     <%= experiment.name %>
+    <% if experiment.active? && experiment.closed? %><small class="closed">Closed</small><% end %>
     <small><%= link_to "Details", experiment_path(experiment.id) %></small>
   </h2>
 

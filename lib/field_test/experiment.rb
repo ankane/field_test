@@ -10,6 +10,8 @@ module FieldTest
       @variants = attributes[:variants]
       @weights = @variants.size.times.map { |i| attributes[:weights].to_a[i] || 1 }
       @winner = attributes[:winner]
+      @closed = attributes[:closed]
+      @keep_variant = attributes[:keep_variant]
       @started_at = Time.zone.parse(attributes[:started_at].to_s) if attributes[:started_at]
       @ended_at = Time.zone.parse(attributes[:ended_at].to_s) if attributes[:ended_at]
       @goals = attributes[:goals] || ["conversion"]
@@ -18,17 +20,21 @@ module FieldTest
     end
 
     def variant(participants, options = {})
-      return winner if winner
+      return winner if winner && !keep_variant?
       return control if options[:exclude]
 
       participants = FieldTest::Participant.standardize(participants)
       check_participants(participants)
       membership = membership_for(participants) || FieldTest::Membership.new(experiment: id)
 
+      if winner # and keep_variant?
+        return membership.variant || winner
+      end
+
       if options[:variant] && variants.include?(options[:variant])
         membership.variant = options[:variant]
       else
-        membership.variant ||= weighted_variant
+        membership.variant ||= closed? ? control : weighted_variant
       end
 
       participant = participants.first
@@ -38,7 +44,7 @@ module FieldTest
       membership.participant_type = participant.type if membership.respond_to?(:participant_type=)
       membership.participant_id = participant.id if membership.respond_to?(:participant_id=)
 
-      if membership.changed?
+      if membership.changed? && (!closed? || membership.persisted?)
         begin
           membership.save!
         rescue ActiveRecord::RecordNotUnique
@@ -174,6 +180,14 @@ module FieldTest
 
     def active?
       !winner
+    end
+
+    def closed?
+      @closed
+    end
+
+    def keep_variant?
+      @keep_variant
     end
 
     def control

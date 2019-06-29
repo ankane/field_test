@@ -77,6 +77,25 @@ experiments:
 
 All calls to `field_test` will now return the winner, and metrics will stop being recorded.
 
+You can keep returning the variant for existing participants after a winner is declared: [master]
+
+```yml
+experiments:
+  button_color:
+    winner: green
+    keep_variant: true
+```
+
+You can also close an experiment to new participants without declaring a winner while still recording metrics for existing participants: [master]
+
+```yml
+experiments:
+  button_color:
+    closed: true
+```
+
+Calls to `field_test` for new participants will return the control, and they won’t be added to the experiment.
+
 You can get the list of experiments and variants for a user with:
 
 ```ruby

@@ -10,5 +10,18 @@ experiments:
       - page_b
       - page_c
     winner: page_c
+  landing_page2:
+    variants:
+      - page_a
+      - page_b
+      - page_c
+    winner: page_c
+    keep_variant: true
+  landing_page3:
+    variants:
+      - page_a
+      - page_b
+      - page_c
+    closed: true
 exclude:
   bots: true
