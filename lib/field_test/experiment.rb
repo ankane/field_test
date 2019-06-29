@@ -19,7 +19,7 @@ module FieldTest
 
     def variant(participants, options = {})
       return winner if winner
-      return variants.first if options[:exclude]
+      return control if options[:exclude]
 
       participants = FieldTest::Participant.standardize(participants)
       check_participants(participants)
@@ -46,7 +46,7 @@ module FieldTest
         end
       end
 
-      membership.try(:variant) || variants.first
+      membership.try(:variant) || control
     end
 
     def convert(participants, goal: nil)
@@ -174,6 +174,10 @@ module FieldTest
 
     def active?
       !winner
+    end
+
+    def control
+      variants.first
     end
 
     def use_events?

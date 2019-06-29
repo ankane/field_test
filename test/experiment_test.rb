@@ -22,6 +22,12 @@ class ExperimentTest < Minitest::Test
     assert_equal results, experiment.results
   end
 
+  def test_variants
+    experiment = FieldTest::Experiment.find(:button_color)
+    assert_equal ["red", "green", "blue"], experiment.variants
+    assert_equal "red", experiment.control
+  end
+
   private
 
   def set_variant(experiment, variant, participant_id)
