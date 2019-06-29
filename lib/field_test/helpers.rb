@@ -1,11 +1,13 @@
 module FieldTest
   module Helpers
-    def field_test(experiment, options = {})
+    def field_test(experiment, **options)
       exp = FieldTest::Experiment.find(experiment)
 
       participants = FieldTest::Participant.standardize(options[:participant] || field_test_participant)
 
       if try(:request)
+        options = options.dup
+
         if !options[:variant] && params[:field_test] && params[:field_test][experiment]
           params_variant = params[:field_test][experiment]
         end
@@ -25,7 +27,7 @@ module FieldTest
       @field_test_cache[experiment] ||= params_variant || exp.variant(participants, options)
     end
 
-    def field_test_converted(experiment, options = {})
+    def field_test_converted(experiment, **options)
       exp = FieldTest::Experiment.find(experiment)
 
       participants = FieldTest::Participant.standardize(options[:participant] || field_test_participant)
@@ -34,7 +36,7 @@ module FieldTest
     end
 
     # TODO fetch in single query
-    def field_test_experiments(options = {})
+    def field_test_experiments(**options)
       participants = FieldTest::Participant.standardize(options[:participant] || field_test_participant)
       experiments = {}
       participants.each do |participant|
