@@ -15,6 +15,11 @@ class ExperimentTest < Minitest::Test
     experiment = FieldTest::Experiment.find(:landing_page)
     set_variant experiment, "page_a", "user123"
     assert_equal experiment.winner, experiment.variant("user123")
+
+    # test no metrics
+    results = experiment.results
+    experiment.convert("user123")
+    assert_equal results, experiment.results
   end
 
   private

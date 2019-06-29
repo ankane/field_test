@@ -50,6 +50,8 @@ module FieldTest
     end
 
     def convert(participants, goal: nil)
+      return false if winner
+
       goal ||= goals.first
 
       participants = FieldTest::Participant.standardize(participants)

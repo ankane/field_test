@@ -2,6 +2,7 @@
 
 - Added `field_test_upgrade_memberships` method
 - Fixed API controller error
+- Fixed bug where conversions were recorded after winner
 
 ## 0.3.0
 
