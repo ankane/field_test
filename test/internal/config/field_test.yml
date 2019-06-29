@@ -4,3 +4,5 @@ experiments:
       - red
       - green
       - blue
+exclude:
+  bots: true

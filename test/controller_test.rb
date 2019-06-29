@@ -29,4 +29,11 @@ class ControllerTest < ActionDispatch::IntegrationTest
     assert_equal "User", membership.participant_type
     assert_equal user.id.to_s, membership.participant_id
   end
+
+  def test_exclude_bots
+    get users_url, headers: {"HTTP_USER_AGENT" => "Googlebot"}
+    assert_response :success
+
+    assert_equal 0, FieldTest::Membership.count
+  end
 end
