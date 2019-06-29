@@ -4,5 +4,11 @@ experiments:
       - red
       - green
       - blue
+  landing_page:
+    variants:
+      - page_a
+      - page_b
+      - page_c
+    winner: page_c
 exclude:
   bots: true
