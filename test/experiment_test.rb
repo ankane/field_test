@@ -21,7 +21,7 @@ class ExperimentTest < Minitest::Test
 
   def set_variant(experiment, variant, participant_id)
     FieldTest::Membership.create!(
-      experiment: experiment.name,
+      experiment: experiment.id,
       variant: variant,
       participant_id: participant_id
     )
