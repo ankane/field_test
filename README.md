@@ -77,7 +77,7 @@ experiments:
 
 All calls to `field_test` will now return the winner, and metrics will stop being recorded.
 
-You can keep returning the variant for existing participants after a winner is declared: [master]
+You can keep returning the variant for existing participants after a winner is declared:
 
 ```yml
 experiments:
@@ -86,7 +86,7 @@ experiments:
     keep_variant: true
 ```
 
-You can also close an experiment to new participants without declaring a winner while still recording metrics for existing participants: [master]
+You can also close an experiment to new participants without declaring a winner while still recording metrics for existing participants:
 
 ```yml
 experiments:
