@@ -5,6 +5,10 @@
 - Fixed API controller error
 - Fixed bug where conversions were recorded after winner
 
+Security
+
+- Fixed arbitrary variants via query parameters - see [#17](https://github.com/ankane/field_test/issues/17)
+
 ## 0.3.0
 
 - Added support for native apps

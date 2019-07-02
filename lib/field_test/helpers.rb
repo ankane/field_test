@@ -8,7 +8,7 @@ module FieldTest
       if try(:request)
         options = options.dup
 
-        if !options[:variant] && params[:field_test] && params[:field_test][experiment]
+        if !options[:variant] && params[:field_test] && params[:field_test][experiment] && exp.variants.include?(params[:field_test][experiment])
           params_variant = params[:field_test][experiment]
         end
 
