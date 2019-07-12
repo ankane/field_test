@@ -1,4 +1,4 @@
-## 0.3.1 [unreleased]
+## 0.3.1
 
 - Added `closed` and `keep_variant`
 - Added `field_test_upgrade_memberships` method
