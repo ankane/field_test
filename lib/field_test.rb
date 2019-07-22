@@ -30,6 +30,16 @@ module FieldTest
     @config ||= YAML.load(ERB.new(File.read(config_path)).result)
   end
 
+  def self.exclude_ips?
+    config["exclude"] && config["exclude"]["ips"]
+  end
+
+  def self.excluded_ips
+    return [] unless exclude_ips?
+
+    config["exclude"]["ips"]
+  end
+
   def self.exclude_bots?
     config["exclude"] && config["exclude"]["bots"]
   end

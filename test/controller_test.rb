@@ -51,4 +51,11 @@ class ControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal 0, FieldTest::Membership.count
   end
+
+  def test_exclude_ips
+    get users_url, headers: {"HTTP_X_FORWARDED_FOR" => "123.4.5.6"}
+    assert_response :success
+
+    assert_equal 0, FieldTest::Membership.count
+  end
 end

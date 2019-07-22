@@ -16,6 +16,10 @@ module FieldTest
           options[:exclude] = Browser.new(request.user_agent).bot?
         end
 
+        if FieldTest.exclude_ips?
+          options[:exclude] ||= FieldTest.excluded_ips.any? { |ip| ip == request.remote_ip }
+        end
+
         options[:ip] = request.remote_ip
         options[:user_agent] = request.user_agent
       end

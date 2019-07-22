@@ -25,3 +25,5 @@ experiments:
     closed: true
 exclude:
   bots: true
+  ips:
+    - 123.4.5.6
