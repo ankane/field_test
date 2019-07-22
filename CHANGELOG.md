@@ -1,3 +1,7 @@
+## 0.3.2 [unreleased]
+
+- Added support for excluding IP addresses
+
 ## 0.3.1
 
 - Added `closed` and `keep_variant`

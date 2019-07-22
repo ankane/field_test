@@ -160,6 +160,15 @@ exclude:
   bots: false
 ```
 
+Exclude certain IP addresses with: [master]
+
+```yml
+exclude:
+  ips:
+    - 127.0.0.1
+    - 10.0.0.0/8
+```
+
 Keep track of when experiments started and ended. Use any format `Time.parse` accepts. Variants assigned outside this window are not included in metrics.
 
 ```yml
