@@ -350,7 +350,7 @@ rails generate migration upgrade_field_test_participants
 with:
 
 ```ruby
-class UpgradeFieldTestParticipants < ActiveRecord::Migration[5.2]
+class UpgradeFieldTestParticipants < ActiveRecord::Migration[6.0]
   def change
     add_column :field_test_memberships, :participant_type, :string
     add_column :field_test_memberships, :participant_id, :string
