@@ -2,7 +2,7 @@
 
 - Added support for excluding IP addresses
 
-## 0.3.1
+## 0.3.1 (2019-07-01)
 
 - Added `closed` and `keep_variant`
 - Added `field_test_upgrade_memberships` method
@@ -13,7 +13,7 @@ Security
 
 - Fixed arbitrary variants via query parameters - see [#17](https://github.com/ankane/field_test/issues/17)
 
-## 0.3.0
+## 0.3.0 (2019-06-02)
 
 - Added support for native apps
 - Added `cookies` option
@@ -27,36 +27,36 @@ Breaking changes
 - Split out participant id and type
 - Changed participant logic for emails
 
-## 0.2.4
+## 0.2.4 (2019-01-03)
 
 - Fixed `PG::AmbiguousColumn` error
 
-## 0.2.3
+## 0.2.3 (2018-01-28)
 
 - Fixed participant reporting for multiple goals
 
-## 0.2.2
+## 0.2.2 (2017-05-01)
 
 - Added support for Rails 5.1
 
-## 0.2.1
+## 0.2.1 (2016-12-18)
 
 - Added support for multiple goals
 
-## 0.2.0
+## 0.2.0 (2016-12-17)
 
 - Better web UI
 - Removed `cookie:` prefix for unknown participants
 
-## 0.1.2
+## 0.1.2 (2016-12-17)
 
 - Exclude bots
 - Mailer improvements
 
-## 0.1.1
+## 0.1.1 (2016-12-15)
 
 - Added basic web UI
 
-## 0.1.0
+## 0.1.0 (2016-12-14)
 
 - First release
