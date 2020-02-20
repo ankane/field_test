@@ -151,6 +151,15 @@ You can also manually pass a participant with:
 field_test(:button_color, participant: company)
 ```
 
+## Jobs
+
+To get variants in jobs and other contexts, use:
+
+```ruby
+experiment = FieldTest::Experiment.find(:button_color)
+button_color = experiment.variant(user)
+```
+
 ## Config
 
 By default, bots are returned the first variant and excluded from metrics. Change this with:
@@ -290,7 +299,7 @@ ENV["FIELD_TEST_USERNAME"] = "moonrise"
 ENV["FIELD_TEST_PASSWORD"] = "kingdom"
 ```
 
-## Reference
+## Updating Variants
 
 Assign a specific variant to a user with:
 
@@ -300,6 +309,8 @@ experiment.variant(participant, variant: "green")
 ```
 
 You can also change a user’s variant from the dashboard.
+
+## Associations
 
 To associate models with field test memberships, use:
 
