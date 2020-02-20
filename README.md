@@ -153,7 +153,7 @@ field_test(:button_color, participant: company)
 
 ## Jobs
 
-To get variants in jobs and other contexts, use:
+To get variants in jobs, models, and other contexts, use:
 
 ```ruby
 experiment = FieldTest::Experiment.find(:button_color)
