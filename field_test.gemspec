@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "railties", ">= 5"
   spec.add_dependency "activerecord", ">= 5"
   spec.add_dependency "distribution"
-  spec.add_dependency "browser", "~> 2.0"
+  spec.add_dependency "browser", ">= 2.0"
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
