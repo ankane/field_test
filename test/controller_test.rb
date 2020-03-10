@@ -65,4 +65,9 @@ class ControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal 0, FieldTest::Membership.count
   end
+
+  def get(url, **options)
+    options[:headers] ||= {"HTTP_USER_AGENT" => "Mozilla/5.0"}
+    super(url, **options)
+  end
 end
