@@ -67,7 +67,8 @@ class ControllerTest < ActionDispatch::IntegrationTest
   end
 
   def get(url, **options)
-    options[:headers] ||= {"HTTP_USER_AGENT" => "Mozilla/5.0"}
+    options[:headers] ||= {}
+    options[:headers]["HTTP_USER_AGENT"] ||= "Mozilla/5.0"
     super(url, **options)
   end
 end
