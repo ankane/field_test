@@ -1,4 +1,4 @@
-## 0.3.2 (unreleased)
+## 0.3.2 (2020-04-16)
 
 - Added support for excluding IP addresses
 

@@ -169,7 +169,7 @@ exclude:
   bots: false
 ```
 
-Exclude certain IP addresses with: [master]
+Exclude certain IP addresses with:
 
 ```yml
 exclude:
@@ -413,7 +413,7 @@ Everyone is encouraged to help improve this project. Here are a few ways you can
 - Write, clarify, or fix documentation
 - Suggest or add new features
 
-To get started with development and testing:
+To get started with development:
 
 ```sh
 git clone https://github.com/ankane/field_test.git
