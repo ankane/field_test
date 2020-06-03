@@ -8,9 +8,10 @@ module FieldTest
       if try(:request)
         options = options.dup
 
-        if !options[:variant] && params[:field_test] && params[:field_test][experiment] && exp.variants.include?(params[:field_test][experiment])
-          params_variant = params[:field_test][experiment]
-        end
+        params_variant =
+          if !options[:variant] && params[:field_test] && params[:field_test][experiment] && exp.variants.include?(params[:field_test][experiment])
+            params[:field_test][experiment]
+          end
 
         if FieldTest.exclude_bots?
           options[:exclude] = Browser.new(request.user_agent).bot?
@@ -20,13 +21,14 @@ module FieldTest
 
         options[:ip] = request.remote_ip
         options[:user_agent] = request.user_agent
+        # cache results for request
+        @field_test_cache ||= {}
+
+        # don't update variant when passed via params
+        @field_test_cache[experiment] ||= params_variant || exp.variant(participants, options)
+      else
+        exp.variant(participants, options)
       end
-
-      # cache results for request
-      @field_test_cache ||= {}
-
-      # don't update variant when passed via params
-      @field_test_cache[experiment] ||= params_variant || exp.variant(participants, options)
     end
 
     def field_test_converted(experiment, **options)
