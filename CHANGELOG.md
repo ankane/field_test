@@ -1,3 +1,7 @@
+## 0.3.3 (unreleased)
+
+- Fixed cache key for requests
+
 ## 0.3.2 (2020-04-16)
 
 - Added support for excluding IP addresses

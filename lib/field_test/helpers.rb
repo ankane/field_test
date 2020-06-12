@@ -22,11 +22,15 @@ module FieldTest
         options[:user_agent] = request.user_agent
       end
 
-      # cache results for request
-      @field_test_cache ||= {}
-
       # don't update variant when passed via params
-      @field_test_cache[experiment] ||= params_variant || exp.variant(participants, options)
+      if params_variant
+        params_variant
+      else
+        # cache results for request
+        # TODO possibly remove in 0.4.0
+        @field_test_cache ||= {}
+        @field_test_cache[[exp, participants, options.slice(:variant, :exclude)]] ||= exp.variant(participants, options)
+      end
     end
 
     def field_test_converted(experiment, **options)
