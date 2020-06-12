@@ -28,8 +28,9 @@ module FieldTest
       else
         # cache results for request
         # TODO possibly remove in 0.4.0
+        cache_key = [exp, participants, options.slice(:variant, :exclude)]
         @field_test_cache ||= {}
-        @field_test_cache[[exp, participants, options.slice(:variant, :exclude)]] ||= exp.variant(participants, options)
+        @field_test_cache[cache_key] ||= exp.variant(participants, options)
       end
     end
 
