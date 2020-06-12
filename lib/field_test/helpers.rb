@@ -28,7 +28,7 @@ module FieldTest
       else
         # cache results for request
         # TODO possibly remove in 0.4.0
-        cache_key = [exp, participants, options.slice(:variant, :exclude)]
+        cache_key = [exp.id, participants.map(&:id), options.slice(:variant, :exclude)]
         @field_test_cache ||= {}
         @field_test_cache[cache_key] ||= exp.variant(participants, options)
       end
