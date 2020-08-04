@@ -1,6 +1,6 @@
 ## 0.4.0 (2020-08-04)
 
-- Fixed CSRF vulnerability with non-session based authentication
+- Fixed CSRF vulnerability with non-session based authentication - [more info](https://github.com/ankane/field_test/issues/28)
 - Fixed cache key for requests
 
 ## 0.3.2 (2020-04-16)
@@ -16,7 +16,7 @@
 
 Security
 
-- Fixed arbitrary variants via query parameters - see [#17](https://github.com/ankane/field_test/issues/17)
+- Fixed arbitrary variants via query parameters - [more info](https://github.com/ankane/field_test/issues/17)
 
 ## 0.3.0 (2019-06-02)
 
