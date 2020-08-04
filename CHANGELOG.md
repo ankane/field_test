@@ -1,5 +1,6 @@
-## 0.3.3 (unreleased)
+## 0.4.0 (unreleased)
 
+- Fixed CSRF vulnerability with non-session based authentication
 - Fixed cache key for requests
 
 ## 0.3.2 (2020-04-16)
