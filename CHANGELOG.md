@@ -1,4 +1,4 @@
-## 0.4.0 (unreleased)
+## 0.4.0 (2020-08-04)
 
 - Fixed CSRF vulnerability with non-session based authentication
 - Fixed cache key for requests
