@@ -160,7 +160,7 @@ experiment = FieldTest::Experiment.find(:button_color)
 button_color = experiment.variant(user)
 ```
 
-## Config
+## Exclusions
 
 By default, bots are returned the first variant and excluded from metrics. Change this with:
 
@@ -177,6 +177,14 @@ exclude:
     - 127.0.0.1
     - 10.0.0.0/8
 ```
+
+You can also use custom logic:
+
+```ruby
+field_test(:button_color, exclude: request.user_agent == "Test")
+```
+
+## Config
 
 Keep track of when experiments started and ended. Use any format `Time.parse` accepts. Variants assigned outside this window are not included in metrics.
 
