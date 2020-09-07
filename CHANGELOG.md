@@ -1,3 +1,7 @@
+## 0.4.1 (unreleased)
+
+- Use `datetime` type in migration
+
 ## 0.4.0 (2020-08-04)
 
 - Fixed CSRF vulnerability with non-session based authentication - [more info](https://github.com/ankane/field_test/issues/28)

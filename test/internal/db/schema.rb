@@ -4,7 +4,7 @@ ActiveRecord::Schema.define do
     t.string :participant_id
     t.string :experiment
     t.string :variant
-    t.timestamp :created_at
+    t.datetime :created_at
     t.boolean :converted, default: false
   end
 
