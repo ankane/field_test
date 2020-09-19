@@ -141,6 +141,7 @@ module FieldTest
         end
       end
 
+      total
       # TODO Calculate Probability
     end
   end
