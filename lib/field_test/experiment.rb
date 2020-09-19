@@ -142,13 +142,15 @@ module FieldTest
       end
 
       case variants.size
-      when 1, 2, 3
+      when 1, 2, 3, 4, 5
         total = 0.0
 
         (variants.size - 1).times do |i|
-          c = results.values[i]
-          b = results.values[(i + 1) % variants.size]
-          a = results.values[(i + 2) % variants.size]
+          e = results.values[i]
+          d = results.values[(i + 1) % variants.size]
+          c = results.values[(i + 2) % variants.size]
+          b = results.values[(i + 3) % variants.size]
+          a = results.values[(i + 4) % variants.size]
 
           alpha_a = 1 + a[:converted]
           beta_a = 1 + a[:participated] - a[:converted]
@@ -156,6 +158,10 @@ module FieldTest
           beta_b = 1 + b[:participated] - b[:converted]
           alpha_c = 1 + c[:converted]
           beta_c = 1 + c[:participated] - c[:converted]
+          alpha_d = 1 + d[:converted]
+          beta_d = 1 + d[:participated] - d[:converted]
+          alpha_e = 1 + e[:converted]
+          beta_e = 1 + e[:participated] - e[:converted]
 
           # TODO calculate this incrementally by caching intermediate results
           prob_winning =
@@ -163,9 +169,17 @@ module FieldTest
               cache_fetch ["field_test", "prob_b_beats_a", alpha_b, beta_b, alpha_c, beta_c] do
                 Calculations.prob_b_beats_a(alpha_b, beta_b, alpha_c, beta_c)
               end
-            else
+            elsif variants.size == 3
               cache_fetch ["field_test", "prob_c_beats_a_and_b", alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c] do
                 Calculations.prob_c_beats_a_and_b(alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c)
+              end
+            elsif variants.size == 4
+              cache_fetch ["field_test", "prob_d_beats_a_and_b_and_c", alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c, alpha_d, beta_d] do
+                Calculations.prob_d_beats_a_and_b_and_c(alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c, alpha_d, beta_d)
+              end
+            else
+              cache_fetch ["field_test", "prob_e_beats_a_and_b_and_c_and_d", alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c, alpha_d, beta_d, alpha_e, beta_e] do
+                Calculations.prob_e_beats_a_and_b_and_c_and_d(alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c, alpha_d, beta_d, alpha_e, beta_e)
               end
             end
 

@@ -54,5 +54,13 @@ module FieldTest
       1 - prob_b_beats_a(alpha_c, beta_c, alpha_a, beta_a) -
         prob_b_beats_a(alpha_c, beta_c, alpha_b, beta_b) + total
     end
+
+    def self.prob_d_beats_a_and_b_and_c(alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c, alpha_d, beta_d)
+      # TODO
+    end
+
+    def self.prob_e_beats_a_and_b_and_c_and_d(alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c, alpha_d, beta_d, alpha_e, beta_e)
+      # TODO
+    end
   end
 end
