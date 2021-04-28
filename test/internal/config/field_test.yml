@@ -23,6 +23,14 @@ experiments:
       - page_b
       - page_c
     closed: true
+  landing_page4:
+    variants:
+      - page_a
+      - page_b
+      - page_c
+    goals:
+      - signed_up
+      - ordered
 exclude:
   bots: true
   ips:

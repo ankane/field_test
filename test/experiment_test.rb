@@ -40,6 +40,23 @@ class ExperimentTest < Minitest::Test
     assert_equal "page_a", experiment.variant("user123")
   end
 
+  def test_goals
+    experiment = FieldTest::Experiment.find(:landing_page4)
+    assert experiment.multiple_goals?
+    assert_equal ["signed_up", "ordered"], experiment.goals
+
+    set_variant experiment, "page_a", "user123"
+    experiment.convert("user123", goal: "signed_up")
+
+    result = experiment.results(goal: "signed_up")["page_a"]
+    assert_equal 1, result[:participated]
+    assert_equal 1, result[:converted]
+
+    result = experiment.results(goal: "ordered")["page_a"]
+    assert_equal 1, result[:participated]
+    assert_equal 0, result[:converted]
+  end
+
   def test_variants
     experiment = FieldTest::Experiment.find(:button_color)
     assert_equal ["red", "green", "blue"], experiment.variants
