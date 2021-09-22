@@ -32,5 +32,8 @@ task :benchmark do
     x.report("prob_c_beats_a_and_b") do
       FieldTest::Calculations.prob_c_beats_a_and_b(1000, 900, 800, 700, 600, 500)
     end
+    x.report("prob_d_beats_a_and_b_and_c") do
+      FieldTest::Calculations.prob_d_beats_a_and_b_and_c(1000, 900, 800, 700, 600, 500, 400, 300)
+    end
   end
 end

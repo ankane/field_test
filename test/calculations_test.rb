@@ -14,6 +14,11 @@ class CalculationsTest < Minitest::Test
     assert_prob_c_beats_a_and_b 0.09139305107602524, [50, 50, 35, 30, 13, 18]
   end
 
+  def test_prob_d_beats_a_and_b_and_c
+    assert_prob_d_beats_a_and_b_and_c 0.2853316096371013, [1, 2, 3, 4, 5, 6, 7, 8]
+    assert_prob_d_beats_a_and_b_and_c 0.08421499131901738, [55, 50, 30, 30, 10, 10, 25, 30]
+  end
+
   private
 
   def assert_prob_b_beats_a(expected, args)
@@ -22,5 +27,9 @@ class CalculationsTest < Minitest::Test
 
   def assert_prob_c_beats_a_and_b(expected, args)
     assert_in_delta expected, FieldTest::Calculations.prob_c_beats_a_and_b(*args), 0.0000000001
+  end
+
+  def assert_prob_d_beats_a_and_b_and_c(expected, args)
+    assert_in_delta expected, FieldTest::Calculations.prob_d_beats_a_and_b_and_c(*args), 0.0000000001
   end
 end
