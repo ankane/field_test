@@ -45,14 +45,10 @@ double prob_c_beats_a_and_b(int alpha_a, int beta_a, int alpha_b, int beta_b, in
   }
 
   for (auto i = 0; i < alpha_a; i++) {
-    double log_ba_i = log(beta_a + i);
-    double logbeta_i_ba = logbeta(1 + i, beta_a);
+    double sum_i = -log(beta_a + i) - logbeta(1 + i, beta_a) - logbeta_ac_bc;
 
     for (auto j = 0; j < alpha_b; j++) {
-      total += exp(logbeta_ac_i_j[i + j] -
-        log_ba_i - log_bb_j[j] -
-        logbeta_i_ba - logbeta_j_bb[j] -
-        logbeta_ac_bc);
+      total += exp(sum_i + logbeta_ac_i_j[i + j] - log_bb_j[j] - logbeta_j_bb[j]);
     }
   }
 
