@@ -80,19 +80,11 @@ double prob_d_beats_a_and_b_and_c(int alpha_a, int beta_a, int alpha_b, int beta
     logbeta_bd_i_j_k.push_back(logbeta(alpha_d + i, abcd));
   }
 
-  std::vector<double> sum_i_j;
-  sum_i_j.reserve(alpha_a * alpha_b);
   for (auto i = 0; i < alpha_a; i++) {
     double sum_i = -log(beta_a + i) - logbeta(1 + i, beta_a) - logbeta_ad_bd;
 
     for (auto j = 0; j < alpha_b; j++) {
-      sum_i_j.push_back(sum_i - log_bb_j_logbeta_j_bb[j]);
-    }
-  }
-
-  for (auto i = 0; i < alpha_a; i++) {
-    for (auto j = 0; j < alpha_b; j++) {
-      double sum_j = sum_i_j[i * alpha_b + j];
+      double sum_j = sum_i - log_bb_j_logbeta_j_bb[j];
 
       for (auto k = 0; k < alpha_c; k++) {
         total += exp(sum_j + logbeta_bd_i_j_k[i + j + k] - log_bc_k_logbeta_k_bc[k]);
