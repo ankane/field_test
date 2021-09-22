@@ -1,4 +1,4 @@
-## 0.5.0 (unreleased)
+## 0.5.0 (2021-09-21)
 
 - Significantly improved performance of Bayesian calculations
 - Dropped support for Ruby < 2.6 and Rails < 5.2
