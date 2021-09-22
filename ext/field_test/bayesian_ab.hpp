@@ -94,9 +94,7 @@ double prob_d_beats_a_and_b_and_c(int alpha_a, int beta_a, int alpha_b, int beta
   }
 
   for (auto i = 0; i < alpha_a; i++) {
-    double log_ba_i = log(beta_a + i);
-    double logbeta_i_ba = logbeta(1 + i, beta_a);
-    double sum_i = -log_ba_i - logbeta_i_ba - logbeta_ad_bd;
+    double sum_i = -log(beta_a + i) - logbeta(1 + i, beta_a) - logbeta_ad_bd;
 
     for (auto j = 0; j < alpha_b; j++) {
       // TODO cache
