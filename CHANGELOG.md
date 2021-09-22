@@ -1,3 +1,7 @@
+## 0.5.1 (unreleased)
+
+- Improved performance of Bayesian calculations
+
 ## 0.5.0 (2021-09-21)
 
 - Significantly improved performance of Bayesian calculations
