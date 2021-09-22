@@ -96,12 +96,14 @@ double prob_d_beats_a_and_b_and_c(int alpha_a, int beta_a, int alpha_b, int beta
   for (auto i = 0; i < alpha_a; i++) {
     double log_ba_i = log(beta_a + i);
     double logbeta_i_ba = logbeta(1 + i, beta_a);
+    double sum_i = -log_ba_i - logbeta_i_ba - logbeta_ad_bd;
 
     for (auto j = 0; j < alpha_b; j++) {
+      // TODO cache
+      double sum_j = sum_i - log_bb_j[j] - logbeta_j_bb[j];
+
       for (auto k = 0; k < alpha_c; k++) {
-        total += exp(logbeta_bd_i_j_k[i + j + k] -
-          log_ba_i - log_bb_j[j] - log_bc_k[k] - logbeta_i_ba -
-          logbeta_j_bb[j] - logbeta_k_bc[k] - logbeta_ad_bd);
+        total += exp(sum_j + logbeta_bd_i_j_k[i + j + k] - log_bc_k[k] - logbeta_k_bc[k]);
       }
     }
   }
