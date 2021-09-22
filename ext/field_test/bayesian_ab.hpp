@@ -38,8 +38,8 @@ double prob_c_beats_a_and_b(int alpha_a, int beta_a, int alpha_b, int beta_b, in
 
   double abc = beta_a + beta_b + beta_c;
   std::vector<double> logbeta_ac_i_j;
-
   logbeta_ac_i_j.reserve(alpha_a + alpha_b);
+
   for (auto i = 0; i < alpha_a + alpha_b; i++) {
     logbeta_ac_i_j.push_back(logbeta(alpha_c + i, abc));
   }
@@ -64,7 +64,6 @@ double prob_d_beats_a_and_b_and_c(int alpha_a, int beta_a, int alpha_b, int beta
   double total = 0.0;
 
   double logbeta_ad_bd = logbeta(alpha_d, beta_d);
-  double abcd = beta_a + beta_b + beta_c + beta_d;
 
   std::vector<double> log_bb_j;
   log_bb_j.reserve(alpha_b);
@@ -86,6 +85,7 @@ double prob_d_beats_a_and_b_and_c(int alpha_a, int beta_a, int alpha_b, int beta
     logbeta_k_bc.push_back(logbeta(1 + k, beta_c));
   }
 
+  double abcd = beta_a + beta_b + beta_c + beta_d;
   std::vector<double> logbeta_bd_i_j_k;
   logbeta_bd_i_j_k.reserve(alpha_a + alpha_b + alpha_c);
 
