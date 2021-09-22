@@ -1,3 +1,8 @@
+## 0.5.0 (unreleased)
+
+- Significantly improved performance of Bayesian calculations
+- Dropped support for Ruby < 2.6 and Rails < 5.2
+
 ## 0.4.1 (2020-09-07)
 
 - Use `datetime` type in migration

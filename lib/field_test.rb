@@ -3,8 +3,10 @@ require "active_support"
 require "browser"
 require "ipaddr"
 
+# ext
+require "field_test/ext"
+
 # modules
-require "field_test/calculations"
 require "field_test/experiment"
 require "field_test/helpers"
 require "field_test/participant"

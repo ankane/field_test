@@ -12,11 +12,12 @@ Gem::Specification.new do |spec|
 
   spec.files         = Dir["*.{md,txt}", "{app,config,lib}/**/*"]
   spec.require_path  = "lib"
+  spec.extensions    = ["ext/field_test/extconf.rb"]
 
-  spec.required_ruby_version = ">= 2.4"
+  spec.required_ruby_version = ">= 2.6"
 
-  spec.add_dependency "railties", ">= 5"
-  spec.add_dependency "activerecord", ">= 5"
-  spec.add_dependency "distribution"
+  spec.add_dependency "railties", ">= 5.2"
+  spec.add_dependency "activerecord", ">= 5.2"
   spec.add_dependency "browser", ">= 2.0"
+  spec.add_dependency "rice", ">= 4.0.2"
 end

@@ -10,3 +10,5 @@
 *.log
 *.sqlite
 *.lock
+*.bundle
+*.so
