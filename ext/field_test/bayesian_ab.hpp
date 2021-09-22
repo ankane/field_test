@@ -24,29 +24,27 @@ double prob_b_beats_a(int alpha_a, int beta_a, int alpha_b, int beta_b) {
 double prob_c_beats_a_and_b(int alpha_a, int beta_a, int alpha_b, int beta_b, int alpha_c, int beta_c) {
   double total = 0.0;
 
-  // for performance
   double logbeta_ac_bc = logbeta(alpha_c, beta_c);
-  double abc = beta_a + beta_b + beta_c;
+
   std::vector<double> log_bb_j;
   log_bb_j.reserve(alpha_b);
   std::vector<double> logbeta_j_bb;
   logbeta_j_bb.reserve(alpha_b);
-  std::vector<double> logbeta_ac_i_j;
-  logbeta_ac_i_j.reserve(alpha_a + alpha_b);
 
   for (auto j = 0; j < alpha_b; j++) {
     log_bb_j.push_back(log(beta_b + j));
     logbeta_j_bb.push_back(logbeta(1 + j, beta_b));
+  }
 
-    for (auto i = 0; i < alpha_a; i++) {
-      if (logbeta_ac_i_j.size() == i + j) {
-        logbeta_ac_i_j.push_back(logbeta(alpha_c + i + j, abc));
-      }
-    }
+  double abc = beta_a + beta_b + beta_c;
+  std::vector<double> logbeta_ac_i_j;
+
+  logbeta_ac_i_j.reserve(alpha_a + alpha_b);
+  for (auto i = 0; i < alpha_a + alpha_b; i++) {
+    logbeta_ac_i_j.push_back(logbeta(alpha_c + i, abc));
   }
 
   for (auto i = 0; i < alpha_a; i++) {
-    // for performance
     double log_ba_i = log(beta_a + i);
     double logbeta_i_ba = logbeta(1 + i, beta_a);
 
