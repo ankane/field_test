@@ -26,14 +26,26 @@ task :benchmark do
   require "field_test"
 
   Benchmark.ips do |x|
-    x.report("prob_b_beats_a") do
-      FieldTest::Calculations.prob_b_beats_a(1000, 900, 800, 700)
+    x.report("two variants") do
+      binary_test = FieldTest::BinaryTest.new
+      binary_test.add(1000, 900)
+      binary_test.add(800, 700)
+      binary_test.probabilities
     end
-    x.report("prob_c_beats_a_and_b") do
-      FieldTest::Calculations.prob_c_beats_a_and_b(1000, 900, 800, 700, 600, 500)
+    x.report("three variants") do
+      binary_test = FieldTest::BinaryTest.new
+      binary_test.add(1000, 900)
+      binary_test.add(800, 700)
+      binary_test.add(600, 500)
+      binary_test.probabilities
     end
-    x.report("prob_d_beats_a_and_b_and_c") do
-      FieldTest::Calculations.prob_d_beats_a_and_b_and_c(1000, 900, 800, 700, 600, 500, 400, 300)
+    x.report("four variants") do
+      binary_test = FieldTest::BinaryTest.new
+      binary_test.add(1000, 900)
+      binary_test.add(800, 700)
+      binary_test.add(600, 500)
+      binary_test.add(400, 300)
+      binary_test.probabilities
     end
   end
 end
