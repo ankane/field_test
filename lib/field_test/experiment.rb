@@ -141,40 +141,21 @@ module FieldTest
         }
       end
 
-      case variants.size
-      when 1, 2, 3
-        total = 0.0
-
-        (variants.size - 1).times do |i|
-          c = results.values[i]
-          b = results.values[(i + 1) % variants.size]
-          a = results.values[(i + 2) % variants.size]
-
-          alpha_a = 1 + a[:converted]
-          beta_a = 1 + a[:participated] - a[:converted]
-          alpha_b = 1 + b[:converted]
-          beta_b = 1 + b[:participated] - b[:converted]
-          alpha_c = 1 + c[:converted]
-          beta_c = 1 + c[:participated] - c[:converted]
-
-          # TODO calculate this incrementally by caching intermediate results
-          prob_winning =
-            if variants.size == 2
-              cache_fetch ["field_test", "prob_b_beats_a", alpha_b, beta_b, alpha_c, beta_c] do
-                Calculations.prob_b_beats_a(alpha_b, beta_b, alpha_c, beta_c)
-              end
-            else
-              cache_fetch ["field_test", "prob_c_beats_a_and_b", alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c] do
-                Calculations.prob_c_beats_a_and_b(alpha_a, beta_a, alpha_b, beta_b, alpha_c, beta_c)
-              end
+      if variants.size <= 3
+        probabilities =
+          cache_fetch ["field_test", "probabilities"] + results.flat_map { |_, v| [v[:participated], v[:converted]] } do
+            binary_test = BinaryTest.new
+            results.each do |_, v|
+              binary_test.add(v[:participated], v[:converted])
             end
+            binary_test.probabilities
+          end
 
-          results[variants[i]][:prob_winning] = prob_winning
-          total += prob_winning
+        results.each_key.zip(probabilities) do |variant, prob_winning|
+          results[variant][:prob_winning] = prob_winning
         end
-
-        results[variants.last][:prob_winning] = 1 - total
       end
+
       results
     end
 
