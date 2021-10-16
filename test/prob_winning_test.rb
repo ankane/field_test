@@ -48,11 +48,14 @@ class ProbWinningTest < Minitest::Test
     experiment = FieldTest::Experiment.find(:button_color2)
     set_variant experiment, "red", "user123"
 
+    cache_key = "field_test/probabilities/1/0/0/0"
+    Rails.cache.delete(cache_key)
+
     FieldTest.stub(:cache, true) do
       experiment.results
     end
 
-    probabilities = Rails.cache.fetch("field_test/probabilities/1/0/0/0")
+    probabilities = Rails.cache.fetch(cache_key)
     assert_in_delta 0.3333333333333333, probabilities[0]
     assert_in_delta 0.6666666666666667, probabilities[1]
   end
