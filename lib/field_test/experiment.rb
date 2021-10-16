@@ -143,7 +143,7 @@ module FieldTest
 
       if variants.size <= 3
         probabilities =
-          cache_fetch ["field_test", "probabilities"] + results.flat_map { |_, v| [v[:participated], v[:converted]] } do
+          cache_fetch(["field_test", "probabilities"] + results.flat_map { |_, v| [v[:participated], v[:converted]] }) do
             binary_test = BinaryTest.new
             results.each do |_, v|
               binary_test.add(v[:participated], v[:converted])
