@@ -45,9 +45,10 @@ class ProbWinningTest < Minitest::Test
   end
 
   def test_cache
+    experiment = FieldTest::Experiment.find(:button_color2)
+    set_variant experiment, "red", "user123"
+
     FieldTest.stub(:cache, true) do
-      experiment = FieldTest::Experiment.find(:button_color2)
-      set_variant experiment, "red", "user123"
       experiment.results
     end
 
