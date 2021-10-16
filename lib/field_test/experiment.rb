@@ -148,7 +148,7 @@ module FieldTest
             results.each do |_, v|
               binary_test.add(v[:participated], v[:converted])
             end
-            binary_test.probabilities
+            binary_test.probabilities.to_a
           end
 
         results.each_key.zip(probabilities) do |variant, prob_winning|
