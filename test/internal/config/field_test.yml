@@ -4,6 +4,10 @@ experiments:
       - red
       - green
       - blue
+  button_color2:
+    variants:
+      - red
+      - green
   landing_page:
     variants:
       - page_a
