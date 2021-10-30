@@ -425,5 +425,6 @@ To get started with development:
 git clone https://github.com/ankane/field_test.git
 cd field_test
 bundle install
+bundle exec rake compile
 bundle exec rake test
 ```
