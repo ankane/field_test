@@ -1,3 +1,7 @@
+## 0.5.2 (unreleased)
+
+- Fixed error with `events` association
+
 ## 0.5.1 (2021-09-22)
 
 - Improved performance of Bayesian calculations
