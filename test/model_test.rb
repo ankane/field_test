@@ -13,8 +13,6 @@ class ModelTest < Minitest::Test
       field_test_membership_id: membership.id
     )
 
-    puts "*** the sql"
-    puts membership.events.to_sql
     assert_equal membership, event.field_test_membership
     assert_equal 1, membership.events.count
     assert_equal event, membership.events.first
