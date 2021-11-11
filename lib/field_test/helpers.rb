@@ -13,7 +13,7 @@ module FieldTest
         end
 
         if FieldTest.exclude_bots?
-          options[:exclude] = Browser.new(request.user_agent).bot?
+          options[:exclude] ||= Browser.new(request.user_agent).bot?
         end
 
         options[:exclude] ||= FieldTest.excluded_ips.any? { |ip| ip.include?(request.remote_ip) }

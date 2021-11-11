@@ -1,6 +1,7 @@
 ## 0.5.2 (unreleased)
 
 - Fixed error with `events` association
+- Fixed explicit exclusion by custom logic
 
 ## 0.5.1 (2021-09-22)
 

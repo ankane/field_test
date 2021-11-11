@@ -45,6 +45,13 @@ class ControllerTest < ActionDispatch::IntegrationTest
     refute_includes response.body, "Button: bad"
   end
 
+  def test_custom_exclude_logic
+    get users_url("exclude" => "true")
+    assert_response :success
+
+    assert_equal 0, FieldTest::Membership.count
+  end
+
   def test_exclude_bots
     get users_url, headers: {"HTTP_USER_AGENT" => "Googlebot"}
     assert_response :success
