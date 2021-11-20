@@ -191,7 +191,7 @@ module FieldTest
     end
 
     def self.all
-      FieldTest.config["experiments"].map do |id, settings|
+      FieldTest.config.fetch("experiments", {}).map do |id, settings|
         FieldTest::Experiment.new(settings.merge(id: id.to_s))
       end
     end

@@ -66,4 +66,8 @@ class ExperimentTest < Minitest::Test
     assert_equal ["red", "green", "blue"], experiment.variants
     assert_equal "red", experiment.control
   end
+
+  def test_all_works_even_with_no_configured_experiments
+    assert_equal [], FieldTest::Experiment.all
+  end
 end
