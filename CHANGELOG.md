@@ -1,7 +1,7 @@
 ## 0.5.2 (unreleased)
 
 - Fixed error with `events` association
-- Fixed explicit exclusion by custom logic
+- Fixed `exclude` option with custom logic
 - Fixed installation error on macOS 12
 
 ## 0.5.1 (2021-09-22)
