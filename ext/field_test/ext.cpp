@@ -1,6 +1,7 @@
-#include "bayestest.hpp"
 #include <rice/rice.hpp>
 #include <rice/stl.hpp>
+
+#include "bayestest.hpp"
 
 using bayestest::BinaryTest;
 
