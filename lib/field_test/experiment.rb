@@ -114,7 +114,7 @@ module FieldTest
           elsif adapter_name =~ /postg/i # postgres
             "(participant_type, participant_id)"
           elsif adapter_name =~ /mysql/i
-            "participant_type, participant_id"
+            "COALESCE(participant_type, ''), participant_id"
           else
             # not perfect, but it'll do
             "COALESCE(participant_type, '') || ':' || participant_id"
