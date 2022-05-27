@@ -113,10 +113,9 @@ module FieldTest
             :participant
           elsif adapter_name =~ /postg/i # postgres
             "(participant_type, participant_id)"
-          elsif adapter_name =~ /mysql/i
-            "COALESCE(participant_type, ''), participant_id"
           else
-            # not perfect, but it'll do
+            # SQLite supports single column
+            # MySQL supports multiple columns, but none can be NULL
             "COALESCE(participant_type, '') || ':' || participant_id"
           end
 
