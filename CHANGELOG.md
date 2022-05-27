@@ -1,3 +1,7 @@
+## 0.5.3 (unreleased)
+
+- Fixed bug in results with MySQL and multiple goals
+
 ## 0.5.2 (2021-12-16)
 
 - Fixed error with `events` association
