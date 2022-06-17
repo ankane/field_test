@@ -1,3 +1,7 @@
+## 0.5.4 (unreleased)
+
+- Fixed bug in results with MySQL and multiple goals (again)
+
 ## 0.5.3 (2022-05-26)
 
 - Fixed bug in results with MySQL and multiple goals
