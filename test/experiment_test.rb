@@ -45,20 +45,22 @@ class ExperimentTest < Minitest::Test
     assert experiment.multiple_goals?
     assert_equal ["signed_up", "ordered"], experiment.goals
 
-    set_variant experiment, "page_a", "user123"
-    experiment.convert("user123", goal: "signed_up")
+    5.times do |i|
+      set_variant experiment, "page_a", "user#{i}"
+      experiment.convert("user#{i}", goal: "signed_up")
+    end
 
     result = experiment.results(goal: "signed_up")["page_a"]
-    assert_equal 1, result[:participated]
-    assert_equal 1, result[:converted]
+    assert_equal 5, result[:participated]
+    assert_equal 5, result[:converted]
     assert_equal 1, result[:conversion_rate]
-    assert_in_delta 0.5, result[:prob_winning]
+    assert_in_delta 0.75, result[:prob_winning]
 
     result = experiment.results(goal: "ordered")["page_a"]
-    assert_equal 1, result[:participated]
+    assert_equal 5, result[:participated]
     assert_equal 0, result[:converted]
     assert_equal 0, result[:conversion_rate]
-    assert_in_delta 0.166666666666667, result[:prob_winning]
+    assert_in_delta 0.0357, result[:prob_winning]
   end
 
   def test_variants
