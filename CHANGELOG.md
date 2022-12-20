@@ -1,3 +1,7 @@
+## 0.5.5 (unreleased)
+
+- Added warning for non-string variants
+
 ## 0.5.4 (2022-06-16)
 
 - Fixed bug in results with MySQL and multiple goals (again)
