@@ -1,4 +1,4 @@
-## 0.5.5 (unreleased)
+## 0.5.5 (2023-01-29)
 
 - Added warning for non-string variants
 
