@@ -4,16 +4,16 @@ require "browser"
 require "ipaddr"
 
 # ext
-require "field_test/ext"
+require_relative "field_test/ext"
 
 # modules
-require "field_test/experiment"
-require "field_test/helpers"
-require "field_test/participant"
-require "field_test/version"
+require_relative "field_test/experiment"
+require_relative "field_test/helpers"
+require_relative "field_test/participant"
+require_relative "field_test/version"
 
 # integrations
-require "field_test/engine" if defined?(Rails)
+require_relative "field_test/engine" if defined?(Rails)
 
 module FieldTest
   class Error < StandardError; end
