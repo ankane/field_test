@@ -10,3 +10,4 @@ gem "rails", "~> 5.2.0"
 gem "sqlite3"
 gem "mysql2"
 gem "pg"
+gem "rice", "< 4.1" # for Ruby 2.6
