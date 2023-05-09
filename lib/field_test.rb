@@ -4,7 +4,7 @@ require "browser"
 require "ipaddr"
 
 # ext
-require_relative "field_test/ext"
+require "field_test/ext"
 
 # modules
 require_relative "field_test/experiment"
