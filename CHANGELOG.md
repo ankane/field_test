@@ -1,3 +1,7 @@
+## 0.6.0 (unreleased)
+
+- Dropped support for Ruby < 3 and Rails < 6.1
+
 ## 0.5.5 (2023-01-29)
 
 - Added warning for non-string variants
