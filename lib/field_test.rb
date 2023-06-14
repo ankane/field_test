@@ -29,7 +29,7 @@ module FieldTest
   end
 
   def self.config
-    @config ||= YAML.safe_load(ERB.new(File.read(config_path)).result, aliases: true)
+    @config ||= YAML.safe_load(ERB.new(File.read(config_path)).result, permitted_classes: [Date, Time], aliases: true)
   end
 
   def self.excluded_ips
