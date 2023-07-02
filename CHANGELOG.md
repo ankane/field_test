@@ -1,4 +1,4 @@
-## 0.6.0 (unreleased)
+## 0.6.0 (2023-07-02)
 
 - Fixed support for aliases, dates, and times in config file
 - Dropped support for Ruby < 3 and Rails < 6.1
