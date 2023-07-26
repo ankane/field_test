@@ -1,0 +1,12 @@
+source "https://rubygems.org"
+
+gemspec path: ".."
+
+gem "rake"
+gem "rake-compiler"
+gem "minitest"
+gem "combustion"
+gem "rails", github: "rails/rails"
+gem "sqlite3"
+gem "mysql2"
+gem "pg"
