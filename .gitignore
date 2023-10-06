@@ -8,7 +8,7 @@
 /spec/reports/
 /tmp/
 *.log
-*.sqlite
+*.sqlite*
 *.lock
 *.bundle
 *.so
