@@ -286,6 +286,16 @@ class ApplicationController < ActionController::Base
 end
 ```
 
+By default field_test uses the Browser gem to detect bots based on the user agent string of the request. You can override this behavior with your own logic by overriding the `field_test_bot?` method in your controller.
+
+```ruby
+class ApplicationController < ActionController::Base
+  def field_test_bot?
+    request.user_agent == "Test" || super
+  end
+end
+```
+
 ## Dashboard Security
 
 #### Devise

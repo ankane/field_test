@@ -72,5 +72,9 @@ module FieldTest
 
       participants
     end
+
+    def field_test_bot?
+      Browser.new(request.user_agent).bot?
+    end
   end
 end
