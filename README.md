@@ -9,7 +9,7 @@
 
 Uses [Bayesian statistics](https://www.evanmiller.org/bayesian-ab-testing.html) to evaluate results so you don’t need to choose a sample size ahead of time.
 
-[![Build Status](https://github.com/ankane/field_test/workflows/build/badge.svg?branch=master)](https://github.com/ankane/field_test/actions)
+[![Build Status](https://github.com/ankane/field_test/actions/workflows/build.yml/badge.svg)](https://github.com/ankane/field_test/actions)
 
 ## Installation
 
