@@ -1,12 +1,18 @@
 require "bundler/gem_tasks"
 require "rake/testtask"
 require "rake/extensiontask"
+require "ruby_memcheck"
 
 task default: :test
-Rake::TestTask.new do |t|
+test_config = lambda do |t|
   t.libs << "test"
   t.pattern = "test/**/*_test.rb"
   t.warning = false # mail gem
+end
+Rake::TestTask.new(:test, &test_config)
+
+namespace :test do
+  RubyMemcheck::TestTask.new(:valgrind, &test_config)
 end
 
 Rake::ExtensionTask.new("field_test") do |ext|
