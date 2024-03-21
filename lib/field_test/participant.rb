@@ -15,7 +15,11 @@ module FieldTest
     end
 
     def participant
-      [type, id].compact.join(":")
+      if FieldTest.legacy_participants
+        [type, id].compact.join(":")
+      else
+        type.constantize.find(id) if type.present? && id.present?
+      end
     end
 
     def where_values

@@ -45,7 +45,9 @@ module FieldTest
       participant = participants.first
 
       # upgrade to preferred participant
-      membership.participant = participant.participant if membership.respond_to?(:participant=)
+      if FieldTest.legacy_participants
+        membership.participant = participant.participant if membership.respond_to?(:participant=)
+      end
       membership.participant_type = participant.type if membership.respond_to?(:participant_type=)
       membership.participant_id = participant.id if membership.respond_to?(:participant_id=)
 

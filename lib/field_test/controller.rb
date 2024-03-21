@@ -17,7 +17,9 @@ module FieldTest
       Array(participants[1..-1]).each do |participant|
         # can do this in single query once legacy_participants is removed
         FieldTest::Membership.where(participant.where_values).each do |membership|
-          membership.participant = preferred.participant if membership.respond_to?(:participant=)
+          if FieldTest.legacy_participants
+            membership.participant = preferred.participant if membership.respond_to?(:participant=)
+          end
           membership.participant_type = preferred.type if membership.respond_to?(:participant_type=)
           membership.participant_id = preferred.id if membership.respond_to?(:participant_id=)
           membership.save!
