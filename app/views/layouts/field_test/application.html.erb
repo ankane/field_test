@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <%= csp_meta_tag %>
 
-    <style nonce="<%= content_security_policy_nonce %>">
+    <%= content_tag :style, nonce: content_security_policy_nonce do %>
       body {
         margin: 0;
         padding: 20px;
@@ -86,7 +86,7 @@
       .width-20 {
         width: 20%;
       }
-    </style>
+    <% end %>
   </head>
   <body>
     <%= yield %>
