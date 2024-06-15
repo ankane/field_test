@@ -2,7 +2,8 @@
   <head>
     <title>Field Test</title>
 
-    <style>
+    <%= csp_meta_tag %>
+    <style nonce="<%= content_security_policy_nonce %>">
       body {
         margin: 0;
         padding: 20px;
@@ -77,6 +78,10 @@
       .pagination a {
         padding-left: 10px;
         padding-right: 10px;
+      }
+
+      .width-20 {
+        width: 20%;
       }
     </style>
   </head>
