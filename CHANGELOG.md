@@ -1,3 +1,7 @@
+## 0.6.1 (unreleased)
+
+- Improved CSP support
+
 ## 0.6.0 (2023-07-02)
 
 - Fixed support for aliases, dates, and times in config file
