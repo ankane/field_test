@@ -23,7 +23,7 @@
           <% experiment = FieldTest::Experiment.find(membership.experiment) rescue nil %>
           <% if experiment %>
             <%= form_for membership do |f| %>
-              <%= f.select "variant", options_for_select(FieldTest::Experiment.find(membership.experiment).variants.map { |v| [v, v] }, membership.variant), {}, onchange: "this.form.submit()" %>
+              <%= f.select "variant", options_for_select(FieldTest::Experiment.find(membership.experiment).variants.map { |v| [v, v] }, membership.variant) %>
             <% end %>
           <% else %>
             <%= membership.variant %>
@@ -60,3 +60,12 @@
     <% end %>
   </tbody>
 </table>
+
+<%= javascript_tag nonce: true do %>
+  var selects = document.querySelectorAll(".edit_membership select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].addEventListener("change", function () {
+      this.form.submit();
+    });
+  }
+<% end %>
