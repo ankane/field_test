@@ -116,9 +116,9 @@ module FieldTest
         column =
           if FieldTest.legacy_participants
             :participant
-          elsif adapter_name =~ /postg/i # postgres
+          elsif adapter_name.match?(/postg/i) # postgres
             "(participant_type, participant_id)"
-          elsif adapter_name =~ /mysql/i
+          elsif adapter_name.match?(/mysql/i)
             "COALESCE(participant_type, ''), participant_id"
           else
             # SQLite supports single column
