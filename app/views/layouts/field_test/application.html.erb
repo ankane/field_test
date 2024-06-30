@@ -5,7 +5,7 @@
 
     <meta charset="utf-8" />
 
-    <%= content_tag :style, nonce: content_security_policy_nonce do %>
+    <%= content_tag :style, nonce: request.content_security_policy_nonce_directives.include?("style-src") ? content_security_policy_nonce : nil do %>
       body {
         margin: 0;
         padding: 20px;
