@@ -1,4 +1,4 @@
-## 0.6.1 (unreleased)
+## 0.6.1 (2024-09-04)
 
 - Improved CSP support
 
