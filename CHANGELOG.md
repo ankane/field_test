@@ -1,3 +1,7 @@
+## 0.6.2 (unreleased)
+
+- Added support for Trilogy
+
 ## 0.6.1 (2024-09-04)
 
 - Improved CSP support

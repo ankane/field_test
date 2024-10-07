@@ -33,3 +33,4 @@ jobs:
 
       - uses: ankane/setup-mysql@v1
       - run: ADAPTER=mysql2 bundle exec rake test
+      - run: ADAPTER=trilogy bundle exec rake test
