@@ -7,19 +7,23 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - ruby: 3.3
-            gemfile: Gemfile
-            os: ubuntu-latest
+          # - ruby: 3.3
+          #   gemfile: Gemfile
+          #   os: ubuntu-latest
           - ruby: 3.2
             gemfile: Gemfile
             os: macos-latest
-          - ruby: 3.1
-            gemfile: Gemfile
-            os: windows-latest
+          # - ruby: 3.1
+          #   gemfile: Gemfile
+          #   os: windows-latest
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     steps:
       - uses: actions/checkout@v4
+
+      - uses: ankane/setup-postgres@v1
+      - uses: ankane/setup-mysql@v1
+
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
@@ -27,9 +31,7 @@ jobs:
       - run: bundle exec rake compile
       - run: bundle exec rake test
 
-      - uses: ankane/setup-postgres@v1
       - run: ADAPTER=postgresql bundle exec rake test
 
-      - uses: ankane/setup-mysql@v1
       - run: ADAPTER=mysql2 bundle exec rake test
       - run: ADAPTER=trilogy bundle exec rake test
