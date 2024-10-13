@@ -19,5 +19,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency "railties", ">= 7"
   spec.add_dependency "activerecord", ">= 7"
   spec.add_dependency "browser", ">= 2"
-  spec.add_dependency "rice", ">= 4.0.2"
 end

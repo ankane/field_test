@@ -1,4 +1,4 @@
-require "mkmf-rice"
+require "mkmf"
 
 $CXXFLAGS << " -std=c++17 $(optflags)"
 
