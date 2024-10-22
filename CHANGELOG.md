@@ -1,4 +1,4 @@
-## 0.7.0 (unreleased)
+## 0.7.0 (2024-10-22)
 
 - Added support for Trilogy
 - Dropped support for Ruby < 3.1 and Rails < 7
