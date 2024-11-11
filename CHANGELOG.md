@@ -1,3 +1,12 @@
+## 0.7.0 (2024-10-22)
+
+- Added support for Trilogy
+- Dropped support for Ruby < 3.1 and Rails < 7
+
+## 0.6.1 (2024-09-04)
+
+- Improved CSP support
+
 ## 0.6.0 (2023-07-02)
 
 - Fixed support for aliases, dates, and times in config file

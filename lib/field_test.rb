@@ -58,13 +58,14 @@ module FieldTest
 
   def self.events_supported?
     unless defined?(@events_supported)
-      connection = FieldTest::Membership.connection
       table_name = "field_test_events"
       @events_supported =
-        if connection.respond_to?(:data_source_exists?)
-          connection.data_source_exists?(table_name)
-        else
-          connection.table_exists?(table_name)
+        FieldTest::Membership.connection_pool.with_connection do |connection|
+          if connection.respond_to?(:data_source_exists?)
+            connection.data_source_exists?(table_name)
+          else
+            connection.table_exists?(table_name)
+          end
         end
     end
     @events_supported

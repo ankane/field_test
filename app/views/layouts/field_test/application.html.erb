@@ -1,8 +1,11 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>Field Test</title>
 
-    <style>
+    <meta charset="utf-8" />
+
+    <%= content_tag :style, nonce: request.content_security_policy_nonce_directives&.include?("style-src") ? content_security_policy_nonce : nil do %>
       body {
         margin: 0;
         padding: 20px;
@@ -78,7 +81,11 @@
         padding-left: 10px;
         padding-right: 10px;
       }
-    </style>
+
+      .width-20 {
+        width: 20%;
+      }
+    <% end %>
   </head>
   <body>
     <%= yield %>

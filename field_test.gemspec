@@ -14,10 +14,10 @@ Gem::Specification.new do |spec|
   spec.require_path  = "lib"
   spec.extensions    = ["ext/field_test/extconf.rb"]
 
-  spec.required_ruby_version = ">= 3"
+  spec.required_ruby_version = ">= 3.1"
 
-  spec.add_dependency "railties", ">= 6.1"
-  spec.add_dependency "activerecord", ">= 6.1"
+  spec.add_dependency "railties", ">= 7"
+  spec.add_dependency "activerecord", ">= 7"
   spec.add_dependency "browser", ">= 2"
-  spec.add_dependency "rice", ">= 4.0.2"
+  spec.add_dependency "rice", ">= 4.3.3"
 end

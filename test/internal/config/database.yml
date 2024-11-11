@@ -1,3 +1,4 @@
 test:
   adapter:  <%= ENV["ADAPTER"] || "sqlite3" %>
-  database: <%= ["postgresql", "mysql2"].include?(ENV["ADAPTER"]) ? "field_test_test" : "db/combustion_test.sqlite" %>
+  database: <%= ["postgresql", "mysql2", "trilogy"].include?(ENV["ADAPTER"]) ? "field_test_test" : "db/combustion_test.sqlite" %>
+  host: <%= ENV["ADAPTER"] == "trilogy" ? "127.0.0.1" : nil %>

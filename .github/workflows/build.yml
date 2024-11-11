@@ -9,6 +9,12 @@ jobs:
         include:
           - ruby: 3.3
             gemfile: Gemfile
+          # - ruby: 3.3
+          #   gemfile: gemfiles/rails72.gemfile
+          # - ruby: 3.2
+          #   gemfile: gemfiles/rails71.gemfile
+          # - ruby: 3.1
+          #   gemfile: gemfiles/rails70.gemfile
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     steps:
@@ -18,5 +24,14 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
       - run: bundle exec rake compile
+      - run: bundle exec rake test
+
+      - uses: ankane/setup-postgres@v1
+      - run: ADAPTER=postgresql bundle exec rake test
+
+      - uses: ankane/setup-mysql@v1
+      - run: ADAPTER=mysql2 bundle exec rake test
+      - run: ADAPTER=trilogy bundle exec rake test
+
       - run: sudo apt-get update && sudo apt-get install valgrind
       - run: bundle exec rake test:valgrind
