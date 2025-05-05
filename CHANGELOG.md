@@ -1,3 +1,7 @@
+## 0.8.0 (unreleased)
+
+- Dropped support for Ruby < 3.2 and Rails < 7.1
+
 ## 0.7.0 (2024-10-22)
 
 - Added support for Trilogy
