@@ -1,4 +1,4 @@
-## 0.8.0 (unreleased)
+## 0.8.0 (2025-05-05)
 
 - Dropped support for Ruby < 3.2 and Rails < 7.1
 
