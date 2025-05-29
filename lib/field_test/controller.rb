@@ -11,6 +11,7 @@ module FieldTest
       end
     end
 
+    # TODO switch to keyword arguments in 0.9.0
     def field_test_upgrade_memberships(options = {})
       participants = FieldTest::Participant.standardize(options[:participant] || field_test_participant)
       preferred = participants.first
