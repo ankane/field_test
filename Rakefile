@@ -4,7 +4,6 @@ require "rake/extensiontask"
 
 Rake::TestTask.new do |t|
   t.pattern = "test/**/*_test.rb"
-  t.warning = false # mail gem
 end
 
 task default: :test
