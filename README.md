@@ -189,8 +189,8 @@ Keep track of when experiments started and ended. Use any format `Time.parse` ac
 ```yml
 experiments:
   button_color:
-    started_at: Dec 1, 2024 8 am PST
-    ended_at: Dec 8, 2024 2 pm PST
+    started_at: Dec 1, 2025 8 am PST
+    ended_at: Dec 8, 2025 2 pm PST
 ```
 
 Add a friendlier name and description with:
