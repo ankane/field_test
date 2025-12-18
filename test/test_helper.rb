@@ -21,4 +21,11 @@ class Minitest::Test
       participant_id: participant_id
     )
   end
+
+  def with_config(config)
+    FieldTest.config.merge!(config)
+    yield
+  ensure
+    FieldTest.remove_instance_variable(:@config)
+  end
 end

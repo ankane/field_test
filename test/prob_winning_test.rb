@@ -51,7 +51,7 @@ class ProbWinningTest < Minitest::Test
     cache_key = "field_test/probabilities/1/0/0/0"
     Rails.cache.delete(cache_key)
 
-    FieldTest.stub(:cache, true) do
+    with_config({"cache" => true}) do
       experiment.results
     end
 
