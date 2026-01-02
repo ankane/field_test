@@ -11,4 +11,4 @@ gem "sqlite3"
 gem "mysql2"
 gem "trilogy"
 gem "pg"
-gem "benchmark-ips"
+gem "benchmark-ips", require: false
