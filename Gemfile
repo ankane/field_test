@@ -12,3 +12,4 @@ gem "mysql2"
 gem "trilogy"
 gem "pg"
 gem "benchmark-ips", require: false
+gem "ruby_memcheck"
