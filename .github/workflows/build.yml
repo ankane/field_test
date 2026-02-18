@@ -7,21 +7,17 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # - ruby: "4.0"
-          #   gemfile: Gemfile
-          #   valgrind: true
           - ruby: "4.0"
             gemfile: Gemfile
+            valgrind: true
+          - ruby: 3.4
+            gemfile: gemfiles/rails80.gemfile
             os: macos-latest
-          # - ruby: "4.0"
-          #   gemfile: Gemfile
-          #   os: windows-latest
-          # - ruby: 3.4
-          #   gemfile: gemfiles/rails80.gemfile
-          # - ruby: 3.3
-          #   gemfile: gemfiles/rails72.gemfile
-          # - ruby: 3.2
-          #   gemfile: gemfiles/rails71.gemfile
+          - ruby: 3.3
+            gemfile: gemfiles/rails72.gemfile
+            os: windows-latest
+          - ruby: 3.2
+            gemfile: gemfiles/rails71.gemfile
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     steps:
