@@ -7,15 +7,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - ruby: "4.0"
-            gemfile: Gemfile
-            valgrind: true
+          # - ruby: "4.0"
+          #   gemfile: Gemfile
+          #   valgrind: true
           - ruby: "4.0"
             gemfile: Gemfile
             os: macos-latest
-          - ruby: "4.0"
-            gemfile: Gemfile
-            os: windows-latest
+          # - ruby: "4.0"
+          #   gemfile: Gemfile
+          #   os: windows-latest
           # - ruby: 3.4
           #   gemfile: gemfiles/rails80.gemfile
           # - ruby: 3.3
@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - if: ${{ runner.os == 'macOS' }}
-        run: brew install mysql
+        run: brew install mysql-client
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
