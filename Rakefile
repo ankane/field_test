@@ -14,6 +14,17 @@ end
 
 task default: :test
 
+namespace :test do
+  %w(postgresql mysql2 trilogy).each do |adapter|
+    task("env:#{adapter}") { ENV["ADAPTER"] = adapter }
+
+    Rake::TestTask.new(adapter => "env:#{adapter}") do |t|
+      t.description = "Run tests for #{adapter}"
+      test_config.(t)
+    end
+  end
+end
+
 Rake::ExtensionTask.new("field_test") do |ext|
   ext.name = "ext"
   ext.lib_dir = "lib/field_test"

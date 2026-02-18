@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - if: ${{ runner.os == 'macOS' }}
-        run: brew install mysql-client
+        run: brew install mysql@8.4
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
@@ -36,20 +36,14 @@ jobs:
       - run: bundle exec rake test
 
       - uses: ankane/setup-postgres@v1
-      - run: bundle exec rake test
-        env:
-          ADAPTER: postgresql
+      - run: bundle exec rake test:postgresql
 
       - if: ${{ runner.os != 'Windows' }}
         uses: ankane/setup-mysql@v1
       - if: ${{ runner.os != 'Windows' }}
-        run: bundle exec rake test
-        env:
-          ADAPTER: mysql2
+        run: bundle exec rake test:mysql2
       - if: ${{ runner.os != 'Windows' }}
-        run: bundle exec rake test
-        env:
-          ADAPTER: trilogy
+        run: bundle exec rake test:trilogy
 
       - if: ${{ matrix.valgrind }}
         run: |
