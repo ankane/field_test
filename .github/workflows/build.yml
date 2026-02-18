@@ -2,7 +2,7 @@ name: build
 on: [push, pull_request]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os || 'ubuntu-latest' }}
     strategy:
       fail-fast: false
       matrix:
@@ -10,6 +10,12 @@ jobs:
           - ruby: "4.0"
             gemfile: Gemfile
             valgrind: true
+          - ruby: "4.0"
+            gemfile: Gemfile
+            os: macos-latest
+          - ruby: "4.0"
+            gemfile: Gemfile
+            os: windows-latest
           - ruby: 3.4
             gemfile: gemfiles/rails80.gemfile
           - ruby: 3.3
@@ -30,9 +36,12 @@ jobs:
       - uses: ankane/setup-postgres@v1
       - run: ADAPTER=postgresql bundle exec rake test
 
-      - uses: ankane/setup-mysql@v1
-      - run: ADAPTER=mysql2 bundle exec rake test
-      - run: ADAPTER=trilogy bundle exec rake test
+      - if: ${{ runner.os != 'Windows' }}
+        uses: ankane/setup-mysql@v1
+      - if: ${{ runner.os != 'Windows' }}
+        run: ADAPTER=mysql2 bundle exec rake test
+      - if: ${{ runner.os != 'Windows' }}
+        run: ADAPTER=trilogy bundle exec rake test
 
       - if: ${{ matrix.valgrind }}
         run: |
