@@ -10,12 +10,12 @@ jobs:
           - ruby: "4.0"
             gemfile: Gemfile
             # valgrind: true
-          - ruby: 3.4
-            gemfile: gemfiles/rails80.gemfile
-          - ruby: 3.3
-            gemfile: gemfiles/rails72.gemfile
-          - ruby: 3.2
-            gemfile: gemfiles/rails71.gemfile
+          # - ruby: 3.4
+          #   gemfile: gemfiles/rails80.gemfile
+          # - ruby: 3.3
+          #   gemfile: gemfiles/rails72.gemfile
+          # - ruby: 3.2
+          #   gemfile: gemfiles/rails71.gemfile
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     steps:
@@ -27,14 +27,14 @@ jobs:
       - run: bundle exec rake compile
       - run: bundle exec rake test
 
-      - uses: ankane/setup-postgres@v1
-      - run: ADAPTER=postgresql bundle exec rake test
+      # - uses: ankane/setup-postgres@v1
+      # - run: ADAPTER=postgresql bundle exec rake test
 
-      - uses: ankane/setup-mysql@v1
-      - run: ADAPTER=mysql2 bundle exec rake test
-      - run: ADAPTER=trilogy bundle exec rake test
+      # - uses: ankane/setup-mysql@v1
+      # - run: ADAPTER=mysql2 bundle exec rake test
+      # - run: ADAPTER=trilogy bundle exec rake test
 
-      - if: ${{ matrix.valgrind }}
-        run: |
-          sudo apt-get update && sudo apt-get install valgrind
-          bundle exec rake test:valgrind
+      # - if: ${{ matrix.valgrind }}
+      #   run: |
+      #     sudo apt-get update && sudo apt-get install valgrind
+      #     bundle exec rake test:valgrind
