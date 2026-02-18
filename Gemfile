@@ -13,3 +13,4 @@ gem "sqlite3"
 # gem "pg"
 gem "ruby_memcheck"
 gem "benchmark-ips", require: false
+gem "tzinfo-data", platform: :windows
