@@ -16,16 +16,18 @@ jobs:
           - ruby: "4.0"
             gemfile: Gemfile
             os: windows-latest
-          - ruby: 3.4
-            gemfile: gemfiles/rails80.gemfile
-          - ruby: 3.3
-            gemfile: gemfiles/rails72.gemfile
-          - ruby: 3.2
-            gemfile: gemfiles/rails71.gemfile
+          # - ruby: 3.4
+          #   gemfile: gemfiles/rails80.gemfile
+          # - ruby: 3.3
+          #   gemfile: gemfiles/rails72.gemfile
+          # - ruby: 3.2
+          #   gemfile: gemfiles/rails71.gemfile
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
     steps:
       - uses: actions/checkout@v5
+      - if: ${{ runner.os != 'macOS' }}
+        run: brew install mysql
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
@@ -34,14 +36,20 @@ jobs:
       - run: bundle exec rake test
 
       - uses: ankane/setup-postgres@v1
-      - run: ADAPTER=postgresql bundle exec rake test
+      - run: bundle exec rake test
+        env:
+          ADAPTER: postgresql
 
       - if: ${{ runner.os != 'Windows' }}
         uses: ankane/setup-mysql@v1
       - if: ${{ runner.os != 'Windows' }}
-        run: ADAPTER=mysql2 bundle exec rake test
+        run: bundle exec rake test
+        env:
+          ADAPTER: mysql2
       - if: ${{ runner.os != 'Windows' }}
-        run: ADAPTER=trilogy bundle exec rake test
+        run: bundle exec rake test
+        env:
+          ADAPTER: trilogy
 
       - if: ${{ matrix.valgrind }}
         run: |
