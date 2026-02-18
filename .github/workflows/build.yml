@@ -2,7 +2,7 @@ name: build
 on: [push, pull_request]
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
