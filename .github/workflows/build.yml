@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - if: ${{ runner.os == 'macOS' }}
-        run: brew install mysql@8.4
+        run: brew install mysql-client
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
