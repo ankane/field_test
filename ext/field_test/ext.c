@@ -2,8 +2,7 @@
 
 #include "bayestest.h"
 
-static VALUE
-probabilities(VALUE self, VALUE results)
+static VALUE probabilities(VALUE self, VALUE results)
 {
     Check_Type(results, T_ARRAY);
 
