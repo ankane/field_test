@@ -33,25 +33,25 @@ task :benchmark do
 
   Benchmark.ips do |x|
     x.report("two variants") do
-      binary_test = FieldTest::BinaryTest.new
-      binary_test.add(1000, 900)
-      binary_test.add(800, 700)
-      binary_test.probabilities
+      FieldTest::BinaryTest.probabilities([
+        {participated: 1000, converted: 900},
+        {participated: 800, converted: 700}
+      ])
     end
     x.report("three variants") do
-      binary_test = FieldTest::BinaryTest.new
-      binary_test.add(1000, 900)
-      binary_test.add(800, 700)
-      binary_test.add(600, 500)
-      binary_test.probabilities
+      FieldTest::BinaryTest.probabilities([
+        {participated: 1000, converted: 900},
+        {participated: 800, converted: 700},
+        {participated: 600, converted: 500}
+      ])
     end
     x.report("four variants") do
-      binary_test = FieldTest::BinaryTest.new
-      binary_test.add(1000, 900)
-      binary_test.add(800, 700)
-      binary_test.add(600, 500)
-      binary_test.add(400, 300)
-      binary_test.probabilities
+      FieldTest::BinaryTest.probabilities([
+        {participated: 1000, converted: 900},
+        {participated: 800, converted: 700},
+        {participated: 600, converted: 500},
+        {participated: 400, converted: 300},
+      ])
     end
   end
 end

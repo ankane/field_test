@@ -150,11 +150,7 @@ module FieldTest
       if variants.size <= 3
         probabilities =
           cache_fetch(["field_test", "probabilities"] + results.flat_map { |_, v| [v[:participated], v[:converted]] }) do
-            binary_test = BinaryTest.new
-            results.each do |_, v|
-              binary_test.add(v[:participated], v[:converted])
-            end
-            binary_test.probabilities.to_a
+            BinaryTest.probabilities(results.values)
           end
 
         results.each_key.zip(probabilities) do |variant, prob_winning|
