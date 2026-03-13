@@ -35,8 +35,6 @@ class MailerTest < Minitest::Test
   end
 
   def test_user_param
-    skip unless Rails.version >= "5.1"
-
     user = User.create!
     UserMailer.with(user: user).welcome.deliver_now
 

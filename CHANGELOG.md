@@ -1,6 +1,7 @@
 ## 0.9.0 (unreleased)
 
 - Improved installation time
+- Dropped support for Ruby < 3.3 and Rails < 7.2
 
 ## 0.8.0 (2025-05-05)
 
