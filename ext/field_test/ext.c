@@ -22,7 +22,7 @@ static VALUE probabilities(VALUE self, VALUE results)
         conversions[i] = NUM2INT(rb_hash_aref(v, ID2SYM(rb_intern("converted"))));
     }
 
-    int status = bayestest_binary(count, participants, conversions, probabilities);
+    int status = bayestest_binary((int) count, participants, conversions, probabilities);
     if (status != 0) {
         rb_raise(rb_eRuntimeError, "bad status");
     }
