@@ -27,7 +27,6 @@ module FieldTest
         params_variant
       else
         # cache results for request
-        # TODO possibly remove in 0.4.0
         cache_key = [exp.id, participants.map(&:where_values), options.slice(:variant, :exclude)]
         @field_test_cache ||= {}
         @field_test_cache[cache_key] ||= exp.variant(participants, **options)
