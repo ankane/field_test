@@ -24,8 +24,7 @@ module FieldTest
       @use_events = attributes[:use_events]
     end
 
-    # TODO switch to keyword arguments in 0.9.0
-    def variant(participants, options = {})
+    def variant(participants, **options)
       return winner if winner && !keep_variant?
       return control if options[:exclude]
 
