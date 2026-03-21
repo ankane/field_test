@@ -9,9 +9,7 @@ module FieldTest
       @description = attributes[:description]
       @variants = attributes[:variants]
       if @variants.any? { |v| !v.is_a?(String) }
-        # TODO add support for more types (including query parameters)
-        # or raise error in 0.6
-        warn "[field_test] Only string variants are supported (#{id})"
+        raise Error, "Only string variants are supported (#{id})"
       end
       @weights = @variants.size.times.map { |i| attributes[:weights].to_a[i] || 1 }
       @winner = attributes[:winner]
