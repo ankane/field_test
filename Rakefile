@@ -50,7 +50,7 @@ task :benchmark do
         {participated: 1000, converted: 900},
         {participated: 800, converted: 700},
         {participated: 600, converted: 500},
-        {participated: 400, converted: 300},
+        {participated: 400, converted: 300}
       ])
     end
   end
