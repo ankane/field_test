@@ -15,9 +15,8 @@ static VALUE probabilities(VALUE self, VALUE results)
     int conversions[4];
     double probabilities[4];
 
-    VALUE *results_ptr = RARRAY_PTR(results);
     for (long i = 0; i < count; i++) {
-        VALUE v = results_ptr[i];
+        VALUE v = rb_ary_entry(results, i);
         participants[i] = NUM2INT(rb_hash_aref(v, ID2SYM(rb_intern("participated"))));
         conversions[i] = NUM2INT(rb_hash_aref(v, ID2SYM(rb_intern("converted"))));
     }
